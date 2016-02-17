@@ -1,1 +1,1 @@
-.period{text-align: center;word-break: keep-all;text-shadow:0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white;position: absolute;}
+.period{text-align: center;word-break: keep-all;text-shadow:0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white;position: absolute;box-sizing: border-box;border:solid 1px gray;}

@@ -25,7 +25,7 @@ angular.module('timeline',[])
 	var timeline={//sjudo
 		data:[
 			{name:'商朝',from:-1600,to:-1050},
-			{name:'秦朝',from:-1100,to:-206},
+			{name:'秦朝',from:-1100,to:-228},
 			{name:'唐朝',from:618,to:906},
 			{name:'汉朝',from:-206,to:220},
 			{name:'夏朝',from:-2100,to:-1500},
