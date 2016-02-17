@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="timeline" ng-controller="ctrl">
+
+<head>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="style.css">
+	<!-- <script src="https://code.angularjs.org/1.5.0/angular.min.js"></script> -->
+	<script src="angular.js"></script>
+	<script src="script.js"></script>
+</head>
+
+<body>
+	<div class="timeline">
+		<div class="period" ng-repeat="period in timeline.data"
+			style="
+				width:{{period.span*zoom}}px;
+				background: {{period.color}};
+				top:0;
+				left: {{period.from*zoom+bias*zoom}}px;
+				height: {{periodHeight}}px;
+				line-height: {{periodHeight}}px;
+				margin-top:{{period.row*periodHeight}}px;
+			"
+		>
+			{{period.name}}
+		</div>
+	</div>
+</body>
+
+</html>
