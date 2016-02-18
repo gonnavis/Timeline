@@ -10,19 +10,27 @@
 </head>
 
 <body>
-	<div class="timeline">
-		<div class="period" ng-repeat="period in timeline.data"
+	<div class="timeline" style="width:{{(timeline.max-timeline.min)*zoom}}px;">
+		<div class="row" ng-repeat="row in timeline.rows"
 			style="
-				width:{{period.span*zoom}}px;
-				background: {{period.color}};
-				top:0;
-				left: {{period.from*zoom+bias*zoom}}px;
-				height: {{periodHeight}}px;
-				line-height: {{periodHeight}}px;
-				margin-top:{{period.row*periodHeight-1*period.row}}px;
+				position:relative;
+				height:{{periodHeight}}px;
+				margin-bottom: -1px;
 			"
 		>
-			{{period.name}}
+			<div class="period" ng-repeat="period in row"
+				style="
+					width:{{period.span*zoom}}px;
+					background: {{period.color}};
+					top:0;
+					left: {{period.from*zoom+bias*zoom}}px;
+					height: {{periodHeight}}px;
+					line-height: {{periodHeight}}px;
+					/*margin-top:{{period.row*periodHeight-1*period.row}}px;*/
+				"
+			>
+				{{period.name}}
+			</div>
 		</div>
 	</div>
 </body>

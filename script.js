@@ -32,10 +32,11 @@ angular.module('timeline',[])
 			{name:'周朝',from:-1846,to:-256},
 			{name:'晋朝',from:265,to:420},
 			{name:'隋朝',from:581,to:638},
-			{name:'元朝',from:1279,to:1368},
-			{name:'明朝',from:1368,to:1700},
+			{name:'元朝',from:1100,to:1368},
+			{name:'明朝',from:1390,to:1700},
 			{name:'清朝',from:1644,to:1912},
-			{name:'宋朝',from:960,to:1279}
+			{name:'宋朝',from:800,to:1279},
+			{name:'aaa',from:-300,to:300}
 		]
 	}
 
@@ -52,35 +53,36 @@ angular.module('timeline',[])
 				timeline.min=period.from;
 			}
 		}
+		if(!timeline.max){
+			timeline.max=period.to;
+		}
+		else{
+			if(period.to>timeline.max){
+				timeline.max=period.to;
+			}
+		}
 		period.span=period.to-period.from;
 		period.color='rgba('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+',0.5)';
 		period.row=0;
 	}
 
+	//set row
+	timeline.rows=[];
 	function setRow(row){
-		// var thisRowPeriods=[];
-		// for(var i=1;i<timeline.data.length;i++){
-		// 	if(timeline.data[i].row==row){
-		// 		thisRowPeriods.
-		// 	}
-
-		var isCollide=false;
-		var j;
-		debugger;
-		for(var i=0;i<timeline.data.length-1;i++){
-			if(timeline.data[i].row<row){
-				continue;
+		var arr=[];
+		arr.push(timeline.data.splice(0,1)[0]);
+		var length=timeline.data.length;
+		for(var i=0;i<length;){
+			if(timeline.data[i].from>=arr[arr.length-1].to){
+				arr.push(timeline.data.splice(i,1)[0]);
+				length--;
 			}
 			else{
-				j=i;
-			}
-			if(timeline.data[i+1].from<timeline.data[j].to){
-				timeline.data[i+1].row++;
-				isCollide=true;
+				i++;
 			}
 		}
-		if(isCollide){
-			debugger;
+		timeline.rows.push(arr);
+		if(timeline.data.length>0){
 			setRow(++row);
 		}
 	}
