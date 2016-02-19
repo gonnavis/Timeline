@@ -1,17 +1,30 @@
 <!DOCTYPE html>
-<html ng-app="timeline" ng-controller="ctrl">
+<html ng-app="timeline">
 
 <head>
 	<meta charset="utf-8"/>
 	<link rel="stylesheet" href="style.css">
 	<!-- <script src="https://code.angularjs.org/1.5.0/angular.min.js"></script> -->
 	<script src="angular.js"></script>
-	<script src="script.js"></script>
+	<script src="service.js"></script>
+	<script src="controller.js"></script>
+	<script src="app.js"></script>
 </head>
 
 <body>
-	<div class="timeline" style="width:{{(timeline.max-timeline.min)*zoom}}px;">
-		<div class="row" ng-repeat="row in timeline.rows"
+
+	<div class="ruler" ng-controller="rulerCtrl">
+		<div ng-repeat="bar in bars"
+			ng-class="{
+				ruler__high_bar:bar.type==3,
+				ruler__middle_bar:bar.type==2,
+				ruler__short_bar:bar.type==1
+			}" 
+		></div>
+	</div>
+
+	<div class="timeline" ng-controller="timelineCtrl" style="width:{{(max-min)*zoom}}px;">
+		<div class="row" ng-repeat="row in rows"
 			style="
 				position:relative;
 				height:{{periodHeight}}px;
@@ -33,6 +46,7 @@
 			</div>
 		</div>
 	</div>
+
 </body>
 
 </html>
