@@ -1,6 +1,7 @@
-.period{text-align: center;word-break: keep-all;text-shadow:0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white;position: absolute;box-sizing: border-box;border:solid 1px gray;font-size:14px;}
+.period{text-align: center;word-break: keep-all;text-shadow:0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white;position: absolute;box-sizing: border-box;border:solid 1px gray;font-size:14px;cursor:default;}
 
 .ruler{height: 24px;background: black;margin-bottom: 20px;position: relative;}
 .ruler__high_bar{width:1px;margin-right:3px;float:left;height: 100%;background: rgb(125,125,125);}
 .ruler__middle_bar{width:1px;margin-right:3px;float:left;height: 50%;background: rgb(125,125,125);margin-top: 12px;}
 .ruler__short_bar{width:1px;margin-right:3px;float:left;height: 25%;background: rgb(125,125,125);margin-top: 18px;}
+/*fadf*/
