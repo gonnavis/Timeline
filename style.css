@@ -1,6 +1,6 @@
 .timeline{position: relative;}
-.timeline__time{position: absolute;top:0;left: 0;z-index: 2;text-shadow:0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white;}
-.timeline__period{text-align: center;word-break: keep-all;text-shadow:0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white,0 0 3px white;position: absolute;box-sizing: border-box;border:solid 1px gray;font-size:14px;cursor:default;}
+.timeline__time{position: absolute;top:0;left: 0;z-index: 2;text-shadow:1px 1px white;}
+.timeline__period{text-align: center;word-break: keep-all;text-shadow:1px 1px white;position: absolute;box-sizing: border-box;border:solid 1px gray;font-size:14px;cursor:default;}
 .timeline__period:hover{z-index: 1;}
 .timeline__from{left: 0;position: absolute;top:-14px;line-height: 14px;display: none;}
 .timeline__to{right: 0;position: absolute;bottom:-14px;line-height: 14px;display: none;}
@@ -11,4 +11,3 @@
 .ruler__highBar{width:1px;margin-right:3px;float:left;height: 100%;background: rgb(125,125,125);}
 .ruler__middleBar{width:1px;margin-right:3px;float:left;height: 50%;background: rgb(125,125,125);margin-top: 12px;}
 .ruler__shortBar{width:1px;margin-right:3px;float:left;height: 25%;background: rgb(125,125,125);margin-top: 18px;}
-/*fadf*/
