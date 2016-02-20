@@ -4,6 +4,10 @@
 <head>
 	<meta charset="utf-8"/>
 	<link rel="stylesheet" href="style.css">
+	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script type="text/javascript">
+		var jq=jQuery.noConflict();
+	</script>
 	<!-- <script src="https://code.angularjs.org/1.5.0/angular.min.js"></script> -->
 	<script src="angular.js"></script>
 	<script src="service.js"></script>
@@ -16,33 +20,38 @@
 	<div class="ruler" ng-controller="rulerCtrl">
 		<div ng-repeat="bar in bars"
 			ng-class="{
-				ruler__high_bar:bar.type==3,
-				ruler__middle_bar:bar.type==2,
-				ruler__short_bar:bar.type==1
+				ruler__highBar:bar.type==3,
+				ruler__middleBar:bar.type==2,
+				ruler__shortBar:bar.type==1
 			}" 
 		></div>
 	</div>
 
-	<div class="timeline" ng-controller="timelineCtrl" style="width:{{(max-min)*zoom}}px;">
-		<div class="row" ng-repeat="row in rows"
+	<div class="timeline" ng-controller="timelineCtrl" style="width:{{(max-min)*zoom}}px;" ng-mousemove="mousemove($event)">
+		<div class="timeline__row" ng-repeat="row in rows"
 			style="
 				position:relative;
 				height:{{periodHeight}}px;
 				margin-bottom: -1px;
 			"
 		>
-			<div class="period" ng-repeat="period in row"
+			<div class="timeline__period" ng-repeat="period in row"
 				style="
 					width:{{period.span*zoom}}px;
 					background: {{period.color}};
 					top:0;
 					left: {{period.from*zoom+bias*zoom}}px;
 					height: {{periodHeight}}px;
-					line-height: {{periodHeight}}px;
+					line-height: {{periodHeight-2}}px;
 				"
 			>
 				{{period.name}}
+				<div class="timeline__from">{{period.from}}</div>
+				<div class="timeline__to">{{period.to}}</div>
 			</div>
+		</div>
+		<div class="timeline__time" style="left:{{mouseX+20}}px;top:{{mouseY+20}}px">
+			<div>{{time}}</div>
 		</div>
 	</div>
 

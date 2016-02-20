@@ -2,7 +2,7 @@
 
 angular.module('timeline.controller',[])
 
-.controller('timelineCtrl',function($scope,timeline,view){
+.controller('timelineCtrl',function($scope,timeline,view,$element){
 	var $s=$scope;
 
 	$s.zoom=view.zoom;
@@ -11,6 +11,7 @@ angular.module('timeline.controller',[])
 	$s.min=timeline.min;
 	$s.max=timeline.max;
 	$s.periodHeight=30;
+	$s.mouseX=0;
 
 	var min=timeline.min;
 	var max=timeline.max;
@@ -53,6 +54,13 @@ angular.module('timeline.controller',[])
 	}
 	setRow(0);
 	$s.rows=rows;
+
+	$s.mousemove=function(e){
+		// console.log($element);
+		$s.mouseX=e.pageX-$element[0].offsetLeft;
+		$s.mouseY=e.pageY-$element[0].offsetTop;
+		$s.time=Math.floor($s.mouseX/view.zoom+timeline.min);
+	}
 
 })
 
