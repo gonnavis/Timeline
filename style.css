@@ -6,6 +6,9 @@
 .timeline__to{right: 0;position: absolute;bottom:-14px;line-height: 14px;display: none;}
 .timeline__period:hover .timeline__from{display: block;}
 .timeline__period:hover .timeline__to{display: block;}
+.timeline__period:hover .timeline__name{display: none;}
+.timeline__span{display: none;}
+.timeline__period:hover .timeline__span{display: inline;}
 
 .ruler{height: 24px;background: black;margin-bottom: 20px;position: relative;}
 .ruler__highBar{width:1px;margin-right:3px;float:left;height: 100%;background: rgb(125,125,125);}
