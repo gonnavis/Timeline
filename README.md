@@ -1,6 +1,6 @@
 <h1>时间线</h1>
 
-<a href="http://gonnavis/timeline">在线演示</a>
+<a href="http://www.gonnavis.com/timeline" target="_blank">在线演示</a>
 
 <img src="http://gonnavis.com/timeline/preview.png">
 
