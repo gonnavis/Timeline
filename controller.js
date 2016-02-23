@@ -28,32 +28,78 @@ angular.module('timeline.controller',[])
 	$s.bias=bias;
 
 	//set color
-	for(var i=0;i<data.length;i++){
-		data[i].color='rgba('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+',0.5)';
+	function setColor(data){
+		for(var i=0;i<data.length;i++){
+			data[i].color='rgba('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+',0.5)';
+		}
 	}
 
-	//set rows
-	var rows=[];
-	function setRow(row){
-		var arr=[];
-		arr.push(data.splice(0,1)[0]);
-		var length=data.length;
-		for(var i=0;i<length;){
-			if(data[i].from>=arr[arr.length-1].to){
-				arr.push(data.splice(i,1)[0]);
-				length--;
+	//rows
+	function getRows(data){
+		var rows=[];
+		function setRow(row){
+			var arr=[];
+			arr.push(data.splice(0,1)[0]);
+			var length=data.length;
+			for(var i=0;i<length;){
+				if(data[i].from>=arr[arr.length-1].to){
+					arr.push(data.splice(i,1)[0]);
+					length--;
+				}
+				else{
+					i++;
+				}
 			}
-			else{
-				i++;
+			rows.push(arr);
+			if(data.length>0){
+				setRow(++row);
 			}
 		}
-		rows.push(arr);
-		if(data.length>0){
-			setRow(++row);
+		setRow(0);
+		return rows;
+	}
+
+	//begin test add 朝代 data
+	var tempData=angular.copy(data);
+	for(var i=0;i<tempData.length;i++){
+		console.log(1);
+		if(
+			tempData[i].name=='三国'
+			||tempData[i].name=='五代'
+			||tempData[i].name=='十国'
+		){
+			data=data.concat(tempData[i].timeline.data);
 		}
 	}
-	setRow(0);
-	$s.rows=rows;
+	//end test add 朝代 data
+
+	data.sort(function(a,b){return a.from-b.from});//排序
+
+	for(var i=0;i<data.length;i++){//算出各项参数
+		var period=data[i];
+		if(!min){
+			var min=period.from;
+		}
+		else{
+			if(period.from<min){
+				min=period.from;
+			}
+		}
+		if(!max){
+			var max=period.to;
+		}
+		else{
+			if(period.to>max){
+				max=period.to;
+			}
+		}
+		period.span=period.to-period.from;
+	}
+
+	setColor(data);
+	debugger;
+	$s.rows=getRows(data);
+	debugger;
 
 	$s.mousemove=function(e){
 		// console.log($element);
