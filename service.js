@@ -28,42 +28,47 @@ angular.module('timeline.service',[])
 		{name:'元朝',from:1279,to:1368},
 		{name:'明朝',from:1368,to:1644},
 		{name:'清朝',from:1644,to:1911},
-		// {name:'民国',from:1912,to:1949},
-		// {name:'中国',from:1949,to:2016}
 	]
 
-	data.sort(function(a,b){return a.from-b.from});//排序
 
-	for(var i=0;i<data.length;i++){//算出各项参数
-		var period=data[i];
-		if(!min){
-			var min=period.from;
-		}
-		else{
-			if(period.from<min){
-				min=period.from;
+	var getTimeline=function(data){
+		// var data=JSON.parse(json);
+		data.sort(function(a,b){return a.from-b.from});//排序
+
+		for(var i=0;i<data.length;i++){//算出各项参数
+			var period=data[i];
+			if(!min){
+				var min=period.from;
 			}
-		}
-		if(!max){
-			var max=period.to;
-		}
-		else{
-			if(period.to>max){
-				max=period.to;
+			else{
+				if(period.from<min){
+					min=period.from;
+				}
 			}
+			if(!max){
+				var max=period.to;
+			}
+			else{
+				if(period.to>max){
+					max=period.to;
+				}
+			}
+			period.span=period.to-period.from;
 		}
-		period.span=period.to-period.from;
+
+		var span=max-min;
+
+		return {
+			data:data,
+			min:min,
+			max:max,
+			span:span
+		}
 	}
 
-	var span=max-min;
+	var timeline=getTimeline(data);
 
-	var timeline={
-		data:data,
-		min:min,
-		max:max,
-		span:span
-	}
-	console.log(timeline);
+	// console.log(JSON.stringify(timeline));
 
 	return timeline;
 })

@@ -84,7 +84,11 @@ angular.module('timeline.controller',[])
 	$s.bars=bars;
 })
 
+.controller('controlCtrl',function($scope,timeline,view){
+	var $s=$scope;
 
+	timeline.getTimeline()
+})
 
 
 
