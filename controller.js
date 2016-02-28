@@ -5,6 +5,18 @@ angular.module('timeline.controller',[])
 .controller('timelineCtrl',function($scope,timeline,view,$element){
 	var $s=$scope;
 
+	$s.mousemove=function(e){
+		// console.log($element);
+		$s.mouseX=e.pageX-$element[0].offsetLeft;
+		$s.mouseY=e.pageY-$element[0].offsetTop;
+		$s.mouseTime=Math.floor($s.mouseX/view.zoom+timeline.min);
+	}
+
+})
+
+.controller('areaCtrl',function($scope,timeline,view,$element){
+	var $s=$scope;
+
 	$s.zoom=view.zoom;
 	$s.bias;
 	$s.rows;
@@ -97,15 +109,40 @@ angular.module('timeline.controller',[])
 	}
 
 	setColor(data);
-	debugger;
 	$s.rows=getRows(data);
-	debugger;
 
-	$s.mousemove=function(e){
-		// console.log($element);
-		$s.mouseX=e.pageX-$element[0].offsetLeft;
-		$s.mouseY=e.pageY-$element[0].offsetTop;
-		$s.time=Math.floor($s.mouseX/view.zoom+timeline.min);
+	$s.periodMouseenter=function(e){
+		// console.log(e);
+		// console.log(e.currentTarget);
+		// console.log(e.target);
+		// console.log(this);
+		// if(e.target!=e.currentTarget){
+		// 	return;
+		// }
+		var period=e.currentTarget;
+		var name=jq(period).find('.area_name')[0];
+		var nameTextNode=name.childNodes[0];
+		// console.log(period.clientWidth);
+		// console.log(name.clientWidth);
+		// console.log('');
+		period.style.borderColor='red';
+		period.style.outline='solid 1px red';
+		if(nameTextNode.clientWidth>period.clientWidth){
+			name.style.top='-35px';
+			nameTextNode.style.backgroundColor='white';
+			// name.style.display='none';
+		}
+		// debugger;
+	}
+	$s.periodMouseleave=function(e){
+		var period=e.currentTarget;
+		var name=jq(period).find('.area_name')[0];
+		var nameTextNode=name.childNodes[0];
+		period.style.borderColor='black';
+		period.style.outline='none';
+		name.style.top=0;
+		nameTextNode.style.backgroundColor='transparent';
+		// name.style.display='block';
 	}
 
 })

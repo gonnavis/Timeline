@@ -18,75 +18,67 @@
 
 <body>
 
-	<div class="ruler" ng-controller="rulerCtrl">
-		<div ng-repeat="bar in bars"
-			ng-class="{
-				ruler__highBar:bar.type==3,
-				ruler__middleBar:bar.type==2,
-				ruler__shortBar:bar.type==1
-			}" 
-		></div>
-	</div>
+	<div class="timeline" ng-controller="timelineCtrl" ng-mousemove="mousemove($event)">
 
-	<div class="timeline" ng-controller="timelineCtrl" style="width:{{(max-min)*zoom}}px;" ng-mousemove="mousemove($event)">
-		<div class="timeline__row" ng-repeat="row in rows"
-			style="
-				position:relative;
-				height:{{periodHeight}}px;
-				margin-bottom: -1px;
-			"
-		>
-			<div class="timeline__period" ng-repeat="period in row"
+
+
+		<div class="ruler" ng-controller="rulerCtrl">
+			<!-- <div ng-repeat="bar in bars"
+				ng-class="{
+					ruler_highBar:bar.type==3,
+					ruler_middleBar:bar.type==2,
+					ruler_shortBar:bar.type==1
+				}" 
+			></div> -->
+			<div class="ruler_mouseTime" style="left:{{mouseX}}px;">{{mouseTime}}</div>
+		</div>
+
+
+
+		<div class="area" ng-controller="areaCtrl" style="width:{{(max-min)*zoom}}px;">
+			<div class="area_row" ng-repeat="row in rows"
 				style="
-					width:{{period.span*zoom}}px;
-					background: {{period.color}};
-					top:0;
-					left: {{period.from*zoom+bias*zoom}}px;
-					height: {{periodHeight}}px;
-					line-height: {{periodHeight-2}}px;
+					position:relative;
+					height:{{periodHeight}}px;
+					margin-bottom: -1px;
 				"
 			>
-				<span class="timeline__name">{{period.name}}</span>
-				<span class="timeline__span">{{period.to-period.from}}</span>
-				<div class="timeline__from">{{period.from}}</div>
-				<div class="timeline__to">{{period.to}}</div>
+				<div class="area_period" ng-repeat="period in row" ng-mouseover="periodMouseenter($event)" ng-mouseleave="periodMouseleave($event)"
+					style="
+						width:{{period.span*zoom}}px;
+						background: {{period.color}};
+						top:0;
+						left: {{period.from*zoom+bias*zoom}}px;
+						height: {{periodHeight}}px;
+						line-height: {{periodHeight-2}}px;
+					"
+				>
+					<span class="area_name"><span style="display: inline-block;">{{period.name}}</span></span>
+					<!-- <span class="area_span">{{period.to-period.from}}</span> -->
+					<!-- <div class="area_from">{{period.from}}</div> -->
+					<!-- <div class="area_to">{{period.to}}</div> -->
+					<div class="area_popup" style="left:{{mouseX}}px;">
+						<div>{{period.name}} &nbsp;&nbsp;{{period.from}} ~ {{period.to}}</div>
+						<div>
+							<div class="area_popup_title">时长：</div>
+							<div class="area_popup_content">{{period.from-period.to}}</div>
+							<div style="clear:both;"></div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="timeline__time" style="left:{{mouseX+20}}px;top:{{mouseY+20}}px">
-			<div>{{time}}</div>
-		</div>
-	</div>
 
-	<div class="control">
-		<textarea>
-			{
-			    "data": [
-			        {"name": "夏朝", "from": -2000, "to": -1500, "span": 500 },
-			        {"name": "商朝", "from": -1700, "to": -1027, "span": 673 },
-			        {"name": "周朝", "from": -1066, "to": -221, "span": 845 },
-			        {"name": "秦朝", "from": -221, "to": -207, "span": 14 },
-			        {"name": "汉朝", "from": -206, "to": 220, "span": 426 },
-			        {"name": "三国", "from": 220, "to": 280, "span": 60 },
-			        {"name": "晋朝", "from": 265, "to": 420, "span": 155 },
-			        {"name": "北朝", "from": 386, "to": 588, "span": 202 },
-			        {"name": "南朝", "from": 420, "to": 588, "span": 168 },
-			        {"name": "隋朝", "from": 581, "to": 617, "span": 36 },
-			        {"name": "唐朝", "from": 618, "to": 907, "span": 289 },
-			        {"name": "五代", "from": 907, "to": 960, "span": 53 },
-			        {"name": "十国", "from": 907, "to": 979, "span": 72 },
-			        {"name": "辽", "from": 916, "to": 1225, "span": 309 },
-			        {"name": "宋朝", "from": 960, "to": 1279, "span": 319 },
-			        {"name": "西夏", "from": 1038, "to": 1227, "span": 189 },
-			        {"name": "金", "from": 1115, "to": 1234, "span": 119 },
-			        {"name": "元朝", "from": 1279, "to": 1368, "span": 89 },
-			        {"name": "明朝", "from": 1368, "to": 1644, "span": 276 },
-			        {"name": "清朝", "from": 1644, "to": 1911, "span": 267 }
-			    ],
-			    "min": -2000,
-			    "max": 1911,
-			    "span": 3911
-			}
-		</textarea>
+
+
+		<!-- <div class="control">
+			<textarea>
+			</textarea>
+		</div> -->
+
+
+
+		<div class="timeline_vBar" style="left:{{mouseX-2}}px;"></div>
 	</div>
 
 </body>

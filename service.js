@@ -101,7 +101,8 @@ angular.module('timeline.service',[])
 })
 
 .factory('view',function(){
-	var zoom=1;
+	var zoom=0.3;
+	// var zoom=1;
 
 	var view={
 		zoom:zoom
