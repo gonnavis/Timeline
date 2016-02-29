@@ -38,12 +38,19 @@
 			<div class="timelines">
 				<div class="timeline" ng-repeat="timeline in timelines">
 					<label>
-						<input type="checkbox" ng-model="checked" ng-change="optionTimelineChange(checked)">
+						<input type="checkbox" ng-model="timeline.checked" ng-change="optionTimelineChange(timeline.checked)">
 						{{timeline.name}}
 					</label>
 				</div>
 				<div style="clear:both;"></div>
 			</div>
+			<div class="zoom">
+				<span>缩放：</span>
+				<button ng-click="zoomOut()">-</button>
+				<span>{{zoom}}</span>
+				<button ng-click="zoomIn()">+</button>
+			</div>
+			<div style="clear:both;float: none;"></div>
 		</div>
 
 
@@ -70,9 +77,9 @@
 					<!-- <span class="span">{{period.to-period.from}}</span> -->
 					<!-- <div class="from">{{period.from}}</div> -->
 					<!-- <div class="to">{{period.to}}</div> -->
-					<div class="popup" style="left:{{mouseX}}px;">
+					<div class="popup" style="left:0px;">
 						<!-- <div class="arrow"></div> -->
-						<div>{{period.name}} &nbsp;&nbsp;{{period.from}} ~ {{period.to}}</div>
+						<div>{{period.name}} {{period.from}} ~ {{period.to}}</div>
 						<div>
 							<div class="title">时长：</div>
 							<div class="content">{{period.from-period.to}}</div>

@@ -17,14 +17,16 @@ html,body{width:100%;height: 100%;background: rgb(223,223,223);}
 /*#area_to{right: 0;position: absolute;bottom:-25px;line-height: 14px;display: none;background: rgb(223,223,223);padding:5px;}*/
 /*#area_period:hover #area_from{display: block;}*/
 /*#area_period:hover #area_to{display: block;}*/
-/*#area_period:hover #area_name{position: absolute;bottom:35px;background: white;padding:5px;line-height: 14px;}*/
+/*#area .period:hover .name{position: absolute;bottom:35px;background: white;padding:5px;line-height: 14px;}*/
 /*#area_span{display: none;}*/
 /*#area_period:hover #area_span{display: inline;}*/
 
-#option{margin-bottom: 20px;}
+#option{margin-bottom: 20px;position: fixed;left: 8px;top:50px;}
+#option>*{float: left;}
 #option .timeline{float: left;margin-left: 20px;}
+#option .zoom{margin-left: 50px;}
 
-#ruler{height: 24px;background: black;margin-bottom: 20px;position: relative;}
+#ruler{height: 24px;background: black;margin-bottom: 100px;position: relative;}
 #ruler .highBar{width:1px;margin-right:3px;float:left;height: 100%;background: rgb(125,125,125);display: none;}
 #ruler .middleBar{width:1px;margin-right:3px;float:left;height: 50%;background: rgb(125,125,125);margin-top: 12px;display: none;}
 #ruler .shortBar{width:1px;margin-right:3px;float:left;height: 25%;background: rgb(125,125,125);margin-top: 18px;display: none;}

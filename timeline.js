@@ -5,6 +5,8 @@ var timelines=[
 			{name:'夏朝',from:-2000,to:-1500}
 			,{name:'商朝',from:-1700,to:-1027}
 			,{name:'周朝',from:-1066,to:-221}
+			,{name:'春秋',from:-770,to:-476}
+			,{name:'战国',from:-475,to:-221}
 			,{name:'秦朝',from:-221,to:-207}
 			,{name:'汉朝',from:-206,to:220}
 			,{name:'三国',from:220,to:280}
@@ -22,6 +24,28 @@ var timelines=[
 			,{name:'元朝',from:1279,to:1368}
 			,{name:'明朝',from:1368,to:1644}
 			,{name:'清朝',from:1644,to:1911}
+		]
+	}
+	,{
+		name:'春秋战国'
+		,data:[
+			{name:'秦国',from:-900,to:-207}
+			,{name:'吴国',from:-1046,to:-473}
+			,{name:'齐国',from:-1046,to:-379}
+			,{name:'鲁国',from:-1046,to:-256}
+			,{name:'燕国',from:-1046,to:-221}
+			,{name:'蔡国',from:-1046,to:-447}
+			,{name:'曹国',from:-1046,to:-487}
+			,{name:'陈国',from:-1046,to:-478}
+			,{name:'卫国',from:-1040,to:-209}
+			,{name:'宋国',from:-1040,to:-286}
+			,{name:'晋国',from:-1033,to:-349}
+			,{name:'楚国',from:-1046,to:-223}
+			,{name:'越国',from:-2000,to:-306}
+			,{name:'郑国',from:-806,to:-375}
+			,{name:'魏国',from:-403,to:-225}
+			,{name:'赵国',from:-403,to:-222}
+			,{name:'韩国',from:-403,to:-230}
 		]
 	}
 	,{
