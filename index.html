@@ -31,7 +31,7 @@
 					shortBar:bar.type==1
 				}" 
 			></div> -->
-			<div class="mouseTime" style="left:{{mouseX}}px;">{{mouseTime}}</div>
+			
 		</div>
 
 		<div id="option">
@@ -82,7 +82,7 @@
 						<div>{{period.name}} {{period.from}} ~ {{period.to}}</div>
 						<div>
 							<div class="title">时长：</div>
-							<div class="content">{{period.from-period.to}}</div>
+							<div class="content">{{period.to-period.from}}</div>
 							<div style="clear:both;"></div>
 						</div>
 					</div>
@@ -100,6 +100,7 @@
 
 
 		<div class="vBar" style="left:{{mouseX-2}}px;"></div>
+		<div class="mouseTime" style="left:{{mouseX}}px;">{{mouseTime}}</div>
 	</div>
 
 </body>
