@@ -1,7 +1,7 @@
 
 angular.module('timeline.service',[])
 
-.factory('timeline',function(){
+.factory('Timeline',function(){
 
 
 	// var zoom=0.3;
@@ -58,8 +58,48 @@ angular.module('timeline.service',[])
 	]
 
 
-	var getTimeline=function(data){
-		// var data=JSON.parse(json);
+
+	//rows
+	var getRows=function(data){
+		var rows=[];
+		var tempData=angular.copy(data);
+		function setRow(row){
+			var arr=[];
+			arr.push(tempData.splice(0,1)[0]);
+			var length=tempData.length;
+			for(var i=0;i<length;){
+				if(tempData[i].from>=arr[arr.length-1].to){
+					arr.push(tempData.splice(i,1)[0]);
+					length--;
+				}
+				else{
+					i++;
+				}
+			}
+			rows.push(arr);
+			if(tempData.length>0){
+				setRow(++row);
+			}
+		}
+		setRow(0);
+		return rows;
+	}
+
+	//set color
+	var setColor=function(data){
+		for(var i=0;i<data.length;i++){
+			data[i].color='rgba('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+',0.5)';
+		}
+	}
+
+	// var timeline=getTimeline(data);
+
+	// console.log(JSON.stringify(timeline));
+
+	var fn={};
+	fn.processTimeline=function(timeline){
+		var data=timeline.data;
+
 		data.sort(function(a,b){return a.from-b.from});//排序
 
 		for(var i=0;i<data.length;i++){//算出各项参数
@@ -82,20 +122,34 @@ angular.module('timeline.service',[])
 			}
 			period.span=period.to-period.from;
 		}
-
 		var span=max-min;
 
+		setColor(data);
+
+		var rows=getRows(data);
+
 		return {
-			data:data,
-			min:min,
-			max:max,
-			span:span
+			name:timeline.name
+			,data:data
+			,rows:rows
+			,min:min
+			,max:max
+			,span:span
 		}
 	}
+	fn.addTimeline=function(timeline,area_id){
 
-	var timeline=getTimeline(data);
+	}
 
-	// console.log(JSON.stringify(timeline));
+	// console.log(timelines);
+	for(var i=0;i<timelines.length;i++){
+		timelines[i]=fn.processTimeline(timelines[i]);
+	}
+	// console.log(timelines);
+
+	var timeline={
+		fn:fn
+	}
 
 	return timeline;
 })

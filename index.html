@@ -11,6 +11,7 @@
 	</script>
 	<!-- <script src="https://code.angularjs.org/1.5.0/angular.min.js"></script> -->
 	<script src="angular.js"></script>
+	<script src="timeline.js"></script>
 	<script src="service.js"></script>
 	<script src="controller.js"></script>
 	<script src="app.js"></script>
@@ -18,32 +19,44 @@
 
 <body>
 
-	<div class="timeline" ng-controller="timelineCtrl" ng-mousemove="mousemove($event)">
+	<div id="timeline" ng-controller="timelineCtrl" ng-mousemove="mousemove($event)" style="min-width:{{totalWidth*zoom}}px;">
 
 
 
-		<div class="ruler" ng-controller="rulerCtrl">
+		<div id="ruler">
 			<!-- <div ng-repeat="bar in bars"
 				ng-class="{
-					ruler_highBar:bar.type==3,
-					ruler_middleBar:bar.type==2,
-					ruler_shortBar:bar.type==1
+					highBar:bar.type==3,
+					middleBar:bar.type==2,
+					shortBar:bar.type==1
 				}" 
 			></div> -->
-			<div class="ruler_mouseTime" style="left:{{mouseX}}px;">{{mouseTime}}</div>
+			<div class="mouseTime" style="left:{{mouseX}}px;">{{mouseTime}}</div>
+		</div>
+
+		<div id="option">
+			<div class="timelines">
+				<div class="timeline" ng-repeat="timeline in timelines">
+					<label>
+						<input type="checkbox" ng-model="checked" ng-change="optionTimelineChange(checked)">
+						{{timeline.name}}
+					</label>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
 		</div>
 
 
 
-		<div class="area" ng-controller="areaCtrl" style="width:{{(max-min)*zoom}}px;">
-			<div class="area_row" ng-repeat="row in rows"
+		<div id="area" ng-repeat="timeline in areas">
+			<div class="row" ng-repeat="row in timeline.rows"
 				style="
 					position:relative;
 					height:{{periodHeight}}px;
 					margin-bottom: -1px;
 				"
 			>
-				<div class="area_period" ng-repeat="period in row" ng-mouseover="periodMouseenter($event)" ng-mouseleave="periodMouseleave($event)"
+				<div class="period" ng-repeat="period in row" ng-mouseover="periodMouseenter($event)" ng-mouseleave="periodMouseleave($event)"
 					style="
 						width:{{period.span*zoom}}px;
 						background: {{period.color}};
@@ -53,15 +66,16 @@
 						line-height: {{periodHeight-2}}px;
 					"
 				>
-					<span class="area_name"><span style="display: inline-block;">{{period.name}}</span></span>
-					<!-- <span class="area_span">{{period.to-period.from}}</span> -->
-					<!-- <div class="area_from">{{period.from}}</div> -->
-					<!-- <div class="area_to">{{period.to}}</div> -->
-					<div class="area_popup" style="left:{{mouseX}}px;">
+					<span class="name"><span style="display: inline-block;">{{period.name}}</span></span>
+					<!-- <span class="span">{{period.to-period.from}}</span> -->
+					<!-- <div class="from">{{period.from}}</div> -->
+					<!-- <div class="to">{{period.to}}</div> -->
+					<div class="popup" style="left:{{mouseX}}px;">
+						<!-- <div class="arrow"></div> -->
 						<div>{{period.name}} &nbsp;&nbsp;{{period.from}} ~ {{period.to}}</div>
 						<div>
-							<div class="area_popup_title">时长：</div>
-							<div class="area_popup_content">{{period.from-period.to}}</div>
+							<div class="title">时长：</div>
+							<div class="content">{{period.from-period.to}}</div>
 							<div style="clear:both;"></div>
 						</div>
 					</div>
@@ -78,7 +92,7 @@
 
 
 
-		<div class="timeline_vBar" style="left:{{mouseX-2}}px;"></div>
+		<div class="vBar" style="left:{{mouseX-2}}px;"></div>
 	</div>
 
 </body>
