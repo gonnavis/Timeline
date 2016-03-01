@@ -11,8 +11,9 @@ var timelines=[
 			,{name:'汉朝',from:-206,to:220}
 			,{name:'三国',from:220,to:280}
 			,{name:'晋朝',from:265,to:420}
+			,{name:'十六国',from:304,to:439}
 			,{name:'南朝',from:420,to:588}
-			,{name:'北朝',from:386,to:588}
+			,{name:'北朝',from:386,to:581}
 			,{name:'隋朝',from:581,to:617}
 			,{name:'唐朝',from:618,to:907}
 			,{name:'五代',from:907,to:960}
@@ -54,6 +55,51 @@ var timelines=[
 			{name:'曹魏',from:220,to:266}
 			,{name:'蜀汉',from:221,to:263}
 			,{name:'孙吴',from:229,to:280}
+		]
+	}
+	,{
+		name:'十六国'
+		,data:[
+			{name:'前凉',from:300,to:376}
+			,{name:'南凉',from:397,to:414}
+			,{name:'北凉',from:397,to:460}
+			,{name:'西凉',from:400,to:421}
+			,{name:'后凉',from:386,to:403}
+			,{name:'前燕',from:307,to:370}
+			,{name:'南燕',from:398,to:410}
+			,{name:'后燕',from:384,to:407}
+			,{name:'北燕',from:407,to:436}
+			,{name:'前秦',from:351,to:394}
+			,{name:'后秦',from:384,to:417}
+			,{name:'西秦',from:385,to:431}
+			,{name:'汉赵',from:304,to:329}
+			,{name:'后赵',from:319,to:351}
+			,{name:'成汉',from:304,to:347}
+			,{name:'胡夏',from:407,to:431}
+			,{name:'代',from:338,to:376}
+			,{name:'西燕',from:384,to:394}
+			,{name:'冉魏',from:350,to:352}
+			,{name:'西蜀',from:405,to:413}
+			,{name:'翟魏',from:388,to:392}
+		]
+	}
+	,{
+		name:'南朝'
+		,data:[
+			{name:'南朝宋',from:420,to:479}
+			,{name:'南朝齐',from:479,to:502}
+			,{name:'南朝梁',from:502,to:557}
+			,{name:'南朝陈',from:557,to:589}
+		]
+	}
+	,{
+		name:'北朝'
+		,data:[
+			{name:'北魏',from:386,to:557}
+			,{name:'东魏',from:534,to:550}
+			,{name:'北齐',from:550,to:577}
+			,{name:'西魏',from:535,to:556}
+			,{name:'北周',from:557,to:581}
 		]
 	}
 	,{
