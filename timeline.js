@@ -62,7 +62,7 @@ var timelines=[
 		,data:[
 			{name:'前凉',from:300,to:376}
 			,{name:'南凉',from:397,to:414}
-			,{name:'北凉',from:397,to:460}
+			,{name:'北凉',from:397,to:439}
 			,{name:'西凉',from:400,to:421}
 			,{name:'后凉',from:386,to:403}
 			,{name:'前燕',from:307,to:370}
@@ -95,7 +95,7 @@ var timelines=[
 	,{
 		name:'北朝'
 		,data:[
-			{name:'北魏',from:386,to:557}
+			{name:'北魏',from:386,to:534}
 			,{name:'东魏',from:534,to:550}
 			,{name:'北齐',from:550,to:577}
 			,{name:'西魏',from:535,to:556}
