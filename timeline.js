@@ -9,6 +9,7 @@ var timelines=[
 			,{name:'战国',from:-475,to:-221}
 			,{name:'秦朝',from:-221,to:-207}
 			,{name:'汉朝',from:-206,to:220}
+			,{name:'新朝',from:8,to:23}
 			,{name:'三国',from:220,to:280}
 			,{name:'晋朝',from:265,to:420}
 			,{name:'十六国',from:304,to:439}
@@ -16,15 +17,18 @@ var timelines=[
 			,{name:'北朝',from:386,to:581}
 			,{name:'隋朝',from:581,to:617}
 			,{name:'唐朝',from:618,to:907}
+			,{name:'武周',from:690,to:705}
 			,{name:'五代',from:907,to:960}
 			,{name:'十国',from:907,to:979}
 			,{name:'宋朝',from:960,to:1279}
-			,{name:'辽',from:916,to:1225}
-			,{name:'西夏',from:1038,to:1227}
 			,{name:'金',from:1115,to:1234}
 			,{name:'元朝',from:1279,to:1368}
 			,{name:'明朝',from:1368,to:1644}
 			,{name:'清朝',from:1644,to:1911}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
 		]
 	}
 	,{
@@ -125,6 +129,122 @@ var timelines=[
 			,{name:'南汉',from:917,to:971}
 			,{name:'南平',from:907,to:963}
 			,{name:'北汉',from:951,to:979}
+		]
+	}
+	,{
+		name:'周边'
+		,data:[
+			{name:'鲜卑',from:200,to:600}
+			,{name:'突厥',from:552,to:658}
+			,{name:'吐蕃',from:700,to:1100}
+			,{name:'回鹘',from:744,to:846}
+			,{name:'高棉',from:802,to:1462}
+			,{name:'蒙古',from:1206,to:1368}
+			,{name:'大理',from:937,to:1253}
+			,{name:'辽',from:916,to:1225}
+			,{name:'西夏',from:1038,to:1227}
+			,{name:'匈奴',from:-300,to:46}
+		]
+	}
+	,{
+		name:'中亚'
+		,data:[
+			{name:'亚美尼亚',from:-95,to:-60,englishName:'Armenian Empire'}
+			,{name:'安息波斯',from:-247,to:224,englishName:'Parthian Empire'}
+			,{name:'阿契美尼德波斯',from:-650,to:-330,englishName:''}
+			,{name:'阿卡德',from:-2350,to:-2150,englishName:''}
+			,{name:'亚述',from:-1920,to:-609,englishName:''}
+			,{name:'巴比伦',from:-1900,to:-1600,englishName:''}
+			,{name:'埃兰波斯',from:-2700,to:-539,englishName:''}
+			,{name:'以色列',from:-1050,to:-920,englishName:''}
+			,{name:'赫梯',from:-1460,to:-1180,englishName:''}
+			,{name:'尼西亚',from:1204,to:1261,englishName:''}
+			,{name:'阿拉伯',from:632,to:661,englishName:''}
+			,{name:'阿拔斯',from:750,to:1258,englishName:''}
+			,{name:'萨珊波斯',from:224,to:642,englishName:''}
+			,{name:'塞琉西',from:-323,to:-60,englishName:''}
+			,{name:'塞尔柱土耳其',from:1037,to:1194,englishName:''}
+			,{name:'帖木儿',from:1401,to:1505,englishName:''}
+			,{name:'萨非',from:1501,to:1736,englishName:''}
+			,{name:'奥斯曼',from:1299,to:1923,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+		]
+	}
+	,{
+		name:'欧洲'
+		,data:[
+			{name:'罗马帝国',from:-27,to:476,englishName:''}
+			,{name:'罗马共和国',from:-509,to:-27,englishName:''}
+			,{name:'西罗马帝国',from:395,to:476,englishName:''}
+			,{name:'拜占庭',from:330,to:1453,englishName:''}
+			,{name:'神圣罗马帝国',from:962,to:1806,englishName:''}
+			,{name:'法兰克王国',from:250,to:950,englishName:''}
+			,{name:'葡萄牙王国',from:1415,to:1999,englishName:'Portuguese Empire'}
+			,{name:'西班牙王国',from:1402,to:1975,englishName:'Spanish Empire'}
+			,{name:'古希腊',from:-800,to:-146,englishName:''}
+			,{name:'俄罗斯帝国',from:1721,to:1917,englishName:''}
+			,{name:'马其顿',from:-338,to:-309,englishName:''}
+			,{name:'高卢',from:260,to:274,englishName:''}
+			,{name:'奥匈帝国',from:1867,to:1918,englishName:''}
+			,{name:'雅典帝国',from:-477,to:-431,englishName:''}
+			,{name:'奥地利帝国',from:1804,to:1867,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+		]
+	}
+	,{
+		name:'非洲'
+		,data:[
+			{name:'埃及帝国',from:-1570,to:-1070,englishName:'Egyptian Empire'}
+			,{name:'古埃及',from:-3200,to:-343,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
+			// ,{name:'',from:,to:,englishName:''}
 		]
 	}
 ]
