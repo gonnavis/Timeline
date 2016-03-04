@@ -149,7 +149,8 @@ var timelines=[
 	,{
 		name:'中亚'
 		,data:[
-			{name:'亚美尼亚',from:-95,to:-60,englishName:'Armenian Empire'}
+			{name:'苏美尔',from:-4000,to:-2000,englishName:''}
+			,{name:'亚美尼亚',from:-95,to:-60,englishName:'Armenian Empire'}
 			,{name:'安息波斯',from:-247,to:224,englishName:'Parthian Empire'}
 			,{name:'阿契美尼德波斯',from:-650,to:-330,englishName:''}
 			,{name:'阿卡德',from:-2350,to:-2150,englishName:''}
@@ -167,7 +168,6 @@ var timelines=[
 			,{name:'帖木儿',from:1401,to:1505,englishName:''}
 			,{name:'萨非',from:1501,to:1736,englishName:''}
 			,{name:'奥斯曼',from:1299,to:1923,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
