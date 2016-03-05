@@ -89,7 +89,9 @@ angular.module('timeline.controller',[])
 		// console.log(name.clientWidth);
 		// console.log('');
 		period.style.borderColor='red';
-		period.style.outline='solid 1px red';
+		// period.style.outline='solid 1px red';
+		period.style.borderWidth='2px';
+		period.style.lineHeight='26px';
 		if(nameTextNode.clientWidth>period.clientWidth){
 			name.style.top='-45px';
 			// name.style.left='-100px';
@@ -102,8 +104,10 @@ angular.module('timeline.controller',[])
 		var period=e.currentTarget;
 		var name=jq(period).find('.name')[0];
 		var nameTextNode=name.childNodes[0];
-		period.style.borderColor='black';
-		period.style.outline='none';
+		period.style.borderColor='gray';
+		// period.style.outline='none';
+		period.style.borderWidth='1px';
+		period.style.lineHeight='28px';
 		name.style.top=0;
 		// name.style.left=0;
 		nameTextNode.style.backgroundColor='transparent';
@@ -111,6 +115,7 @@ angular.module('timeline.controller',[])
 	}
 	jq(window).scroll(function(){
 		$s.scrollTop=document.body.scrollTop;
+		$s.$apply();
 		// console.log($s.scrollTop);
 	})
 

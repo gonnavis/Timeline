@@ -2,7 +2,7 @@ var timelines=[
 	{
 		name:'主干'
 		,data:[
-			{name:'夏朝',from:-2000,to:-1500}
+			{name:'夏朝',from:-2070,to:-1600}
 			,{name:'商朝',from:-1700,to:-1027}
 			,{name:'周朝',from:-1066,to:-221}
 			,{name:'春秋',from:-770,to:-476}
@@ -25,10 +25,10 @@ var timelines=[
 			,{name:'元朝',from:1279,to:1368}
 			,{name:'明朝',from:1368,to:1644}
 			,{name:'清朝',from:1644,to:1911}
-			// ,{name:'',from:,to:}
-			// ,{name:'',from:,to:}
-			// ,{name:'',from:,to:}
-			// ,{name:'',from:,to:}
+			,{name:'黄帝',from:-2717,to:-2599}
+			,{name:'尧舜禹',from:-2226,to:-2070}
+			,{name:'三皇',from:-4000,to:-2717}
+			,{name:'五帝',from:-2717,to:-2070}
 		]
 	}
 	,{
@@ -155,10 +155,10 @@ var timelines=[
 			,{name:'阿契美尼德波斯',from:-650,to:-330,englishName:''}
 			,{name:'阿卡德',from:-2350,to:-2150,englishName:''}
 			,{name:'亚述',from:-1920,to:-609,englishName:''}
-			,{name:'巴比伦',from:-1900,to:-1600,englishName:''}
+			,{name:'古巴比伦',from:-1900,to:-1600,englishName:''}
 			,{name:'埃兰',from:-2700,to:-539,englishName:''}
 			,{name:'以色列',from:-1050,to:-920,englishName:''}
-			,{name:'赫梯',from:-1460,to:-1180,englishName:''}
+			,{name:'赫梯',from:-1600,to:-1180,englishName:''}
 			,{name:'尼西亚',from:1204,to:1261,englishName:''}
 			,{name:'阿拉伯',from:632,to:661,englishName:''}
 			,{name:'阿拔斯',from:750,to:1258,englishName:''}
@@ -168,7 +168,7 @@ var timelines=[
 			,{name:'帖木儿',from:1401,to:1505,englishName:''}
 			,{name:'萨非',from:1501,to:1736,englishName:''}
 			,{name:'奥斯曼',from:1299,to:1923,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
+			,{name:'新巴比伦',from:-626,to:-539,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
@@ -197,9 +197,9 @@ var timelines=[
 			,{name:'奥匈帝国',from:1867,to:1918,englishName:''}
 			,{name:'雅典帝国',from:-477,to:-431,englishName:''}
 			,{name:'奥地利帝国',from:1804,to:1867,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
+			,{name:'迈锡尼',from:-1600,to:-1200,englishName:''}
+			,{name:'希腊黑暗时代',from:-1200,to:-800,englishName:''}
+			,{name:'米诺斯',from:-2700,to:-1450,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
@@ -220,13 +220,13 @@ var timelines=[
 		name:'非洲'
 		,data:[
 			{name:'埃及帝国',from:-1570,to:-1070,englishName:'Egyptian Empire'}
-			,{name:'古埃及',from:-3200,to:-343,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
+			,{name:'古埃及',from:-3150,to:-343,englishName:''}
+			,{name:'埃及前王朝',from:-4000,to:-3150,englishName:''}
+			,{name:'埃及早王朝',from:-3150,to:-2686,englishName:''}
+			,{name:'埃及古王朝',from:-2686,to:-2181,englishName:''}
+			,{name:'埃及中王国',from:-2133,to:-1786,englishName:''}
+			,{name:'埃及新王国',from:-1600,to:-1100,englishName:''}
+			,{name:'埃及后王朝',from:-664,to:-343,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
