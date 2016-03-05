@@ -1,6 +1,6 @@
 html,body{width:100%;height: 100%;background: rgb(223,223,223);margin:0;}
 
-#timeline{position: relative;width:100%;height:100%;box-sizing:border-box;padding-top:60px;}
+#timeline{position: relative;min-width:100%;min-height:100%;box-sizing:border-box;padding-top:100px;border-bottom: solid 1px rgb(223,223,223);}
 #timeline .vBar{z-index:99;position: absolute;height: 100%;width:1px;background: black;top:0;}
 #timeline .mouseTime{color:white;position: absolute;line-height: 24px;top:0;z-index:99;}
 
@@ -27,7 +27,7 @@ html,body{width:100%;height: 100%;background: rgb(223,223,223);margin:0;}
 #option .timeline{float: left;margin-left: 20px;}
 #option .zoom{margin-left: 50px;}
 
-#ruler{height: 24px;background: black;margin-bottom: 50px;position: fixed;top:0;left:0;width:100%;z-index:51;}
+#ruler{height: 24px;background: black;margin-bottom: 80px;position: fixed;top:0;left:0;width:100%;z-index:51;}
 #ruler .highBar{width:1px;margin-right:3px;float:left;height: 100%;background: rgb(125,125,125);display: none;}
 #ruler .middleBar{width:1px;margin-right:3px;float:left;height: 50%;background: rgb(125,125,125);margin-top: 12px;display: none;}
 #ruler .shortBar{width:1px;margin-right:3px;float:left;height: 25%;background: rgb(125,125,125);margin-top: 18px;display: none;}

@@ -109,6 +109,10 @@ angular.module('timeline.controller',[])
 		nameTextNode.style.backgroundColor='transparent';
 		// name.style.display='block';
 	}
+	jq(window).scroll(function(){
+		$s.scrollTop=document.body.scrollTop;
+		// console.log($s.scrollTop);
+	})
 
 	//init
 	$s.addTimeline(timelines[0]);

@@ -156,7 +156,7 @@ var timelines=[
 			,{name:'阿卡德',from:-2350,to:-2150,englishName:''}
 			,{name:'亚述',from:-1920,to:-609,englishName:''}
 			,{name:'巴比伦',from:-1900,to:-1600,englishName:''}
-			,{name:'埃兰波斯',from:-2700,to:-539,englishName:''}
+			,{name:'埃兰',from:-2700,to:-539,englishName:''}
 			,{name:'以色列',from:-1050,to:-920,englishName:''}
 			,{name:'赫梯',from:-1460,to:-1180,englishName:''}
 			,{name:'尼西亚',from:1204,to:1261,englishName:''}
