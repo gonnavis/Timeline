@@ -19,7 +19,7 @@
 
 <body>
 
-	<div id="timeline" ng-controller="timelineCtrl" ng-mousemove="mousemove($event)" style="min-width:{{totalWidth*zoom}}px;">
+	<div id="timeline" ng-controller="timelineCtrl" ng-mousemove="mousemove($event)" style="min-width:{{totalWidth*zoom+200}}px;">
 
 
 
@@ -47,7 +47,7 @@
 			<div class="zoom">
 				<span>缩放：</span>
 				<button ng-click="zoomOut()">-</button>
-				<span>{{zoom}}</span>
+				<span class="value">{{zoom}}</span>
 				<button ng-click="zoomIn()">+</button>
 			</div>
 			<div style="clear:both;float: none;"></div>

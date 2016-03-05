@@ -2,7 +2,9 @@ var timelines=[
 	{
 		name:'主干'
 		,data:[
-			{name:'夏朝',from:-2070,to:-1600}
+			{name:'三皇',from:-4000,to:-2717}
+			,{name:'五帝',from:-2717,to:-2070}
+			,{name:'夏朝',from:-2070,to:-1600}
 			,{name:'商朝',from:-1700,to:-1027}
 			,{name:'周朝',from:-1066,to:-221}
 			,{name:'春秋',from:-770,to:-476}
@@ -27,8 +29,6 @@ var timelines=[
 			,{name:'清朝',from:1644,to:1911}
 			,{name:'黄帝',from:-2717,to:-2599}
 			,{name:'尧舜禹',from:-2226,to:-2070}
-			,{name:'三皇',from:-4000,to:-2717}
-			,{name:'五帝',from:-2717,to:-2070}
 		]
 	}
 	,{
@@ -219,13 +219,13 @@ var timelines=[
 	,{
 		name:'非洲'
 		,data:[
-			{name:'埃及帝国',from:-1570,to:-1070,englishName:'Egyptian Empire'}
-			,{name:'古埃及',from:-3150,to:-343,englishName:''}
+			// {name:'埃及帝国',from:-1570,to:-1070,englishName:'Egyptian Empire'}
+			{name:'古埃及',from:-3150,to:-343,englishName:''}
 			,{name:'埃及前王朝',from:-4000,to:-3150,englishName:''}
 			,{name:'埃及早王朝',from:-3150,to:-2686,englishName:''}
 			,{name:'埃及古王朝',from:-2686,to:-2181,englishName:''}
-			,{name:'埃及中王国',from:-2133,to:-1786,englishName:''}
-			,{name:'埃及新王国',from:-1600,to:-1100,englishName:''}
+			,{name:'埃及中王朝',from:-2133,to:-1786,englishName:''}
+			,{name:'埃及新王朝',from:-1600,to:-1100,englishName:''}
 			,{name:'埃及后王朝',from:-664,to:-343,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
@@ -245,6 +245,43 @@ var timelines=[
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
+		]
+	}
+	,{
+		name:'地球史'
+		,data:[
+			{name:'冥古宙',from:-4600000000,to:-3800000000}
+			,{name:'太古宙',from:-3800000000,to:-2500000000}
+			,{name:'元古宙',from:-2500000000,to:-542000000}
+			,{name:'显生宙',from:-542000000,to:2016}
+			,{name:'古生代',from:-541000000,to:-250000000}
+			,{name:'中生代',from:-250000000,to:-65500000}
+			,{name:'新生代',from:-65500000,to:2016}
+			,{name:'寒武纪',from:-541000000,to:-488000000}
+			,{name:'奥陶纪',from:-488000000,to:-438000000}
+			,{name:'志留纪',from:-438000000,to:-416000000}
+			,{name:'泥盆纪',from:-416000000,to:-359200000}
+			,{name:'石炭纪',from:-359200000,to:-290000000}
+			,{name:'二叠纪',from:-290000000,to:-250000000}
+			,{name:'三叠纪',from:-250000000,to:-199600000}
+			,{name:'侏罗纪',from:-199600000,to:-145500000}
+			,{name:'白垩纪',from:-145500000,to:-65500000}
+			,{name:'古近纪',from:-65500000,to:-23030000}
+			,{name:'新近纪',from:-23030000,to:-2580000}
+			,{name:'第四纪',from:-2580000,to:2016}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
 		]
 	}
 ]

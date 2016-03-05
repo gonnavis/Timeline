@@ -10,6 +10,9 @@ angular.module('timeline.controller',[])
 	$s.bias=0;
 	$s.totalWidth=0;
 	$s.min;
+	var zoomStep=0.1;
+	var zoomMin=0.1;
+	var zoomFix=1;
 
 	$s.mousemove=function(e){
 		// console.log($element);
@@ -56,19 +59,29 @@ angular.module('timeline.controller',[])
 		$s.areas.splice($s.areas.indexOf(timeline),1);
 	}
 	$s.zoomOut=function(){
-		if($s.zoom<=0.1){
+		if($s.zoom<=zoomMin){
 			return;
 		}
-		$s.zoom=(Math.round($s.zoom*10-1)*0.1).toFixed(1);
+		// $s.zoom=(Math.round($s.zoom*(zoomStep*100)-1)*zoomStep).toFixed(zoomFix);
+		console.log($s.zoom);
+		$s.zoom=parseFloat(($s.zoom-zoomStep).toFixed(zoomFix));
 	}
 	$s.zoomIn=function(){
-		$s.zoom=(Math.round($s.zoom*10+1)*0.1).toFixed(1);
+		// $s.zoom=(Math.round($s.zoom*(zoomStep*100)+1)*zoomStep).toFixed(zoomFix);
+		console.log($s.zoom);
+		$s.zoom=parseFloat(($s.zoom+zoomStep).toFixed(zoomFix));
 	}
 
 	//event
-	$s.optionTimelineChange=function(checked){
+	$s.optionTimelineChange=function(checked,e){
 		if(checked){
 			$s.addTimeline(this.timeline);
+			if(this.timeline.name=='地球史'){
+				$s.zoom=0.0000003;
+				zoomStep=0.0000001;
+				zoomMin=0.0000001;
+				zoomFix=7;
+			}
 		}
 		else{
 			$s.removeTimeline(this.timeline);
