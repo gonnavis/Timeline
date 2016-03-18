@@ -1,2 +1,2 @@
 
-angular.module('timeline',['timeline.controller','timeline.service'])
+angular.module('timeline',['timeline.controller','timeline.service','timeline.directive'])

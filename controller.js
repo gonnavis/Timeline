@@ -71,6 +71,9 @@ angular.module('timeline.controller',[])
 		console.log($s.zoom);
 		$s.zoom=parseFloat(($s.zoom+zoomStep).toFixed(zoomFix));
 	}
+	var setPadding=function(){
+		$s.rulerOptionHeight=jq('#ruler')[0].clientHeight+jq('#option')[0].clientHeight;
+	}
 
 	//event
 	$s.optionTimelineChange=function(checked,e){
@@ -85,6 +88,9 @@ angular.module('timeline.controller',[])
 		}
 		else{
 			$s.removeTimeline(this.timeline);
+			if(this.timeline.name=='地球史'){
+				location.reload();
+			}
 		}
 	}
 	$s.periodMouseenter=function(e){
@@ -131,12 +137,19 @@ angular.module('timeline.controller',[])
 		$s.$apply();
 		// console.log($s.scrollTop);
 	})
+	jq(window).resize(function(){
+		setPadding();
+		$s.$apply();
+	})
 
 	//init
 	$s.addTimeline(timelines[0]);
 	timelines[0].checked=true;
-
-
+	setTimeout(function(){
+		setPadding();
+	},500)
+	// setPadding();
+	// jq(window).resize();
 })
 
 // .controller('areaCtrl',function($scope,Timeline,view,$element){

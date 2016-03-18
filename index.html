@@ -13,13 +13,14 @@
 	<script src="angular.js"></script>
 	<script src="timeline.js"></script>
 	<script src="service.js"></script>
+	<script src="directive.js"></script>
 	<script src="controller.js"></script>
 	<script src="app.js"></script>
 </head>
 
 <body>
 
-	<div id="timeline" ng-controller="timelineCtrl" ng-mousemove="mousemove($event)" style="min-width:{{totalWidth*zoom+200}}px;">
+	<div id="timeline" ng-controller="timelineCtrl" ng-mousemove="mousemove($event)" style="min-width:{{totalWidth*zoom+200}}px;padding-top:{{rulerOptionHeight}}px;">
 
 
 
@@ -79,10 +80,10 @@
 					<!-- <div class="to">{{period.to}}</div> -->
 					<div class="popup" style="left:0px;">
 						<!-- <div class="arrow"></div> -->
-						<div>{{period.name}} {{period.from}} ~ {{period.to}}</div>
+						<div>{{period.name}} {{period.from|number}} ~ {{period.to|number}}</div>
 						<div>
 							<div class="title">时长：</div>
-							<div class="content">{{period.to-period.from}}</div>
+							<div class="content">{{period.to-period.from|number}}</div>
 							<div style="clear:both;"></div>
 						</div>
 					</div>
@@ -100,7 +101,7 @@
 
 
 		<div class="vBar" style="left:{{mouseX-2}}px;"></div>
-		<div class="mouseTime" style="left:{{mouseX-2}}px;top:{{scrollTop}}px;">{{mouseTime-2}}</div>
+		<div class="mouseTime" style="left:{{mouseX-2}}px;top:{{scrollTop}}px;">{{mouseTime-2|number}}</div>
 	</div>
 
 </body>

@@ -46,7 +46,7 @@ var timelines=[
 			,{name:'宋国',from:-1040,to:-286}
 			,{name:'晋国',from:-1033,to:-349}
 			,{name:'楚国',from:-1046,to:-223}
-			,{name:'越国',from:-2000,to:-306}
+			,{name:'越国',from:-2070,to:-306}
 			,{name:'郑国',from:-806,to:-375}
 			,{name:'魏国',from:-403,to:-225}
 			,{name:'赵国',from:-403,to:-222}
@@ -136,7 +136,7 @@ var timelines=[
 		,data:[
 			{name:'鲜卑',from:200,to:600}
 			,{name:'突厥',from:552,to:658}
-			,{name:'吐蕃',from:700,to:1100}
+			,{name:'吐蕃',from:618,to:1100}
 			,{name:'回鹘',from:744,to:846}
 			,{name:'高棉',from:802,to:1462}
 			,{name:'蒙古',from:1206,to:1368}
@@ -147,7 +147,7 @@ var timelines=[
 		]
 	}
 	,{
-		name:'中亚'
+		name:'西亚'
 		,data:[
 			{name:'苏美尔',from:-4000,to:-2000,englishName:''}
 			,{name:'亚美尼亚',from:-95,to:-60,englishName:'Armenian Empire'}
@@ -169,8 +169,8 @@ var timelines=[
 			,{name:'萨非',from:1501,to:1736,englishName:''}
 			,{name:'奥斯曼',from:1299,to:1923,englishName:''}
 			,{name:'新巴比伦',from:-626,to:-539,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
+			,{name:'腓尼基',from:-1500,to:-300,englishName:''}
+			,{name:'米底',from:-728,to:-550,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
@@ -200,7 +200,7 @@ var timelines=[
 			,{name:'迈锡尼',from:-1600,to:-1200,englishName:''}
 			,{name:'希腊黑暗时代',from:-1200,to:-800,englishName:''}
 			,{name:'米诺斯',from:-2700,to:-1450,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
+			,{name:'欧洲黑暗时代',from:476,to:1400,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
@@ -227,7 +227,7 @@ var timelines=[
 			,{name:'埃及中王朝',from:-2133,to:-1786,englishName:''}
 			,{name:'埃及新王朝',from:-1600,to:-1100,englishName:''}
 			,{name:'埃及后王朝',from:-664,to:-343,englishName:''}
-			// ,{name:'',from:,to:,englishName:''}
+			,{name:'迦太基',from:-650,to:-146,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
 			// ,{name:'',from:,to:,englishName:''}
@@ -247,13 +247,31 @@ var timelines=[
 			// ,{name:'',from:,to:,englishName:''}
 		]
 	}
+	// ,{
+	// 	name:'时代'
+	// 	,data:[
+	// 		{name:'旧石器时代',from:-2600000,to:-12000}
+	// 		,{name:'中石器时代',from:-12000,to:-10200}
+	// 		,{name:'新石器时代',from:-10200,to:-4500}
+	// 		// ,{name:'',from:,to:}
+	// 		// ,{name:'',from:,to:}
+	// 		// ,{name:'',from:,to:}
+	// 		// ,{name:'',from:,to:}
+	// 		// ,{name:'',from:,to:}
+	// 		// ,{name:'',from:,to:}
+	// 		// ,{name:'',from:,to:}
+	// 		// ,{name:'',from:,to:}
+	// 		// ,{name:'',from:,to:}
+	// 		// ,{name:'',from:,to:}
+	// 	]
+	// }
 	,{
 		name:'地球史'
 		,data:[
 			{name:'冥古宙',from:-4600000000,to:-3800000000}
 			,{name:'太古宙',from:-3800000000,to:-2500000000}
-			,{name:'元古宙',from:-2500000000,to:-542000000}
-			,{name:'显生宙',from:-542000000,to:2016}
+			,{name:'元古宙',from:-2500000000,to:-541000000}
+			,{name:'显生宙',from:-541000000,to:2016}
 			,{name:'古生代',from:-541000000,to:-250000000}
 			,{name:'中生代',from:-250000000,to:-65500000}
 			,{name:'新生代',from:-65500000,to:2016}
@@ -284,6 +302,24 @@ var timelines=[
 			// ,{name:'',from:,to:}
 		]
 	}
+	// ,{
+	// 	name:''
+	// 	,data:[
+			// {name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+			// ,{name:'',from:,to:}
+	// 	]
+	// }
 ]
 
 // var processTimelines=function(timelines){ // turn timelines from array to object
