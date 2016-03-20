@@ -3,6 +3,8 @@ var timelines=[
 		name:'主干'
 		,data:[
 			{name:'三皇',from:-4000,to:-2717}
+			,{name:'黄帝',from:-2717,to:-2599}
+			,{name:'尧舜禹',from:-2226,to:-2070}
 			,{name:'五帝',from:-2717,to:-2070}
 			,{name:'夏朝',from:-2070,to:-1600}
 			,{name:'商朝',from:-1700,to:-1027}
@@ -27,8 +29,6 @@ var timelines=[
 			,{name:'元朝',from:1279,to:1368}
 			,{name:'明朝',from:1368,to:1644}
 			,{name:'清朝',from:1644,to:1911}
-			,{name:'黄帝',from:-2717,to:-2599}
-			,{name:'尧舜禹',from:-2226,to:-2070}
 		]
 	}
 	,{

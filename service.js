@@ -100,9 +100,9 @@ angular.module('timeline.service',[])
 	fn.processTimeline=function(timeline){
 		var data=timeline.data;
 
-		data.sort(function(a,b){return a.from-b.from});//排序
 
-		for(var i=0;i<data.length;i++){//算出各项参数
+		//算出各项参数
+		for(var i=0;i<data.length;i++){
 			var period=data[i];
 			if(!min){
 				var min=period.from;
@@ -122,6 +122,21 @@ angular.module('timeline.service',[])
 			}
 			period.span=period.to-period.from;
 		}
+
+		//排序
+		// data.sort(function(a,b){return a.from-b.from});
+		// console.log(JSON.stringify(data));
+		data.sort(function(a,b){
+			if(a.from==b.from){
+				return b.span-a.span;
+			}
+			else{
+				return a.from-b.from
+			}
+		});
+		console.log(JSON.stringify(data));
+
+		//
 		var span=max-min;
 
 		setColor(data);
