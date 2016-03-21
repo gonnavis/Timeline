@@ -4,7 +4,7 @@ html,body{width:100%;height: 100%;background: rgb(223,223,223);margin:0;}
 #timeline .vBar{z-index:99;position: absolute;height: 100%;width:1px;background: black;top:0;}
 #timeline .mouseTime{color:white;position: absolute;line-height: 24px;top:0;z-index:99;}
 
-#area{position: relative;border:solid rgb(180,180,180);border-width:1px 0;margin:10px 0;background: white;}
+#area{position: relative;border:solid rgb(180,180,180);border-width:1px 0;margin:0 0 10px 0;background: white;}
 #area .time{position: absolute;top:0;left: 0;z-index: 2;text-shadow:1px 1px white;background: rgb(223,223,223);padding:5px;}
 #area .period{text-align: center;word-break: keep-all;text-shadow:1px 1px white;position: absolute;box-sizing: border-box;border:solid 1px gray;font-size:14px;cursor:default;}
 #area .period .name span{transition: all 0.5s;}
@@ -23,10 +23,10 @@ html,body{width:100%;height: 100%;background: rgb(223,223,223);margin:0;}
 /*#area_span{display: none;}*/
 /*#area_period:hover #area_span{display: inline;}*/
 
-#option{margin-bottom: 20px;position: fixed;left: 0;top:24px;background:rgb(223,223,223);z-index: 50;padding:10px ;width: 100%;}
+#option{position: fixed;left: 0;top:24px;background:rgb(223,223,223);z-index: 50;padding:10px ;width: 100%;}
 #option>*{float: left;}
-#option .timeline{float: left;margin-left: 20px;}
-#option .zoom{margin-left: 50px;}
+#option .timeline{float: left;margin:5px 0 5px 20px;}
+#option .zoom{margin:5px 0 5px 20px;}
 #option .zoom .value{display: inline-block;width: 70px;}
 
 #ruler{height: 24px;background: black;position: fixed;top:0;left:0;width:100%;z-index:51;}
@@ -34,4 +34,4 @@ html,body{width:100%;height: 100%;background: rgb(223,223,223);margin:0;}
 #ruler .middleBar{width:1px;margin-right:3px;float:left;height: 50%;background: rgb(125,125,125);margin-top: 12px;display: none;}
 #ruler .shortBar{width:1px;margin-right:3px;float:left;height: 25%;background: rgb(125,125,125);margin-top: 18px;display: none;}
 
-.sourceCode{margin-left: 30px;}
+.sourceCode{margin:5px 0 5px 30px;}

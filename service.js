@@ -134,7 +134,7 @@ angular.module('timeline.service',[])
 				return a.from-b.from
 			}
 		});
-		console.log(JSON.stringify(data));
+		// console.log(JSON.stringify(data));
 
 		//
 		var span=max-min;

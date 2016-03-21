@@ -145,9 +145,12 @@ angular.module('timeline.controller',[])
 	//init
 	$s.addTimeline(timelines[0]);
 	timelines[0].checked=true;
-	setTimeout(function(){
-		setPadding();
-	},500)
+    angular.element(document).ready(function () {
+        setPadding();
+    });
+	// setTimeout(function(){
+	// 	setPadding();
+	// },5000)
 	// setPadding();
 	// jq(window).resize();
 })
