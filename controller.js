@@ -147,6 +147,7 @@ angular.module('timeline.controller',[])
 	timelines[0].checked=true;
     angular.element(document).ready(function () {
         setPadding();
+		$s.$apply();
     });
 	// setTimeout(function(){
 	// 	setPadding();
