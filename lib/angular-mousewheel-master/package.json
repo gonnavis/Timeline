@@ -1,0 +1,20 @@
+{
+  "name": "angular-mousewheel",
+  "version": "1.0.5",
+  "description": "Angular Mousewheel",
+  "main": "mousewheel.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monospaced/angular-mousewheel.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/monospaced/angular-mousewheel/issues"
+  },
+  "homepage": "https://github.com/monospaced/angular-mousewheel#readme",
+  "dependencies": {
+    "angular": "^1.0.6",
+    "hamsterjs": "^1.0.2"
+  }
+}

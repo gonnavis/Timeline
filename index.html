@@ -3,19 +3,27 @@
 
 <head>
 	<meta charset="utf-8"/>
-	<link rel="stylesheet" href="style.css">
+	<title>timeline</title>
+
 	<!-- <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script> -->
 	<script src="jquery.js"></script>
 	<script type="text/javascript">
 		var jq=jQuery.noConflict();
 	</script>
+	<script src="angular.js"></script>
+
+	<!-- mouse wheel -->
+	<script src="lib\hamster.js-master\hamster.js"></script>
+	<script src="lib\angular-mousewheel-master\mousewheel.js"></script>
 
 	<!-- jsTree -->
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/themes/default/style.min.css" />
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/jstree.min.js"></script>
+	<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/themes/default/style.min.css" /> -->
+	<link rel="stylesheet" href="lib/jstree/style.min.css" />
+	<script src="lib\angular-mousewheel-master\mousewheel.js"></script>
 
+	<!-- my -->
+	<link rel="stylesheet" href="style.css">
 	<!-- <script src="https://code.angularjs.org/1.5.0/angular.min.js"></script> -->
-	<script src="angular.js"></script>
 	<script src="timeline.js"></script>
 	<script src="service.js"></script>
 	<script src="directive.js"></script>
@@ -25,7 +33,7 @@
 
 <body>
 
-	<div id="timeline" ng-controller="timelineCtrl" ng-mousemove="mousemove($event)" style="min-width:{{totalWidth*zoom+200}}px;padding-top:{{rulerOptionHeight}}px;">
+	<div id="timeline" ng-controller="timelineCtrl" ng-mousemove="mousemove($event)" msd-wheel="wheel($event,$delta,$deltaX,$deltaY)"  style="min-width:{{totalWidth*zoom+200}}px;padding-top:{{rulerOptionHeight}}px;width:99999px;">
 
 
 

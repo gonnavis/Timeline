@@ -1,0 +1,14 @@
+{
+  "name": "angular-mousewheel",
+  "version": "1.0.5",
+  "main": "mousewheel.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "angular": ">=1.0.6",
+    "hamsterjs": ">=1.0.2"
+  }
+}
