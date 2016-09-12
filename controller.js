@@ -106,6 +106,9 @@ angular.module('timeline.controller',[])
 					zoomStep=0.0000001;
 					zoomMin=0.0000001;
 					zoomFix=7;
+					setTimeout(function(){
+						jq('body').scrollLeft(0);
+					})
 				}
 			}
 			else{
