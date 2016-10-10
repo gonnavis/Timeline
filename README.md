@@ -2,7 +2,7 @@
 
 <a href="http://www.gonnavis.com/timeline" target="_blank">在线演示</a>
 
-<img src="http://www.gonnavis.com/timeline/preview.png">
+<img src="http://www.gonnavis.com/timeline/preview2.png">
 
 <h3>简介</h3>
 <p>自动排列，直观地显示各个时间段。</p> 
