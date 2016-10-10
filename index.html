@@ -65,10 +65,14 @@
 				<button ng-click="zoomIn()">+</button>
 			</div>
 			<a class="sourceCode" href="https://github.com/gonnavis/Timeline" target="_blank">源码</a>
-			<div class="new_timelines">
+
+			<button ng-hide="customShow" style="margin:5px 0px 40px 30px;" ng-init="customShow=false" ng-click="customShow=true">自定义数据</button>
+			<div ng-show="customShow" class="new_timelines" style="position: relative;">
 				<div><textarea ng-model="m.new_timelines"></textarea><button ng-click="set_new_timelines()">设置新数据</button></div>
 				<div style="font-size:12px;margin-top: 3px;">在文本框中粘贴新时间数据,<a href="https://github.com/gonnavis/Timeline/blob/master/timeline.js" target="_blank">格式参考</a>但不要"var timelines="这几个字</div>
+				<div style="position: absolute;top:3px;right: 3px;border:solid 1px gray;border-radius: 50%;width: 20px;height: 20px;text-align: center;cursor: pointer;font-family: 'Microsoft YaHei';" ng-click="customShow=false;">X</div>
 			</div>
+
 			<div style="clear:both;float: none;"></div>
 		</div>
 
