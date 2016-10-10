@@ -1,4 +1,6 @@
-var timelines=[
+var timelines=
+
+[
 	{
 		name:'主干'
 		,data:[
@@ -321,13 +323,3 @@ var timelines=[
 	// 	]
 	// }
 ]
-
-// var processTimelines=function(timelines){ // turn timelines from array to object
-// 	var tempTimelines=angular.copy(timelines);
-// 	timelines={};
-// 	for(var i=0;i<tempTimelines.length;i++){
-// 		timelines['i']=tempTimelines[i];
-// 	}
-// }
-
-// console.log(timelines);

@@ -157,6 +157,20 @@ angular.module('timeline.controller',[])
 			nameTextNode.style.backgroundColor='transparent';
 			// name.style.display='block';
 		}
+		$s.init=function(timelines){
+			$s.areas=[];
+			Timeline.fn.processTimelines(timelines);
+			$s.addTimeline(timelines[0]);
+			timelines[0].checked=true;
+		    angular.element(document).ready(function () {
+		        setPadding();
+				// $s.$apply();
+		    });
+		}
+		$s.set_new_timelines=function(){
+			$s.timelines=eval('('+$s.m.new_timelines+')');
+			$s.init($s.timelines);
+		}
 		jq(window).scroll(function(){
 			$s.scrollTop=document.body.scrollTop;
 			$s.$apply();
@@ -168,12 +182,7 @@ angular.module('timeline.controller',[])
 		})
 
 	//init
-		$s.addTimeline(timelines[0]);
-		timelines[0].checked=true;
-	    angular.element(document).ready(function () {
-	        setPadding();
-			$s.$apply();
-	    });
+		$s.init($s.timelines);
 		// setTimeout(function(){
 		// 	setPadding();
 		// },5000)

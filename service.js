@@ -156,11 +156,11 @@ angular.module('timeline.service',[])
 
 	}
 
-	// console.log(timelines);
-	for(var i=0;i<timelines.length;i++){
-		timelines[i]=fn.processTimeline(timelines[i]);
+	fn.processTimelines=function(timelines){
+		for(var i=0;i<timelines.length;i++){
+			timelines[i]=fn.processTimeline(timelines[i]);
+		}
 	}
-	// console.log(timelines);
 
 	var timeline={
 		fn:fn

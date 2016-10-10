@@ -65,6 +65,10 @@
 				<button ng-click="zoomIn()">+</button>
 			</div>
 			<a class="sourceCode" href="https://github.com/gonnavis/Timeline" target="_blank">源码</a>
+			<div class="new_timelines">
+				<div><textarea ng-model="m.new_timelines"></textarea><button ng-click="set_new_timelines()">设置新数据</button></div>
+				<div style="font-size:12px;margin-top: 3px;">在文本框中粘贴新时间数据,<a href="https://github.com/gonnavis/Timeline/blob/master/timeline.js" target="_blank">格式参考</a>但不要"var timelines="这几个字</div>
+			</div>
 			<div style="clear:both;float: none;"></div>
 		</div>
 
@@ -116,6 +120,8 @@
 
 		<div class="vBar" style="left:{{mouseX-2}}px;"></div>
 		<div class="mouseTime" style="left:{{mouseX-2}}px;top:{{scrollTop}}px;">{{mouseTime-2|number}}</div>
+
+
 	</div>
 
 </body>
