@@ -180,6 +180,26 @@ angular.module('timeline.controller',[])
 			setPadding();
 			$s.$apply();
 		})
+		document.body.ondrop=function(e){
+			e.preventDefault();
+
+			var file=e.dataTransfer.files[0];
+			var reader=new FileReader();
+
+			reader.readAsText(file);
+
+			reader.onload=function(e){
+				var new_timelines=e.target.result;
+				timelines=eval('('+new_timelines+')')
+				$s.init(timelines);
+			}
+		}
+		document.body.ondragend=function(){
+			return false;
+		}
+		document.body.ondragover=function(){
+			return false;
+		}
 
 	//init
 		$s.init($s.timelines);
