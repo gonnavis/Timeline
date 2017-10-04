@@ -3,4 +3,5 @@ export class Period{
     from:number;
     to:number;
     span?:number;
+    color?:string;
 }

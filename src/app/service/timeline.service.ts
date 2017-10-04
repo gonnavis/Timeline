@@ -3,7 +3,7 @@ import { Timeline } from '../type/timeline';
 import { Period } from '../type/period';
 
 export class TimelineService {
-    getRows(timeline:Timeline) {
+    getRows(timeline:Timeline):Period[][] {
         var periods:Period[]=timeline.periods;
         var rows = [];
         var tempData = periods.slice();
@@ -28,42 +28,35 @@ export class TimelineService {
         setRow(0);
         return rows;
     }
-
-    //set color
-    setColor(data) {
-        for (var i = 0; i < data.length; i++) {
-            data[i].color = 'rgba(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',0.5)';
+    setColor(periods:Period[]):void {
+        for (var i = 0; i < periods.length; i++) {
+            periods[i].color = 'rgba(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',0.5)';
         }
     }
-
-    // var timeline=getTimeline(data);
-
-    // console.log(JSON.stringify(timeline));
-
     processTimelines(timelines: Timeline[]):void {
         for (var i = 0; i < timelines.length; i++) {
-            timelines[i] = this.addProperties(timelines[i]);
+            this.addProperties(timelines[i]);
         }
     }
-    addProperties(timeline: Timeline):Timeline {
-        var data = timeline.periods;
+    addProperties(timeline: Timeline):void {
+        var periods = timeline.periods;
         //算出各项参数
-        for (var i = 0; i < data.length; i++) {
-            var period = data[i];
-            if (!min) {
-                var min = period.from;
+        for (var i = 0; i < periods.length; i++) {
+            var period = periods[i];
+            if (!timelineMin) {
+                var timelineMin = period.from;
             }
             else {
-                if (period.from < min) {
-                    min = period.from;
+                if (period.from < timelineMin) {
+                    timelineMin = period.from;
                 }
             }
-            if (!max) {
-                var max = period.to;
+            if (!timelineMax) {
+                var timelineMax = period.to;
             }
             else {
-                if (period.to > max) {
-                    max = period.to;
+                if (period.to > timelineMax) {
+                    timelineMax = period.to;
                 }
             }
             period.span = period.to - period.from;
@@ -72,7 +65,7 @@ export class TimelineService {
         //排序
         // data.sort(function(a,b){return a.from-b.from});
         // console.log(JSON.stringify(data));
-        data.sort(function (a, b) {
+        periods.sort(function (a, b) {
             if (a.from == b.from) {
                 return b.span - a.span;
             }
@@ -83,15 +76,13 @@ export class TimelineService {
         // console.log(JSON.stringify(data));
 
         //
-        var span = max - min;
 
-        this.setColor(data);
+        this.setColor(periods);
 
         timeline.rows = this.getRows(timeline);
-        return timeline
-    }
-    addTimeline(timeline, area_id) {
-
+        timeline.min=timelineMin;
+        timeline.max=timelineMax;
+        timeline.span=timelineMax-timelineMin;
     }
 
 }

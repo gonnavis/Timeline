@@ -14,7 +14,7 @@
 .area .popup .content{float: left;}
 .area .name{display: block;position: absolute;transition: 0.5s;transition-property:top,right,bottom,left,width,height;top:0;right: 0;left: 0;margin:auto;}
 
-#option{position: fixed;left: 0;top:24px;background:rgb(223,223,223);z-index: 50;padding:10px ;width: 100%;}
+#option{background:rgb(223,223,223);padding:10px ;}
 #option>*{float: left;min-height: 29px;}
 #option .timeline{float: left;margin:5px 0 5px 20px;}
 #option .zoom{margin:5px 0 5px 20px;}

@@ -1,12 +1,12 @@
-<div id="timeline">
+<div id="timeline" >
 
 
-  <!-- <div id="option">
+  <div id="option">
     <div class="timelines">
       <div class="timeline"
-           ng-repeat="timeline in timelines">
+           *ngFor="let timeline of TIMELINES">
         <label>
-          <input type="checkbox" ng-model="timeline.checked" ng-change="optionTimelineChange(timeline.checked)">
+          <input type="checkbox" [(ngModel)]="timeline.act" (change)="optionTimelineChange(timeline)">
           {{timeline.name}}
         </label>
       </div>
@@ -14,15 +14,15 @@
     </div>
     <div class="zoom">
       <span>缩放：</span>
-      <button ng-click="zoomOut()">-</button>
+      <button (click)="zoomOut()">-</button>
       <span class="value">{{zoom}}</span>
-      <button ng-click="zoomIn()">+</button>
+      <button (click)="zoomIn()">+</button>
     </div>
     <a class="sourceCode"
        href="https://github.com/gonnavis/Timeline"
-       target="_blank">源码</a>
+       target="_blank">github</a>
 
-    <button ng-hide="customShow"
+    <!-- <button ng-hide="customShow"
             style="margin:5px 0px 40px 30px;"
             ng-init="customShow=false"
             ng-click="customShow=true">自定义数据</button>
@@ -35,10 +35,10 @@
       <div style="position: absolute;top:3px;right: 3px;border:solid 1px gray;border-radius: 50%;width: 20px;height: 20px;text-align: center;cursor: pointer;font-family: 'Microsoft YaHei';"
     
            ng-click="customShow=false;">X</div>
-    </div>
+    </div> -->
 
     <div style="clear:both;float: none;height: 0;min-height: 0;max-height: 0;"></div>
-  </div> -->
+  </div>
 
   <div class="area"
        *ngFor="let timeline of timelines">
