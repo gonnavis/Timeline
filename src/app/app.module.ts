@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-import{TimelineService}from'./timeline.service';
+import{TimelineService}from'./service/timeline.service';
 
 @NgModule({
   declarations: [
