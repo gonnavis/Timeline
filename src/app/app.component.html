@@ -29,9 +29,9 @@
     <a class="sourceCode"
        href="https://github.com/gonnavis/Timeline"
        target="_blank">github</a>
-       <a class="sourceCode"
-          href="https://gitee.com/gonnavis/Timeline"
-          target="_blank">gitee</a>
+    <a class="sourceCode"
+       href="https://gitee.com/gonnavis/Timeline"
+       target="_blank">gitee</a>
 
     <!-- <button ng-hide="customShow"
             style="margin:5px 0px 40px 30px;"
@@ -61,7 +61,9 @@
          [style.height]="periodHeight+'px'"
          style="position:relative;margin-bottom: -1px;">
       <div class="period"
-           *ngFor="let period of row"
+           *ngFor="let period of row;let index=index"
+           (mouseenter)="periodMouseenter($event)"
+           (mouseleave)="periodMouseleave($event)"
            [style.width]="period.span*zoom+'px'"
            [style.background]="period.color"
            [style.left]="period.from*zoom+bias*zoom+'px'"

@@ -125,4 +125,20 @@ export class AppComponent implements OnInit {
     var to: number = (-this.min + year) * this.zoom + bias;
     document.body.scrollLeft = to;
   }
+  periodMouseenter(event):void{
+    var period=event.currentTarget;
+    var name=period.querySelector('.name')
+    var nameTextNode=name.childNodes[0];
+    if(nameTextNode.clientWidth>period.clientWidth){
+      name.style.top='-45px';
+      nameTextNode.style.backgroundColor='white';
+    }
+  }
+  periodMouseleave(event):void{
+    var period=event.currentTarget;
+    var name=period.querySelector('.name')
+    var nameTextNode=name.childNodes[0];
+    name.style.top=0;
+    nameTextNode.style.backgroundColor='transparent';
+  }
 }

@@ -1,9 +1,18 @@
 
-#timeline{position: relative;min-width:100%;min-height:100%;box-sizing:border-box;border-bottom: solid 1px rgb(223,223,223);width:99999px;}
-#timeline .vBar{z-index:99;position: absolute;height: 100%;width:1px;background: black;top:0;}
-#timeline .mouseTime{color:white;position: absolute;line-height: 24px;top:0;z-index:99;}
+/* z-index */
+    .vBar{z-index:99;}
+    .mouseTime{z-index:99;}
+    #option{z-index: 2;}
+    .area{z-index: 3}
+        .area .period:hover{z-index: 100;}
+    #ruler{z-index:51;}
 
-#option{background:rgb(223,223,223);padding:10px ;position: fixed;left: 0;top:0;width:100%;z-index: 2;}
+
+#timeline{position: relative;min-width:100%;min-height:100%;box-sizing:border-box;border-bottom: solid 1px rgb(223,223,223);width:99999px;}
+#timeline .vBar{position: absolute;height: 100%;width:1px;background: black;top:0;}
+#timeline .mouseTime{color:white;position: absolute;line-height: 24px;top:0;}
+
+#option{background:rgb(223,223,223);padding:10px ;position: fixed;left: 0;top:0;width:100%;}
 #option>*{float: left;min-height: 29px;}
 #option .timeline{float: left;margin:5px 0 5px 20px;}
 #option .zoom{margin:5px 0 5px 20px;}
@@ -12,18 +21,17 @@
 #option .new_timelines *{vertical-align: middle;}
 #option .new_timelines button{margin-left: 5px;}
 
-.areaTopPadding{}
 .area{position: relative;border:solid rgb(180,180,180);border-width:1px 0;margin:0 0 10px 0;background: white;}
 .area .period{text-align: center;word-break: keep-all;text-shadow:1px 1px white;position: absolute;box-sizing: border-box;border:solid 1px gray;font-size:14px;cursor:default;}
 .area .period .name span{transition: all 0.5s;}
-.area .period:hover{z-index: 100;}
+.area .period:hover{border:solid 2px red;line-height: 26px;}
 .area .popup{border:solid 1px gray;background: white;border-radius: 4px;text-align: left;padding:0 10px;position: absolute;top:50px;width:300px;display: none;}
 .area .period:hover .popup{display: block;}
 .area .popup .title{float: left;}
 .area .popup .content{float: left;}
 .area .name{display: block;position: absolute;transition: 0.5s;transition-property:top,right,bottom,left,width,height;top:0;right: 0;left: 0;margin:auto;}
 
-#ruler{height: 24px;background: black;position: fixed;top:0;left:0;width:100%;z-index:51;}
+#ruler{height: 24px;background: black;position: fixed;top:0;left:0;width:100%;}
 #ruler .highBar{width:1px;margin-right:3px;float:left;height: 100%;background: rgb(125,125,125);display: none;}
 #ruler .middleBar{width:1px;margin-right:3px;float:left;height: 50%;background: rgb(125,125,125);margin-top: 12px;display: none;}
 #ruler .shortBar{width:1px;margin-right:3px;float:left;height: 25%;background: rgb(125,125,125);margin-top: 18px;display: none;}
