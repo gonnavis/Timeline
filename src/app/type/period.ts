@@ -4,4 +4,5 @@ export class Period{
     to:number;
     span?:number;
     color?:string;
+    right_clicked?:boolean;
 }

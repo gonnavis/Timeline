@@ -2,11 +2,11 @@
 
   <div id="ruler"> </div>
   <div class="vBar"
-       [style.left]="mouseX-2+'px'">
+       [style.left]="mouseX+'px'">
   </div>
   <div class="mouseTime"
-       [style.left]="mouseX-2+'px'">
-    {{mouseTime-2|number}}
+       [style.left]="mouseX+'px'">
+    {{mouseTime|number}}
   </div>
 
   <div id="option"
@@ -33,36 +33,59 @@
     <a class="sourceCode"
        href="https://gitee.com/gonnavis/Timeline"
        target="_blank">gitee</a>
-
+    <div class="contact" style="margin: 8px 0 5px 30px;font-size:14px;">
+      <button (click)="is_show_contact=!is_show_contact" style="cursor: pointer;">contact</button>
+      <span [hidden]="!is_show_contact">
+        <span>邮箱: gonnavis@163.com</span>
+        &nbsp;
+        <span>QQ: 125798032</span>
+        &nbsp;
+        <span>微信: gonnavis</span>
+      </span>
+    </div>
     <div style="clear:both;float: none;height: 0;min-height: 0;max-height: 0;"></div>
   </div>
 
-  <div class="areas"
+  <div class="areas_wrap"
+       oncontextmenu="return false"
+       (mousedown)="areas_mousedown($event)"
+       (mouseup)="areas_mouseup($event)"
+       (mouseleave)="areas_mouseleave($event)"
+       (mousemove)="areas_mousemove($event)"
+       (mousewheel)="areas_mousewheel($event)"
        [style.top]="headHeight+'px'">
-    <div class="area"
-         *ngFor="let timeline of timelines">
-      <div class="row"
-           *ngFor="let row of timeline.rows"
-           [style.height]="periodHeight+'px'"
-           style="position:relative;margin-bottom: -1px;">
-        <div class="period"
-             *ngFor="let period of row;let index=index"
-             (mouseenter)="periodMouseenter($event)"
-             (mouseleave)="periodMouseleave($event)"
-             [style.width]="period.span*zoom+'px'"
-             [style.background]="period.color"
-             [style.left]="period.from*zoom+bias*zoom+'px'"
+    <div class="areas"
+         [style.transform]="transform">
+      <div class="area"
+           *ngFor="let timeline of timelines">
+        <div class="row"
+             *ngFor="let row of timeline.rows"
              [style.height]="periodHeight+'px'"
-             [style.lineHeight]="periodHeight-2+'px'"
-             style=" top:0; ">
-          <span class="name"><span style="display: inline-block;">{{period.name}}</span></span>
-          <div class="popup"
-               style="left:0px;">
-            <div>{{period.name}} {{period.from|number}} ~ {{period.to|number}}</div>
-            <div>
-              <div class="title">时长：</div>
-              <div class="content">{{period.to-period.from|number}}</div>
-              <div style="clear:both;"></div>
+             style="position:relative;margin-bottom: -1px;">
+          <div class="period"
+               [ngClass]="{'right_clicked':period.right_clicked}"
+               *ngFor="let period of row;let index=index"
+               (mousedown)="periodMousedown($event, period)"
+               (mouseenter)="periodMouseenter($event)"
+               (mouseleave)="periodMouseleave($event, period)"
+               [style.width]="period.span*zoom+'px'"
+               [style.background]="period.color"
+               [style.left]="period.from*zoom+bias*zoom+'px'"
+               [style.height]="periodHeight+'px'"
+               [style.lineHeight]="periodHeight-2+'px'"
+               style=" top:0; ">
+            <span class="name"><span style="display: inline-block;">{{period.name}}</span></span>
+            <div class="popup"
+                 style="left:0px;">
+              <div>{{period.name}} {{period.from|number}} ~ {{period.to|number}}</div>
+              <div>
+                <div class="title">时长：</div>
+                <div class="content">{{period.to-period.from|number}}</div>
+                <div style="clear:both;"></div>
+              </div>
+              <a [href]="'https://baike.baidu.com/item/'+period.name"
+                 target="_blank"
+                 style="display: block;">百度百科</a>
             </div>
           </div>
         </div>
