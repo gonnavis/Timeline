@@ -1,7 +1,15 @@
-<div id="timeline" >
+<div id="timeline">
 
+  <div id="ruler"> </div>
+  <div class="vBar"
+       [style.left]="mouseX-2+'px'"></div>
+  <div class="mouseTime"
+       [style.left]="mouseX-2+'px'">
+    {{mouseTime-2|number}}
+  </div>
 
-  <div id="option">
+  <div id="option"
+       [style.top]="rulerHeight+'px'">
     <div class="timelines">
       <div class="timeline"
            *ngFor="let timeline of TIMELINES">
@@ -21,6 +29,9 @@
     <a class="sourceCode"
        href="https://github.com/gonnavis/Timeline"
        target="_blank">github</a>
+       <a class="sourceCode"
+          href="https://gitee.com/gonnavis/Timeline"
+          target="_blank">gitee</a>
 
     <!-- <button ng-hide="customShow"
             style="margin:5px 0px 40px 30px;"
@@ -40,6 +51,9 @@
     <div style="clear:both;float: none;height: 0;min-height: 0;max-height: 0;"></div>
   </div>
 
+  <div class="areaTopPadding"
+       [style.height]="headHeight+'px'">
+  </div>
   <div class="area"
        *ngFor="let timeline of timelines">
     <div class="row"

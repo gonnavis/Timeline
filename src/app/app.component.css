@@ -1,10 +1,19 @@
 
-#timeline{position: relative;min-width:100%;min-height:100%;box-sizing:border-box;border-bottom: solid 1px rgb(223,223,223);}
+#timeline{position: relative;min-width:100%;min-height:100%;box-sizing:border-box;border-bottom: solid 1px rgb(223,223,223);width:99999px;}
 #timeline .vBar{z-index:99;position: absolute;height: 100%;width:1px;background: black;top:0;}
 #timeline .mouseTime{color:white;position: absolute;line-height: 24px;top:0;z-index:99;}
 
+#option{background:rgb(223,223,223);padding:10px ;position: fixed;left: 0;top:0;width:100%;z-index: 2;}
+#option>*{float: left;min-height: 29px;}
+#option .timeline{float: left;margin:5px 0 5px 20px;}
+#option .zoom{margin:5px 0 5px 20px;}
+#option .zoom .value{display: inline-block;width: 70px;}
+#option .new_timelines{border:solid 1px gray;border-radius: 4px ;padding:5px;margin-left:  30px;vertical-align: middle;}
+#option .new_timelines *{vertical-align: middle;}
+#option .new_timelines button{margin-left: 5px;}
+
+.areaTopPadding{}
 .area{position: relative;border:solid rgb(180,180,180);border-width:1px 0;margin:0 0 10px 0;background: white;}
-.area .time{position: absolute;top:0;left: 0;z-index: 2;text-shadow:1px 1px white;background: rgb(223,223,223);padding:5px;}
 .area .period{text-align: center;word-break: keep-all;text-shadow:1px 1px white;position: absolute;box-sizing: border-box;border:solid 1px gray;font-size:14px;cursor:default;}
 .area .period .name span{transition: all 0.5s;}
 .area .period:hover{z-index: 100;}
@@ -13,15 +22,6 @@
 .area .popup .title{float: left;}
 .area .popup .content{float: left;}
 .area .name{display: block;position: absolute;transition: 0.5s;transition-property:top,right,bottom,left,width,height;top:0;right: 0;left: 0;margin:auto;}
-
-#option{background:rgb(223,223,223);padding:10px ;}
-#option>*{float: left;min-height: 29px;}
-#option .timeline{float: left;margin:5px 0 5px 20px;}
-#option .zoom{margin:5px 0 5px 20px;}
-#option .zoom .value{display: inline-block;width: 70px;}
-#option .new_timelines{border:solid 1px gray;border-radius: 4px ;padding:5px;margin-left:  30px;vertical-align: middle;}
-#option .new_timelines *{vertical-align: middle;}
-#option .new_timelines button{margin-left: 5px;}
 
 #ruler{height: 24px;background: black;position: fixed;top:0;left:0;width:100%;z-index:51;}
 #ruler .highBar{width:1px;margin-right:3px;float:left;height: 100%;background: rgb(125,125,125);display: none;}

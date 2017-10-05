@@ -22,6 +22,11 @@ export class AppComponent implements OnInit {
   zoomStep: number = 0.1;
   zoomMin: number = 0.1;
   zoomFix: number = 1;
+  mouseTime: number=0;
+  rulerHeight:number=24;
+  headHeight:number=0;
+  mouseX=0;
+  mouseY=0;
   TIMELINES: Timeline[] = TIMELINES;
   timelines: Timeline[] = [];
   constructor(private timelineService: TimelineService) { }
@@ -32,9 +37,26 @@ export class AppComponent implements OnInit {
     this.timelineService.processTimelines(TIMELINES)
     console.log(this.timelines)
     this.addTimeline(TIMELINES[0]);
-    window.addEventListener('mousewheel', function (e) {
-      _this.mouseWheel(e)
+    window.addEventListener('resize', function (event) {
+      _this.setHeadHeight();
     })
+    window.addEventListener('mousewheel', function (event) {
+      _this.mouseWheel(event)
+    })
+    window.addEventListener('mousemove', function (event) {
+      _this.mouseX = event.pageX;
+      _this.mouseY = event.pageY;
+      _this.mouseTime = Math.floor(_this.mouseX / _this.zoom + _this.min);
+    })
+    // window.dispatchEvent(new Event('resize'));
+    setTimeout(function(){
+      _this.setHeadHeight();
+      document.body.scrollLeft = 0;
+    },0)
+  }
+  setHeadHeight(){
+    var optionHeight=document.getElementById('option').clientHeight;
+    this.headHeight=optionHeight+this.rulerHeight;
   }
   addTimeline(timeline: Timeline) {
     this.timelines.push(timeline)
@@ -84,13 +106,23 @@ export class AppComponent implements OnInit {
   zoomIn(): void {
     this.zoom = +(this.zoom + this.zoomStep).toFixed(this.zoomFix);
   }
-  mouseWheel(event:any): void {
+  mouseWheel(event: any): void {
+    if (event.ctrlKey || event.altKey || event.shiftKey) {
+      return;
+    }
     var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
     if (delta > 0) {//mouseWheelUp
-      this.zoom = +(this.zoom + this.zoomStep).toFixed(this.zoomFix);
+      this.zoomIn();
+      this.panTo(this.mouseTime, -event.clientX);
     }
     else if (delta < 0) {//mouseWheelDown
-      this.zoom = +(this.zoom - this.zoomStep).toFixed(this.zoomFix);
+      this.zoomOut();
+      this.panTo(this.mouseTime, -event.clientX);
     }
+  }
+  panTo(year: number, bias: number) {
+    // debugger
+    var to: number = (-this.min + year) * this.zoom + bias;
+    document.body.scrollLeft = to;
   }
 }
