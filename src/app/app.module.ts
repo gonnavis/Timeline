@@ -6,11 +6,9 @@ import { AppComponent } from './app.component';
 
 import{TimelineService}from'./service/timeline.service';
 
-// import { MouseWheelDirective } from './directive/mousewheel.directive';
-
 @NgModule({
   imports: [ BrowserModule, FormsModule, ],
-  declarations: [ AppComponent,/* MouseWheelDirective, */ ],
+  declarations: [ AppComponent ],
   providers: [TimelineService],
   bootstrap: [AppComponent]
 })
