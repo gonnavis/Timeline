@@ -3,6 +3,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { TIMELINES } from './data/timelines';
 
 import { Timeline } from './type/timeline';
+import { CssTransform } from './type/css-transform';
 
 import { TimelineService } from './service/timeline.service';
 
@@ -14,6 +15,7 @@ import { TimelineService } from './service/timeline.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  constructor(private timelineService: TimelineService) { }
   periodHeight: number = 30;
   zoom: number = 0.3;
   bias: number = 0;
@@ -25,11 +27,11 @@ export class AppComponent implements OnInit {
   mouseTime: number=0;
   rulerHeight:number=24;
   headHeight:number=0;
+  areasTransform:CssTransform;
   mouseX=0;
   mouseY=0;
   TIMELINES: Timeline[] = TIMELINES;
   timelines: Timeline[] = [];
-  constructor(private timelineService: TimelineService) { }
   ngOnInit() {
     var _this = this;
     // console.log(this.timelineService.data);
@@ -110,6 +112,7 @@ export class AppComponent implements OnInit {
     if (event.ctrlKey || event.altKey || event.shiftKey) {
       return;
     }
+    event.preventDefault();
     var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
     if (delta > 0) {//mouseWheelUp
       this.zoomIn();
@@ -140,5 +143,8 @@ export class AppComponent implements OnInit {
     var nameTextNode=name.childNodes[0];
     name.style.top=0;
     nameTextNode.style.backgroundColor='transparent';
+  }
+  areasLoaded(event):void{
+    console.log('load');
   }
 }

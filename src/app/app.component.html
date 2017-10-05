@@ -2,7 +2,8 @@
 
   <div id="ruler"> </div>
   <div class="vBar"
-       [style.left]="mouseX-2+'px'"></div>
+       [style.left]="mouseX-2+'px'">
+  </div>
   <div class="mouseTime"
        [style.left]="mouseX-2+'px'">
     {{mouseTime-2|number}}
@@ -33,57 +34,41 @@
        href="https://gitee.com/gonnavis/Timeline"
        target="_blank">gitee</a>
 
-    <!-- <button ng-hide="customShow"
-            style="margin:5px 0px 40px 30px;"
-            ng-init="customShow=false"
-            ng-click="customShow=true">自定义数据</button>
-    <div ng-show="customShow"
-         class="new_timelines"
-         style="position: relative;">
-      <div><textarea ng-model="m.new_timelines"></textarea><button ng-click="set_new_timelines()">设置新数据</button></div>
-      <div style="font-size:12px;margin-top: 3px;">在文本框中粘贴新时间数据,<a href="https://github.com/gonnavis/Timeline/blob/master/timeline.js"
-           target="_blank">格式参考这里</a>但不要"var timelines="这几个字</div>
-      <div style="position: absolute;top:3px;right: 3px;border:solid 1px gray;border-radius: 50%;width: 20px;height: 20px;text-align: center;cursor: pointer;font-family: 'Microsoft YaHei';"
-    
-           ng-click="customShow=false;">X</div>
-    </div> -->
-
     <div style="clear:both;float: none;height: 0;min-height: 0;max-height: 0;"></div>
   </div>
 
-  <div class="areaTopPadding"
-       [style.height]="headHeight+'px'">
-  </div>
-  <div class="area"
-       *ngFor="let timeline of timelines">
-    <div class="row"
-         *ngFor="let row of timeline.rows"
-         [style.height]="periodHeight+'px'"
-         style="position:relative;margin-bottom: -1px;">
-      <div class="period"
-           *ngFor="let period of row;let index=index"
-           (mouseenter)="periodMouseenter($event)"
-           (mouseleave)="periodMouseleave($event)"
-           [style.width]="period.span*zoom+'px'"
-           [style.background]="period.color"
-           [style.left]="period.from*zoom+bias*zoom+'px'"
+  <div class="areas"
+       [style.top]="headHeight+'px'">
+    <div class="area"
+         *ngFor="let timeline of timelines">
+      <div class="row"
+           *ngFor="let row of timeline.rows"
            [style.height]="periodHeight+'px'"
-           [style.lineHeight]="periodHeight-2+'px'"
-           style=" top:0; ">
-        <span class="name"><span style="display: inline-block;">{{period.name}}</span></span>
-        <div class="popup"
-             style="left:0px;">
-          <div>{{period.name}} {{period.from|number}} ~ {{period.to|number}}</div>
-          <div>
-            <div class="title">时长：</div>
-            <div class="content">{{period.to-period.from|number}}</div>
-            <div style="clear:both;"></div>
+           style="position:relative;margin-bottom: -1px;">
+        <div class="period"
+             *ngFor="let period of row;let index=index"
+             (mouseenter)="periodMouseenter($event)"
+             (mouseleave)="periodMouseleave($event)"
+             [style.width]="period.span*zoom+'px'"
+             [style.background]="period.color"
+             [style.left]="period.from*zoom+bias*zoom+'px'"
+             [style.height]="periodHeight+'px'"
+             [style.lineHeight]="periodHeight-2+'px'"
+             style=" top:0; ">
+          <span class="name"><span style="display: inline-block;">{{period.name}}</span></span>
+          <div class="popup"
+               style="left:0px;">
+            <div>{{period.name}} {{period.from|number}} ~ {{period.to|number}}</div>
+            <div>
+              <div class="title">时长：</div>
+              <div class="content">{{period.to-period.from|number}}</div>
+              <div style="clear:both;"></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 
 
 
