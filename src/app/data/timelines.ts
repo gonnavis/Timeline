@@ -1,11 +1,14 @@
 export const TIMELINES = [
   {
     name: '主干', periods: [
-      { name: '三皇', from: -4000, to: -2717 },
-      { name: '黄帝', from: -2717, to: -2599 },
-      { name: '尧舜禹', from: -2226, to: -2070 },
-      { name: '五帝', from: -2717, to: -2070 },
-      { name: '夏朝', from: -2070, to: -1600 },
+      // { name: '三皇时代', from: -4000, to: -2717 },
+      { name: '三皇时代', from: -4000, to: -3077 },
+      // { name: '黄帝', from: -2717, to: -2599 },
+      // { name: '尧舜禹', from: -2226, to: -2070 },
+      // { name: '五帝时代', from: -2717, to: -2070 },
+      { name: '五帝时代', from: -3076, to: -2029 },
+      // { name: '夏朝', from: -2070, to: -1600 },
+      { name: '夏朝', from: -2029, to: -1600 },
       { name: '商朝', from: -1700, to: -1027 },
       { name: '周朝', from: -1066, to: -221 },
       { name: '春秋', from: -770, to: -476 },
