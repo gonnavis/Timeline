@@ -27,7 +27,11 @@ export const TIMELINES = [
       { name: '金', from: 1115, to: 1234 },
       { name: '元朝', from: 1279, to: 1368 },
       { name: '明朝', from: 1368, to: 1644 },
-      { name: '清朝', from: 1644, to: 1911 }]
+      { name: '清朝', from: 1644, to: 1911 },
+      { name: '古蜀文明', from: -3000, to: -1200 },
+      { name: '良渚文明', from: -3230, to: -2130 },
+      { name: '龙山文化 ', from: -2500, to: -2000 },
+    ]
   },
   {
     name: '春秋战国', periods: [
@@ -151,7 +155,9 @@ export const TIMELINES = [
       { name: '奥斯曼', from: 1299, to: 1923, englishName: '' },
       { name: '新巴比伦', from: -626, to: -539, englishName: '' },
       { name: '腓尼基', from: -1500, to: -300, englishName: '' },
-      { name: '米底', from: -728, to: -550, englishName: '' }]
+      { name: '米底', from: -728, to: -550, englishName: '' },
+      { name: '花剌子模', from: 1142, to: 1231, englishName: '' },
+    ]
   },
   {
     name: '欧洲', periods: [
@@ -172,8 +178,9 @@ export const TIMELINES = [
       { name: '奥地利帝国', from: 1804, to: 1867, englishName: '' },
       { name: '迈锡尼', from: -1600, to: -1200, englishName: '' },
       { name: '希腊黑暗时代', from: -1200, to: -800, englishName: '' },
-      { name: '米诺斯', from: -2700, to: -1450, englishName: '' },
-      { name: '欧洲黑暗时代', from: 476, to: 1400, englishName: '' }]
+      { name: '米诺斯', from: -2700, to: -1450, alias:'克里特', englishName: '' },
+      { name: '欧洲黑暗时代', from: 476, to: 1400, englishName: '' },
+    ]
   },
   {
     name: '非洲', periods: [
@@ -185,6 +192,38 @@ export const TIMELINES = [
       { name: '埃及新王朝', from: -1600, to: -1100, englishName: '' },
       { name: '埃及后王朝', from: -664, to: -343, englishName: '' },
       { name: '迦太基', from: -650, to: -146, englishName: '' }]
+  },
+  {
+    name: '印度', periods: [
+      { name: '哈拉巴文化', from: -2300, to: -1750, alias: '', englishName: '' },
+      { name: '吠陀时代', from: -1500, to: -700, alias: '', englishName: '' },
+      { name: '摩揭陀国', from: -544, to: 500, alias: '', englishName: '' },
+      { name: '尸修那伽王朝', from: -413, to: -364, alias: '', englishName: '' },
+      { name: '难陀王朝', from: -364, to: -324, alias: '', englishName: '' },
+      { name: '孔雀王朝', from: -324, to: -188, alias: '', englishName: '' },
+      { name: '百乘王朝', from: -230, to: 220, alias: '', englishName: '' },
+      { name: '巽加王朝', from: -185, to: -73, alias: '', englishName: '' },
+      { name: '甘婆王朝', from: -75, to: -30, alias: '', englishName: '' },
+      { name: '笈多王朝', from: 320, to: 500, alias: '', englishName: '' },
+      // { name: '', from: -, to: -, alias:'', englishName: '' },
+      // { name: '', from: -, to: -, alias:'', englishName: '' },
+    ]
+  },
+  {
+    name: '美洲', periods: [
+      { name: '阿兹特克', from: 1325, to: 1524, alias: '', englishName: '' },
+      { name: '玛雅文明', from: -1500, to: 1697, alias: '', englishName: '' },
+      { name: '印加', from: 1200, to: 1533, alias: '', englishName: '' },
+      { name: '奥尔梅克文明', from: -1800, to: -300, alias: '', englishName: '' },
+      // { name: '', from: , to: , alias:'', englishName: '' },
+      // { name: '', from: , to: , alias:'', englishName: '' },
+      // { name: '', from: , to: , alias:'', englishName: '' },
+      // { name: '', from: , to: , alias:'', englishName: '' },
+      // { name: '', from: , to: , alias:'', englishName: '' },
+      // { name: '', from: , to: , alias:'', englishName: '' },
+      // { name: '', from: , to: , alias:'', englishName: '' },
+      // { name: '', from: , to: , alias:'', englishName: '' },
+    ]
   },
   // {
   //   name: '地球史', periods: [
@@ -209,3 +248,4 @@ export const TIMELINES = [
   //     { name: '第四纪', from: -2580000, to: 2016 }]
   // },
 ]
+// { name: '', from: , to: , alias:'', englishName: '' },

@@ -35,10 +35,11 @@ export class AppComponent implements OnInit {
   mouseX: number = 0;
   mouseY: number = 0;
   translateX: number = 0;
-  translateY: number = 0;
+  translateY: number = 40;
   scale: number = 1;
   transform: SafeStyle;
-  is_show_contact:boolean=false;
+  now_year: number = new Date().getFullYear();
+  is_show_contact: boolean = false;
   TIMELINES: Timeline[] = TIMELINES;
   timelines: Timeline[] = [];
   ngOnInit() {
@@ -132,7 +133,7 @@ export class AppComponent implements OnInit {
     }
   }
   areas_mousedown(event): void {
-    if(event.button===0){
+    if (event.button === 0) {
       event.preventDefault();
       this.isMouseDown = true;
     }
@@ -182,9 +183,9 @@ export class AppComponent implements OnInit {
       this.setTransform();
     }
   }
-  periodMousedown(event,period:Period):void{
-    if(event.button===2){
-      period.right_clicked=!period.right_clicked;
+  periodMousedown(event, period: Period): void {
+    if (event.button === 2) {
+      period.right_clicked = !period.right_clicked;
     }
   }
   periodMouseenter(event): void {
@@ -196,14 +197,14 @@ export class AppComponent implements OnInit {
       nameTextNode.style.backgroundColor = 'white';
     }
   }
-  periodMouseleave(event,period:Period): void {
+  periodMouseleave(event, period: Period): void {
     var dom = event.currentTarget;
     var name = dom.querySelector('.name')
     var nameTextNode = name.childNodes[0];
     name.style.top = 0;
     nameTextNode.style.backgroundColor = 'transparent';
 
-    period.right_clicked=false;
+    period.right_clicked = false;
   }
   areasLoaded(event): void {
     console.log('load');

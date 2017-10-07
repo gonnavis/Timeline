@@ -5,8 +5,10 @@
        [style.left]="mouseX+'px'">
   </div>
   <div class="mouseTime"
-       [style.left]="mouseX+'px'">
-    {{mouseTime|number}}
+       [style.left]="mouseX+'px'"
+       style="white-space: nowrap">
+    <span>{{mouseTime|number}}</span>
+    <span style="margin-left: 5px;">距今: {{now_year-mouseTime|number}}</span>
   </div>
 
   <div id="option"
@@ -33,14 +35,13 @@
     <a class="sourceCode"
        href="https://gitee.com/gonnavis/Timeline"
        target="_blank">gitee</a>
-    <div class="contact" style="margin: 8px 0 5px 30px;font-size:14px;">
-      <button (click)="is_show_contact=!is_show_contact" style="cursor: pointer;">contact</button>
+    <div class="contact"
+         style="margin: 8px 0 5px 30px;font-size:14px;">
+      <button (click)="is_show_contact=!is_show_contact"
+              style="cursor: pointer;">contact</button>
       <span [hidden]="!is_show_contact">
-        <span>邮箱: gonnavis@163.com</span>
-        &nbsp;
-        <span>QQ: 125798032</span>
-        &nbsp;
-        <span>微信: gonnavis</span>
+        <span>邮箱: gonnavis@163.com</span> &nbsp;
+      <span>QQ: 125798032</span>
       </span>
     </div>
     <div style="clear:both;float: none;height: 0;min-height: 0;max-height: 0;"></div>
@@ -85,7 +86,10 @@
               </div>
               <a [href]="'https://baike.baidu.com/item/'+period.name"
                  target="_blank"
-                 style="display: block;">百度百科</a>
+                 >百度百科</a>
+              <a [href]="'https://www.baidu.com/s?wd='+period.name"
+                 target="_blank"
+                 >百度搜索</a>
             </div>
           </div>
         </div>
