@@ -1,5 +1,10 @@
+<%if request.ServerVariables("HTTP_HOST")="www.gonnavis.com" then
+Response.Status="301 Moved Permanently"
+Response.AddHeader "Location","http://gonnavis.com/timeline/"
+Response.End
+end if%>
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="utf-8">
