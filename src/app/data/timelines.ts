@@ -202,7 +202,7 @@ export const TIMELINES = [
     name: '印度', periods: [
       { name: '哈拉巴文化', from: -2300, to: -1750, alias: '', name_en: '' },
       { name: '吠陀时代', from: -1500, to: -700, alias: '', name_en: '' },
-      { name: '摩揭陀国', from: -544, to: 500, alias: '', name_en: '' },
+      { name: '摩揭陀国', from: -544, to: 648, alias: '', name_en: '' },
       { name: '尸修那伽王朝', from: -413, to: -364, alias: '', name_en: '' },
       { name: '难陀王朝', from: -364, to: -324, alias: '', name_en: '' },
       { name: '孔雀王朝', from: -324, to: -188, alias: '', name_en: '' },
@@ -217,6 +217,9 @@ export const TIMELINES = [
   {
     name: '美洲', periods: [
       { name: '阿兹特克', from: 1325, to: 1524, alias: '', name_en: '' },
+      { name: '玛雅文明', from: -1500, to: 1697, alias: '', name_en: '' },
+      { name: '印加', from: 1200, to: 1533, alias: '', name_en: '' },
+      { name: '奥尔梅克文明', from: -1800, to: -300, alias: '', name_en: '' },
     ]
   },
   // {

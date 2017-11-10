@@ -20,52 +20,52 @@ export class AppComponent implements OnInit {
     private timelineService: TimelineService,
     private sanitizer: DomSanitizer,
   ) { }
-  periodHeight: number = 30;
-  zoom: number = 0.3;
-  bias: number = 0;
-  totalWidth: number = 0;
-  min: number;// minimun year of all previous added (include already removed) timeline
-  zoomStep: number = 0.1;
-  zoomMin: number = 0.1;
-  zoomFix: number = 2;
-  mouseTime: number = 0;
-  rulerHeight: number = 24;
-  headHeight: number = 0;
-  isMouseDown: boolean = false;
-  mouseX: number = 0;
-  mouseY: number = 0;
-  translateX: number = 0;
-  translateY: number = 40;
-  scale: number = 1;
+  periodHeight = 30;
+  zoom = 0.3;
+  bias = 0;
+  totalWidth = 0;
+  min: number; // minimun year of all previous added (include already removed) timeline
+  zoomStep = 0.1;
+  zoomMin = 0.1;
+  zoomFix = 2;
+  mouseTime = 0;
+  rulerHeight = 24;
+  headHeight = 0;
+  isMouseDown = false;
+  mouseX = 0;
+  mouseY = 0;
+  translateX = 0;
+  translateY = 40;
+  scale = 1;
   transform: SafeStyle;
   now_year: number = new Date().getFullYear();
-  is_show_contact: boolean = false;
+  is_show_contact = false;
   TIMELINES: Timeline[] = TIMELINES;
   timelines: Timeline[] = [];
   ngOnInit() {
     this.setTransform();
     // console.log(this.timelineService.data);
     // console.log(this.timelineService.rowData);
-    this.timelineService.processTimelines(TIMELINES)
+    this.timelineService.processTimelines(TIMELINES);
     // console.log(this.timelines);
-    console.log(TIMELINES);
+    // console.log(TIMELINES);
     this.addTimeline(TIMELINES[0]);
     window.addEventListener('resize', event => {
       this.setHeadHeight();
-    })
-    window.addEventListener('mousewheel', event => {
-    })
+    });
+    window.addEventListener('wheel', event => {
+    });
     window.addEventListener('mousedown', event => {
-    })
+    });
     window.addEventListener('mouseup', event => {
-    })
+    });
     window.addEventListener('mousemove', event => {
-    })
+    });
     // window.dispatchEvent(new Event('resize'));
     setTimeout(() => {
       this.setHeadHeight();
       document.body.scrollLeft = 0;
-    }, 0)
+    }, 0);
   }
   wheelUp(event: any) {
     this.zoomIn();
@@ -74,14 +74,15 @@ export class AppComponent implements OnInit {
     this.zoomOut();
   }
   setTransform(): void {
-    this.transform = this.sanitizer.bypassSecurityTrustStyle(` translateY(${this.translateY}px) translateX(${this.translateX}px) scale(${this.scale})`);
+    this.transform = this.sanitizer.bypassSecurityTrustStyle(
+      ` translateY(${this.translateY}px) translateX(${this.translateX}px) scale(${this.scale})`);
   }
   setHeadHeight() {
-    var optionHeight = document.getElementById('option').clientHeight;
+    const optionHeight = document.getElementById('option').clientHeight;
     this.headHeight = optionHeight + this.rulerHeight;
   }
   addTimeline(timeline: Timeline) {
-    this.timelines.push(timeline)
+    this.timelines.push(timeline);
     if (this.bias < -timeline.min) {
       this.bias = -timeline.min;
     }
@@ -92,8 +93,7 @@ export class AppComponent implements OnInit {
       if (timeline.min < this.min) {
         this.min = timeline.min;
       }
-    }
-    else {
+    } else {
       this.min = timeline.min;
     }
     timeline.act = true;
@@ -107,8 +107,7 @@ export class AppComponent implements OnInit {
       //   this.zoomMin = 0.0000001;
       //   this.zoomFix = 7;
       // }
-    }
-    else {
+    } else {
       this.removeTimeline(timeline);
       // if (timeline.name == '地球史') {
       //   location.reload();
@@ -119,16 +118,16 @@ export class AppComponent implements OnInit {
     this.timelines.splice(this.timelines.indexOf(timeline), 1);
     timeline.act = false;
   }
-  areas_mousewheel(event): void {
+  areas_wheel(event): void {
+    // console.log(event);
     // if (event.ctrlKey || event.altKey || event.shiftKey) {
     //   return false;
     // }
     event.preventDefault();
-    var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
-    if (delta > 0) {//mouseWheelUp
+    const delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
+    if (delta > 0) { // wheelUp
       this.wheelUp(event);
-    }
-    else if (delta < 0) {//mouseWheelDown
+    } else if (delta < 0) { // wheelDown
       this.wheelDown(event);
     }
   }
@@ -148,8 +147,8 @@ export class AppComponent implements OnInit {
   }
   areas_mousemove(event): void {
     event.preventDefault();
-    let deltaX = event.pageX - this.mouseX;
-    let deltaY = event.pageY - this.mouseY;
+    const deltaX = event.pageX - this.mouseX;
+    const deltaY = event.pageY - this.mouseY;
     // console.log(deltaX, deltaY);
     if (this.isMouseDown) {
       this.translateX += deltaX;
@@ -162,7 +161,7 @@ export class AppComponent implements OnInit {
 
   }
   zoomIn(): void {
-    let prevZoom = this.zoom;
+    const prevZoom = this.zoom;
 
     this.zoomStep = this.zoom / 10;
     this.zoom = +(this.zoom + this.zoomStep).toFixed(this.zoomFix);
@@ -171,7 +170,7 @@ export class AppComponent implements OnInit {
     this.setTransform();
   }
   zoomOut(): void {
-    let prevZoom = this.zoom;
+    const prevZoom = this.zoom;
 
     let zoom: number;
     this.zoomStep = this.zoom / 10;
@@ -189,18 +188,18 @@ export class AppComponent implements OnInit {
     }
   }
   periodMouseenter(event): void {
-    var period = event.currentTarget;
-    var name = period.querySelector('.name')
-    var nameTextNode = name.childNodes[0];
+    const period = event.currentTarget;
+    const name = period.querySelector('.name');
+    const nameTextNode = name.childNodes[0];
     if (nameTextNode.clientWidth > period.clientWidth) {
       name.style.top = '-45px';
       nameTextNode.style.backgroundColor = 'white';
     }
   }
   periodMouseleave(event, period: Period): void {
-    var dom = event.currentTarget;
-    var name = dom.querySelector('.name')
-    var nameTextNode = name.childNodes[0];
+    const dom = event.currentTarget;
+    const name = dom.querySelector('.name');
+    const nameTextNode = name.childNodes[0];
     name.style.top = 0;
     nameTextNode.style.backgroundColor = 'transparent';
 
