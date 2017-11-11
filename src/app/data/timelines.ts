@@ -9,7 +9,7 @@ export const TIMELINES = [
       { name: '良渚文化', from: -3230, to: -2130 },
       { name: '龙山文化 ', from: -2500, to: -2000 },
       // { name: '三皇时代', from: -4000, to: -2717 },
-      { name: '三皇时代', from: -4000, to: -3077 },
+      { name: '三皇时代', from: -7000, to: -3077 },
       // { name: '黄帝', from: -2717, to: -2599 },
       // { name: '尧舜禹', from: -2226, to: -2070 },
       // { name: '五帝时代', from: -2717, to: -2070 },
@@ -143,6 +143,10 @@ export const TIMELINES = [
   },
   {
     name: '西亚', periods: [
+      { name: '耶利哥文化', from: -7000, to: -6000, name_en: '' },
+      { name: '萨迈拉文化', from: -6000, to: -5000, name_en: '' },
+      { name: '欧贝德文化', from: -5900, to: -4000, name_en: '' },
+      { name: '哈苏纳文化', from: -6500, to: -5500, name_en: '' },
       { name: '苏美尔', from: -4000, to: -2000, name_en: '' },
       { name: '亚美尼亚', from: -95, to: -60, name_en: 'Armenian Empire' },
       { name: '安息波斯', from: -247, to: 224, name_en: 'Parthian Empire' },
