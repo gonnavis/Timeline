@@ -78,7 +78,8 @@
             <span class="name"><span style="display: inline-block;">{{period.name}}</span></span>
             <div class="popup"
                  style="left:0px;">
-              <div>{{period.name}} {{period.from|number}} ~ {{period.to|number}}</div>
+              <div>{{period.name}} {{period.from|number}} ~ {{period.to|number}} </div>
+              <div style="color:gray;">距今: {{now_year-period.from|number}} ~ {{now_year-period.to|number}}</div>
               <div>
                 <div class="title">时长：</div>
                 <div class="content">{{period.to-period.from|number}}</div>

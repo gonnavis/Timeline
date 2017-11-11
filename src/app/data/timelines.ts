@@ -6,7 +6,7 @@ export const TIMELINES = [
       { name: '马家浜文化', from: -5000, to: -4000 },
       { name: '崧泽文化', from: -3800, to: -2900 },
       { name: '古蜀文明', from: -3000, to: -1200 },
-      { name: '良渚文明', from: -3230, to: -2130 },
+      { name: '良渚文化', from: -3230, to: -2130 },
       { name: '龙山文化 ', from: -2500, to: -2000 },
       // { name: '三皇时代', from: -4000, to: -2717 },
       { name: '三皇时代', from: -4000, to: -3077 },
