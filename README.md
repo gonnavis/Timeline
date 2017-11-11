@@ -14,3 +14,4 @@
 <div>ng serve</div>
 <div>localhost:4200</div>
 <div>ng build --prod</div>
+<div>index.html 改名 index.asp</div>
