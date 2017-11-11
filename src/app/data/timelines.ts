@@ -1,6 +1,13 @@
 export const TIMELINES = [
   {
     name: '主干', periods: [
+      { name: '跨湖桥文化', from: -6000, to: -5000 },
+      { name: '河姆渡文化', from: -5000, to: -3300 },
+      { name: '马家浜文化', from: -5000, to: -4000 },
+      { name: '崧泽文化', from: -3800, to: -2900 },
+      { name: '古蜀文明', from: -3000, to: -1200 },
+      { name: '良渚文明', from: -3230, to: -2130 },
+      { name: '龙山文化 ', from: -2500, to: -2000 },
       // { name: '三皇时代', from: -4000, to: -2717 },
       { name: '三皇时代', from: -4000, to: -3077 },
       // { name: '黄帝', from: -2717, to: -2599 },
@@ -31,9 +38,6 @@ export const TIMELINES = [
       { name: '元朝', from: 1279, to: 1368 },
       { name: '明朝', from: 1368, to: 1644 },
       { name: '清朝', from: 1644, to: 1911 },
-      { name: '古蜀文明', from: -3000, to: -1200 },
-      { name: '良渚文明', from: -3230, to: -2130 },
-      { name: '龙山文化 ', from: -2500, to: -2000 },
     ]
   },
   {
