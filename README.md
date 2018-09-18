@@ -1,17 +1,21 @@
-<h1>时间线</h1>
+# timeline
 
-<a href="http://gonnavis.com/timeline" target="_blank">在线演示</a>
+> A Vue.js project
 
-<img src="http://gonnavis.com/timeline/preview2.png">
+## Build Setup
 
-<h3>简介</h3>
-<p>自动排列，直观地显示各个时间段。</p> 
+``` bash
+# install dependencies
+npm install
 
-<h3>计划开发功能</h3>
-<p>焦点/选区缩放，对应时期的地图，完善标尺，时间段嵌套，自定义／上传时间段。 </p>
+# serve with hot reload at localhost:8080
+npm run dev
 
+# build for production with minification
+npm run build
 
-<div>ng serve</div>
-<div>localhost:4200</div>
-<div>ng build --prod</div>
-<div>index.html 改名 index.asp</div>
+# build for production and view the bundle analyzer report
+npm run build --report
+```
+
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
