@@ -10,8 +10,3 @@
 <h3>计划开发功能</h3>
 <p>焦点/选区缩放，对应时期的地图，完善标尺，时间段嵌套，自定义／上传时间段。 </p>
 
-
-<div>ng serve</div>
-<div>localhost:4200</div>
-<div>ng build --prod</div>
-<div>index.html 改名 index.asp</div>
