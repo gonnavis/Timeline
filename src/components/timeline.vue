@@ -44,16 +44,10 @@ export default {
       renderer.setSize( window.innerWidth, window.innerHeight );
       s.r.container.appendChild( renderer.domElement );
 
-      var controls = window.controls = new THREE.OrbitControls(camera , renderer.domElement);
-      controls.enableRotate=false
-
-      camera.position.set(-3500,10,0)
-      // camera.lookAt(-3500,0,0)
-      // camera.position.x=-3500
       camera.zoom=.08
+      camera.position.set(-3500,10,0)
+      camera.lookAt(-3500,0,0)
       camera.updateProjectionMatrix()
-      controls.target.set(-3500, 0, 0)
-      controls.update()
 
 
 
