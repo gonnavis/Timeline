@@ -1,21 +1,109 @@
 <template>
-  <div class="component timeline">
-    timeline
+  <div class="component timeline" ref="container">
+    
   </div>
 </template>
 
 <script>
 // import data from './data.js'
-import data from './preprocess_data.js'
+import timelines from './preprocess_data.js'
 export default {
   name: 'timeline',
   data () {
     return {
+      r:null,
+      scene:null,
+      camera:null,
+      period_height:100,
     }
   },
   created(){
     let s=this
-    console.log(data)
+    console.log(timelines)
+  },
+  mounted(){
+    let s=this
+    s.r=s.$refs
+
+    s.init_three()
+    s.init_timelines()
+  },
+  methods:{
+    init_three(){
+      let s=this
+
+      var scene = s.scene = window.scene = new THREE.Scene();
+
+      let width=window.innerWidth
+      let height=window.innerHeight
+      var camera = s.camera = window.camera = new THREE.OrthographicCamera( width / - 2, width / 2, height / 2, height / - 2, 1, 10000000 );
+
+
+
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      s.r.container.appendChild( renderer.domElement );
+
+      var controls = window.controls = new THREE.OrbitControls(camera , renderer.domElement);
+      controls.enableRotate=false
+
+      camera.position.set(-3500,10,0)
+      // camera.lookAt(-3500,0,0)
+      // camera.position.x=-3500
+      camera.zoom=.08
+      camera.updateProjectionMatrix()
+      controls.target.set(-3500, 0, 0)
+      controls.update()
+
+
+
+      // helper
+        var helper={};
+        helper.gridHelper = new THREE.GridHelper( 20 , 20 );
+        scene.add( helper.gridHelper );
+
+        helper.geometry_x = new THREE.BoxGeometry( 10 , 0.1 , 0.1 );
+        helper.material_x = new THREE.MeshBasicMaterial( {color:'red'});
+        helper.mesh_x=new THREE.Mesh(helper.geometry_x,helper.material_x);
+        helper.mesh_x.position.x=5;
+        scene.add(helper.mesh_x);
+
+        helper.geometry_y = new THREE.BoxGeometry( .1 , 10 , 0.1 );
+        helper.material_y = new THREE.MeshBasicMaterial( {color:'green'});
+        var mesh_y=new THREE.Mesh(helper.geometry_y,helper.material_y);
+        mesh_y.position.y=5;
+        scene.add(mesh_y);
+
+        helper.geometry_z = new THREE.BoxGeometry( .1 , .1 , 10 );
+        helper.material_z = new THREE.MeshBasicMaterial( {color:'blue'});
+        helper.mesh_z=new THREE.Mesh(helper.geometry_z,helper.material_z);
+        helper.mesh_z.position.z=5;
+        scene.add(helper.mesh_z);
+
+
+
+      var animate = function () {
+        requestAnimationFrame( animate );
+
+        renderer.render(scene, camera);
+      };
+
+      animate();
+    },
+    init_timelines(){
+      let s=this
+      timelines[0].rows.forEach((row,ri)=>{
+        row.forEach((period,pi)=>{
+          let geo=new THREE.PlaneBufferGeometry(period.span, s.period_height)
+          let mtl=new THREE.MeshBasicMaterial({color:period.color, side:THREE.DoubleSide})
+          let mesh=new THREE.Mesh(geo, mtl)
+          mesh.rotation.x=Math.PI/2
+          mesh.position.x=period.from
+          mesh.position.z=ri*s.period_height
+          s.scene.add(mesh)
+        })
+      })
+    }
   }
 }
 </script>
