@@ -1,5 +1,5 @@
 <template>
-  <div class="component timeline" @mousewheel="onmousewheel($event)">
+  <div class="component timeline" ref="component" @mousewheel="onmousewheel($event)">
     <div class="global" :style="get_global_style()">
       <div class="area" v-for="(area, i) in global.areas" :style="get_area_style(area, i)">
         <div class="row" v-for="(row, i) in area.rows" :style="get_row_style(row, i)">
@@ -17,10 +17,12 @@ export default {
   name: 'timeline',
   data () {
     return {
-      r:null,
-      global:global,
-      period_height:30,
-      zoom:.1,
+      r: null,
+      global: global,
+      period_height: 30,
+      zoom: .1,
+      global_left: 0,
+      global_top: 0,
     }
   },
   created(){
@@ -30,19 +32,27 @@ export default {
   mounted(){
     let s=this
     s.r=s.$refs
+
+    let vh=new VSHammer(s.r.component);
+    vh.on('pan', function(ve){
+      // console.log(ve)
+      s.global_left+=ve.deltaX;
+      s.global_top+=ve.deltaY;
+    })
   },
   methods:{
     onmousewheel(e){
       let s=this;
       console.log(e);
       s.zoom+=-e.deltaY/10000;
+      if(s.zoom<.01) s.zoom=.01;
     },
     get_global_style(){
       let s=this;
       let style={
         position: 'relative',
-        top: '0px',
-        left: -s.global.min*s.zoom+'px',
+        left: s.global_left-s.global.min*s.zoom+'px',
+        top: s.global_top+'px',
       }
       return style;
     },
