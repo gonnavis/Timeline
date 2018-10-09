@@ -1,24 +1,24 @@
 export default {
-    getRows(timeline){
-        var periods=timeline.periods;
+    getRows(area){
+        var periods=area.periods;
         var rows = [];
         var tempData = periods.slice();
-        function setRow(row) {
-            var arr = [];
-            arr.push(tempData.splice(0, 1)[0]);
+        function setRow(row_i) {
+            var row = {periods:[]};
+            row.periods.push(tempData.splice(0, 1)[0]);
             var length = tempData.length;
             for (var i = 0; i < length;) {
-                if (tempData[i].from >= arr[arr.length - 1].to) {
-                    arr.push(tempData.splice(i, 1)[0]);
+                if (tempData[i].from >= row.periods[row.periods.length - 1].to) {
+                    row.periods.push(tempData.splice(i, 1)[0]);
                     length--;
                 }
                 else {
                     i++;
                 }
             }
-            rows.push(arr);
+            rows.push(row);
             if (tempData.length > 0) {
-                setRow(++row);
+                setRow(++row_i);
             }
         }
         setRow(0);
@@ -29,30 +29,30 @@ export default {
             periods[i].color = 'rgb(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ')';
         }
     },
-    processTimelines(timelines) {
-        for (var i = 0; i < timelines.length; i++) {
-            this.addProperties(timelines[i]);
+    processTimelines(areas) {
+        for (var i = 0; i < areas.length; i++) {
+            this.addProperties(areas[i]);
         }
     },
-    addProperties(timeline) {
-        var periods = timeline.periods;
+    addProperties(area) {
+        var periods = area.periods;
         //算出各项参数
         for (var i = 0; i < periods.length; i++) {
             var period = periods[i];
-            if (!timelineMin) {
-                var timelineMin = period.from;
+            if (!areaMin) {
+                var areaMin = period.from;
             }
             else {
-                if (period.from < timelineMin) {
-                    timelineMin = period.from;
+                if (period.from < areaMin) {
+                    areaMin = period.from;
                 }
             }
-            if (!timelineMax) {
-                var timelineMax = period.to;
+            if (!areaMax) {
+                var areaMax = period.to;
             }
             else {
-                if (period.to > timelineMax) {
-                    timelineMax = period.to;
+                if (period.to > areaMax) {
+                    areaMax = period.to;
                 }
             }
             period.span = period.to - period.from;
@@ -75,9 +75,9 @@ export default {
 
         this.setColor(periods);
 
-        timeline.rows = this.getRows(timeline);
-        timeline.min=timelineMin;
-        timeline.max=timelineMax;
-        timeline.span=timelineMax-timelineMin;
+        area.rows = this.getRows(area);
+        area.min=areaMin;
+        area.max=areaMax;
+        area.span=areaMax-areaMin;
     }
 }

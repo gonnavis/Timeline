@@ -1,6 +1,7 @@
 import timeline_service from './timeline_service'
-import data from './data'
+import areas from './data'
 
-timeline_service.processTimelines(data)
+timeline_service.processTimelines(areas)
+var global={areas}
 
-export default data
+export default global
