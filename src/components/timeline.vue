@@ -1,5 +1,5 @@
 <template>
-  <div class="component timeline">
+  <div class="component timeline" @mousewheel="onmousewheel($event)">
     <div class="global" :style="get_global_style()">
       <div class="area" v-for="(area, i) in global.areas" :style="get_area_style(area, i)">
         <div class="row" v-for="(row, i) in area.rows" :style="get_row_style(row, i)">
@@ -20,7 +20,7 @@ export default {
       r:null,
       global:global,
       period_height:30,
-      scale:.1,
+      zoom:.1,
     }
   },
   created(){
@@ -30,15 +30,19 @@ export default {
   mounted(){
     let s=this
     s.r=s.$refs
-
   },
   methods:{
+    onmousewheel(e){
+      let s=this;
+      console.log(e);
+      s.zoom+=-e.deltaY/10000;
+    },
     get_global_style(){
       let s=this;
       let style={
         position: 'relative',
         top: '0px',
-        left: -s.global.min*s.scale+'px',
+        left: -s.global.min*s.zoom+'px',
       }
       return style;
     },
@@ -49,9 +53,6 @@ export default {
         position: 'relative',
         height: height+'px',
         width: '100%',
-        // left: '0px',
-        // top: i*height+'px',
-        // 'background-color': `rgb(${255*Math.random()}, ${255*Math.random()}, ${255*Math.random()})`,
       };
       return style;
     },
@@ -61,8 +62,6 @@ export default {
       let style={
         position: 'relative',
         height: height+'px',
-        // top: i*height+'px',
-        // left: '0px',
       };
       return style;
     },
@@ -71,15 +70,17 @@ export default {
       let height=s.period_height;
       let style={
         position: 'absolute',
-        left: period.from*s.scale+'px',
+        left: period.from*s.zoom+'px',
         top: '0px',
-        width: period.span*s.scale+'px',
+        width: period.span*s.zoom+'px',
         height: height+'px',
+        'box-sizing': 'border-box',
+        border: 'solid 1px gray',
         'line-height': height+'px',
         color: 'black',
         'text-shadow': 'rgb(255, 255, 255) 1px 1px 0px',
         'word-break': 'keep-all',
-        'background-color': `rgb(${100+155*Math.random()}, ${100+155*Math.random()}, ${100+155*Math.random()})`,
+        'background-color': period.color,
       };
       return style;
     }

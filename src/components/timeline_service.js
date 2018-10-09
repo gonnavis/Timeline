@@ -26,7 +26,7 @@ export default {
     },
     setColor(periods) {
         for (var i = 0; i < periods.length; i++) {
-            periods[i].color = 'rgb(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ')';
+            periods[i].color = 'rgba(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ', .5)';
         }
     },
     processTimelines(areas) {
