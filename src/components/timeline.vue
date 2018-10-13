@@ -69,8 +69,8 @@ export default {
   methods:{
     component_pan(ve){
       let s=this
-      s.global_left+=ve.deltaX;
-      s.global_top+=ve.deltaY;
+      s.global_left+=ve.deltaX*3;
+      s.global_top+=ve.deltaY*3;
     },
     menu_area_click(ve, area, i){
       let s=this;
