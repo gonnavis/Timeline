@@ -1,5 +1,5 @@
 <template>
-  <div class="component timeline" ref="component" v-pan="{fn:component_pan, args:[]}" @mousewheel="onmousewheel($event)" style="position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);cursor: default;">
+  <div class="component timeline" ref="component" @mousewheel="onmousewheel($event)" style="position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);cursor: default;">
 
     <div class="global" :style="get_global_style()">
       <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)" style="background: white;">
@@ -10,7 +10,7 @@
     </div>
 
     <div class="menu clearfix" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);">
-      <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
+      <div class="area" :class="{act:act_areas.includes(area)}" v-down="menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
     </div>
 
   </div>
@@ -50,29 +50,59 @@ export default {
   },
   directives:{
     pan: {
-      bind(el, binding){
+      bind(el, binding, vnode, oldVnode){
+        console.log(arguments);
+        // let s=vnode.context;
+        // let vh=new VSHammer(el);
+        // let expression=binding.expression.split('');
+        // expression.splice(binding.expression.indexOf('(')+1, 0, 've, ');
+        // expression=expression.join('');
+        // console.log(expression);
+        // vh.on('pan', function(ve){
+        //   eval('s.'+expression)
+        // })
+        let s=vnode.context;
         let vh=new VSHammer(el);
+        let fn=s[ binding.expression.match(/(.+)\(/)[1] ];
+        let args_str=binding.expression.match(/\((.+)\)/)[1]
+        let args=args_str.split(',')
+        args=args.map(arg=>arg.trim());
+        args=args.map(arg=>s[arg]);
+        // console.log(args)
         vh.on('pan', function(ve){
-          binding.value.fn(ve, ...binding.value.args )
+          // console.log(ve);
+          fn(ve, ...args);
         })
       }
     },
-    down:{
-      bind(el, binding){
+    down: {
+      bind(el, binding, vnode, oldVnode){
+        console.log(arguments);
+        let s=vnode.context;
         let vh=new VSHammer(el);
+        let fn=s[ binding.expression.match(/(.+)\(/)[1] ];
+        let args_str=binding.expression.match(/\((.+)\)/)[1]
+        let args=args_str.split(',')
+        args=args.map(arg=>arg.trim());
+        args=args.map(arg=>s[arg]);
+        // console.log(args)
         vh.on('down', function(ve){
-          binding.value.fn(ve, ...binding.value.args )
+          fn(ve, ...args);
         })
       }
-    }
+    },
   },
   methods:{
     component_pan(ve){
+      // console.log(arguments);
+      if(typeof ve !== 'object' || !ve.poins) return;
       let s=this
       s.global_left+=ve.deltaX;
       s.global_top+=ve.deltaY;
     },
     menu_area_click(ve, area, i){
+      // console.log(arguments);
+      if(typeof ve !== 'object' || !ve.poins) return;
       let s=this;
       if(s.act_areas.includes(area)){
         s.act_areas.splice(s.act_areas.indexOf(area), 1);

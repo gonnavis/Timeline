@@ -11,6 +11,7 @@ VSHammer = function(dom, option){
   this.poin={x:0, y:0}; // pointer
   this.handler={
     pans: [],
+    downs: [],
   }
 
   this.dom.addEventListener('mousedown', ne=>{
@@ -68,6 +69,9 @@ VSHammer.prototype={
     if(ve.button===0){
       this.state='left';
     }
+    this.handler.downs.forEach(down=>{
+      down(ve);
+    })
 
     this.poin.x=ve.poins[0].clientX;
     this.poin.y=ve.poins[0].clientY;
