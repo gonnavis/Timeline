@@ -1,12 +1,18 @@
 <template>
-  <div class="component timeline" ref="component" @mousewheel="onmousewheel($event)">
+  <div class="component timeline" ref="component" @mousewheel="onmousewheel($event)" style="position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);">
+
     <div class="global" :style="get_global_style()">
-      <div class="area" v-for="(area, i) in global.areas" :style="get_area_style(area, i)">
-        <div class="row" v-for="(row, i) in area.rows" :style="get_row_style(row, i)">
-          <div class="period" v-for="(period, i) in row.periods" :style="get_period_style(period, i)">{{period.name}}</div>
+      <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)" style="background: white;">
+        <div class="row" v-for="(row, i) in area.rows" :style="get_row_style(row, i, area)">
+          <div class="period" v-for="(period, i) in row.periods" :style="get_period_style(period, i, area)">{{period.name}}</div>
         </div>
       </div>
     </div>
+
+    <div class="menu clearfix" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);">
+      <div class="area" :class="{act:act_areas.includes(area)}" @click="menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
+    </div>
+
   </div>
 </template>
 
@@ -23,11 +29,13 @@ export default {
       zoom: .1,
       global_left: 0,
       global_top: 0,
+      act_areas: [],
     }
   },
   created(){
     let s=window.s=this
     console.log(global)
+    s.act_areas.push(global.areas[0])
   },
   mounted(){
     let s=this
@@ -41,9 +49,17 @@ export default {
     })
   },
   methods:{
+    menu_area_click(area, i){
+      let s=this;
+      if(s.act_areas.includes(area)){
+        s.act_areas.splice(s.act_areas.indexOf(area), 1);
+      }else{
+        s.act_areas.push(area);
+      }
+    },
     onmousewheel(e){
       let s=this;
-      console.log(e);
+      // console.log(e);
       s.zoom+=-e.deltaY/10000;
       if(s.zoom<.01) s.zoom=.01;
     },
@@ -51,7 +67,8 @@ export default {
       let s=this;
       let style={
         position: 'relative',
-        left: s.global_left-s.global.min*s.zoom+'px',
+        width: s.global.span*s.zoom + 200 + 'px',
+        left: s.global_left + 'px',
         top: s.global_top+'px',
       }
       return style;
@@ -61,12 +78,14 @@ export default {
       let height=area.rows.length*s.period_height
       let style={
         position: 'relative',
-        height: height+'px',
         width: '100%',
+        height: height+'px',
+        border: 'solid 1px rgb(200,200,200)',
+        margin: '10px 0',
       };
       return style;
     },
-    get_row_style(row, i){
+    get_row_style(row, i, area){
       let s=this
       let height=s.period_height;
       let style={
@@ -75,12 +94,12 @@ export default {
       };
       return style;
     },
-    get_period_style(period, i){
+    get_period_style(period, i, area){
       let s=this
       let height=s.period_height;
       let style={
         position: 'absolute',
-        left: period.from*s.zoom+'px',
+        left: (period.from-s.global.min)*s.zoom+'px',
         top: '0px',
         width: period.span*s.zoom+'px',
         height: height+'px',
@@ -100,4 +119,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .menu .area{background: gray;border: solid 1px;padding:3px 6px;cursor: pointer;}
+  .menu .area.act{background: white;}
 </style>
