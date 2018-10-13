@@ -1,5 +1,5 @@
 <template>
-  <div class="component timeline" ref="component" @mousewheel="onmousewheel($event)" style="position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);">
+  <div class="component timeline" ref="component" @mousewheel="onmousewheel($event)" style="position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);cursor: default;">
 
     <div class="global" :style="get_global_style()">
       <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)" style="background: white;">
