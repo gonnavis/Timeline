@@ -1,5 +1,5 @@
 <template>
-  <div class="component timeline" ref="component" @mousewheel="onmousewheel($event)" style="position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);cursor: default;">
+  <div class="component timeline" ref="component" v-pan="component_pan" @mousewheel="onmousewheel($event)" style="position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);cursor: default;">
 
     <div class="global" :style="get_global_style()">
       <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)" style="background: white;">
@@ -41,14 +41,31 @@ export default {
     let s=this
     s.r=s.$refs
 
-    let vh=new VSHammer(s.r.component);
-    vh.on('pan', function(ve){
-      // console.log(ve)
-      s.global_left+=ve.deltaX;
-      s.global_top+=ve.deltaY;
-    })
+    // let vh=new VSHammer(s.r.component);
+    // vh.on('pan', function(ve){
+    //   // console.log(ve)
+    //   s.global_left+=ve.deltaX;
+    //   s.global_top+=ve.deltaY;
+    // })
+  },
+  directives:{
+    pan: {
+      inserted(el, binding){
+        console.log(this);
+        console.log(binding)
+        let vh=new VSHammer(el);
+        vh.on('pan', function(ve){
+          binding.value(ve)
+        })
+      }
+    }
   },
   methods:{
+    component_pan(ve){
+      let s=this
+      s.global_left+=ve.deltaX;
+      s.global_top+=ve.deltaY;
+    },
     menu_area_click(area, i){
       let s=this;
       if(s.act_areas.includes(area)){
