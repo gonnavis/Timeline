@@ -3,36 +3,83 @@ VSHammer = function(dom, option){
   this.dom=dom;
 
   this.state='idle';
-  this.mouse={x:0, y:0};
+  this.poin={x:0, y:0}; // pointer
   this.handler={
     pans: [],
   }
 
   this.dom.addEventListener('mousedown', ne=>{
-    // console.log('mousedown')
-    // console.log(ne)
-    ne.preventDefault();
-
-    if(ne.button===0){
-      this.state='left';
-    }
-
-    this.mouse.x=ne.clientX;
-    this.mouse.y=ne.clientY;
+    this.poindown(ne);
+  })
+  this.dom.addEventListener('touchstart', ne=>{
+    this.poindown(ne);
   })
 
   this.dom.addEventListener('mouseup', ne=>{
-    this.state='idle';
+    this.poinup(ne);
+  })
+
+  this.dom.addEventListener('touchend', ne=>{
+    this.poinup(ne);
   })
 
   this.dom.addEventListener('mouseleave', ne=>{
-    this.state='idle';
+    this.poinleave(ne);
+  })
+  this.dom.addEventListener('touchcancel', ne=>{
+    this.poinleave(ne);
   })
 
   this.dom.addEventListener('mousemove', ne=>{
-    // console.log(ne)
-    let deltaX=ne.clientX-this.mouse.x
-    let deltaY=ne.clientY-this.mouse.y
+    this.poinmove(ne);
+  })
+  this.dom.addEventListener('touchmove', ne=>{
+    this.poinmove(ne);
+  })
+
+}
+
+VSHammer.prototype={
+  on: function(event_type, handler){
+    this.handler[event_type+'s'].push(handler);
+  },
+  ne_to_ve: function(ne, type){
+    let ve={};
+    if(ne.touches){ // mobile
+      ve.poins=ne.touches
+      ve.button=ne.touches.length-1;
+    }else{ // pc
+      ve.poins=[]
+      ve.poins.push(ne)
+      ve.button=ne.button;
+    }
+    return ve
+  },
+  poindown(ne){
+    let ve=this.ne_to_ve(ne)
+    console.log('poindown', ve)
+    ne.preventDefault();
+
+    if(ve.button===0){
+      this.state='left';
+    }
+
+    this.poin.x=ve.poins[0].clientX;
+    this.poin.y=ve.poins[0].clientY;
+  },
+  poinup(ne){
+    let ve=this.ne_to_ve(ne)
+    this.state='idle';
+  },
+  poinleave(ne){
+    let ve=this.ne_to_ve(ne)
+    this.state='idle';
+  },
+  poinmove(ne){
+    let ve=this.ne_to_ve(ne)
+    // console.log('poinmove', ve)
+    let deltaX=ve.poins[0].clientX-this.poin.x
+    let deltaY=ve.poins[0].clientY-this.poin.y
 
     if(this.state==='left' && (deltaX || deltaY)){
       this.state='pan';
@@ -44,12 +91,7 @@ VSHammer = function(dom, option){
       })
     }
 
-    this.mouse.x=ne.clientX;
-    this.mouse.y=ne.clientY;
-  })
-
-}
-
-VSHammer.prototype.on=function(event_type, handler){
-  this.handler[event_type+'s'].push(handler);
+    this.poin.x=ve.poins[0].clientX;
+    this.poin.y=ve.poins[0].clientY;
+  },
 }
