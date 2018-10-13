@@ -1,5 +1,10 @@
 
 VSHammer = function(dom, option){
+  /*
+    poin = pointer, stands for both mouse and touch
+    ne = native event
+    ve = VSHammer event
+  */
   this.dom=dom;
 
   this.state='idle';
@@ -78,16 +83,16 @@ VSHammer.prototype={
   poinmove(ne){
     let ve=this.ne_to_ve(ne)
     // console.log('poinmove', ve)
-    let deltaX=ve.poins[0].clientX-this.poin.x
-    let deltaY=ve.poins[0].clientY-this.poin.y
+    ve.deltaX=ve.poins[0].clientX-this.poin.x
+    ve.deltaY=ve.poins[0].clientY-this.poin.y
 
-    if(this.state==='left' && (deltaX || deltaY)){
+    if(this.state==='left' && (ve.deltaX || ve.deltaY)){
       this.state='pan';
     }
 
     if(this.state==='pan'){
       this.handler.pans.forEach(pan=>{
-        pan({ne, deltaX, deltaY});
+        pan(ve);
       })
     }
 
