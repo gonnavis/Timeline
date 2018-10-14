@@ -10,7 +10,8 @@
     </div>
 
     <div class="menu clearfix" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);">
-      <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
+      <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
+      <div class="area" :class="{act:act_areas.includes(area)}" v-hammer:tap="function(){menu_area_click(area, i)}" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
     </div>
 
   </div>
@@ -72,7 +73,7 @@ export default {
       s.global_left+=ve.deltaX*3;
       s.global_top+=ve.deltaY*3;
     },
-    menu_area_click(ve, area, i){
+    menu_area_click(area, i){
       let s=this;
       if(s.act_areas.includes(area)){
         s.act_areas.splice(s.act_areas.indexOf(area), 1);
