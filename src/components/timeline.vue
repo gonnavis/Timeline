@@ -11,7 +11,12 @@
       <div class="marginfix" style="height: 1px;margin-bottom: -1px;"></div>
       <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)" style="background: white;">
         <div class="row" v-for="(row, i) in area.rows" :style="get_row_style(row, i, area)">
-          <div class="period" v-for="(period, i) in row.periods" :style="get_period_style(period, i, area)">{{period.name}}</div>
+          <div class="period" :class="{act:period_act===period}" v-for="(period, i) in row.periods" 
+            @mouseenter="period_mouseenter(period, i)" 
+            @touchstart="period_mouseenter(period, i)" 
+            @mouseleave="period_mouseleave(period, i)" 
+            :style="get_period_style(period, i, area)"
+          >{{period.name}}</div>
         </div>
       </div>
     </div>
@@ -26,6 +31,19 @@
     <div class="menu clearfix" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);">
       <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
       <div class="area" :class="{act:act_areas.includes(area)}" v-hammer:tap="()=>menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
+    </div>
+
+    <div class="pophover" v-if="period_act" :style="get_pophover_style()">
+      <div>{{period_act.name}}  </div>
+      <div>公元: {{period_act.from}} ~ {{period_act.to}}</div>
+      <div style="color:rgb(160,160,160);">距今: {{now_year-period_act.from}} ~ {{now_year-period_act.to}}</div>
+      <div>时长: {{period_act.to-period_act.from}}</div>
+      <!-- <a :href="'https://baike.baidu.com/item/'+period_act.name"
+         target="_blank"
+         >百度百科</a>
+      <a :href="'https://www.baidu.com/s?wd='+period_act.name"
+         target="_blank"
+         >百度搜索</a> -->
     </div>
 
   </div>
@@ -50,7 +68,9 @@ export default {
       now_year: new Date().getFullYear(),
       zoom_fix: 2,
       zoom_min: .05,
-      pan_speed: 2 // the larger the faster
+      pan_speed: 2, // the larger the faster
+      period_act: null,
+
     }
   },
   created(){
@@ -98,6 +118,25 @@ export default {
     }
   },
   methods:{
+    period_mouseenter(period, i){
+      let s=this
+      s.period_act=period;
+    },
+    period_mouseleave(period, i){
+      let s=this
+      s.period_act=null;
+    },
+    get_pophover_style(){
+      let s=this;
+      let left=s.poin.x-320
+      if(left<0) left=0
+      let style={
+        left: left+'px',
+        // left: 0+'px',
+        top: s.poin.y+30+'px',
+      }
+      return style;
+    },
     zoom_in(current_time){
       let s=this;
       let prev_zoom = s.zoom;
@@ -196,17 +235,10 @@ export default {
       let s=this
       let height=s.period_height;
       let style={
-        position: 'absolute',
         left: (period.from-s.global.min)*s.zoom+'px',
-        top: '0px',
         width: period.span*s.zoom+'px',
         height: height+'px',
-        'box-sizing': 'border-box',
-        border: 'solid 1px gray',
         'line-height': height-2+'px',
-        color: 'black',
-        'text-shadow': 'rgb(255, 255, 255) 1px 1px 0px',
-        'word-break': 'keep-all',
         'background-color': period.color,
       };
       return style;
@@ -220,6 +252,9 @@ export default {
   .ruler{    height: 24px; background: #000; position: absolute; top: 0; left: 0; width: 100%;}
   .v_bar{    position: absolute; top: 0;    height: 100%; width: 1px; background: #000; pointer-events: none;}
   .poin_time{    position: absolute; top: 0;color: #fff; line-height: 24px;white-space: nowrap;}
+  .pophover{border: 1px solid gray; background: rgba(255,255,255,.9); border-radius: 4px; text-align: left; padding: 10px; position: absolute; width: 300px; pointer-events: none;}
   .menu .area{background: rgb(160,160,160);border: solid 1px;padding:6px 6px;cursor: pointer;}
   .menu .area.act{background: white;}
+  .global .period{position: absolute;top: 0;box-sizing: border-box;border: solid 1px gray;color:black;text-shadow:rgb(255, 255, 255) 1px 1px 0px;word-break: keep-all;}
+  .global .period.act{border-color:red;border-width: 2px;}
 </style>
