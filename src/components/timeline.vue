@@ -34,7 +34,7 @@ export default {
     return {
       r: null,
       global: global,
-      period_height: 22,
+      period_height: 30,
       zoom: .1,
       global_left: 0,
       global_top: 50,
@@ -44,7 +44,8 @@ export default {
       now_year: new Date().getFullYear(),
       zoom_fix: 2,
       zoom_step: .1,
-      zoom_min: .1,
+      zoom_min: .05,
+      pan_speed: 2 // the larger the faster
     }
   },
   created(){
@@ -98,7 +99,7 @@ export default {
       let zoom;
       s.zoom_step = s.zoom / 10;
       zoom = +(s.zoom - s.zoom_step).toFixed(s.zoom_fix);
-      if (zoom > s.zoom_min) {
+      if (zoom >= s.zoom_min) {
         s.zoom = zoom;
         s.global_left += ((s.poin_time - s.global.min) * prev_zoom - (s.poin_time - s.global.min) * s.zoom);
       }
@@ -118,8 +119,8 @@ export default {
     },
     component_pan(ve){
       let s=this
-      s.global_left+=ve.deltaX*3;
-      s.global_top+=ve.deltaY*3;
+      s.global_left+=ve.deltaX*s.pan_speed;
+      s.global_top+=ve.deltaY*s.pan_speed;
     },
     menu_area_click(area, i){
       let s=this;
