@@ -7,6 +7,9 @@ import { VueHammer } from 'vue2-hammer'
 
 Vue.use(VueHammer)
 Vue.config.productionTip = false
+VueHammer.config.pinch = {
+  enable: true,
+};
 
 /* eslint-disable no-new */
 new Vue({

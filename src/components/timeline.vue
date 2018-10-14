@@ -1,5 +1,11 @@
 <template>
-  <div class="component timeline" ref="component" v-pan="{fn:component_pan, args:[]}" @mousewheel="onmousewheel($event)" @mousemove="component_mousemove($event)" @touchstart="component_mousemove($event)" @touchmove="component_mousemove($event)" style="position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);cursor: default;">
+  <div class="component timeline" ref="component" v-pan="{fn:component_pan, args:[]}" 
+    @mousewheel="onmousewheel($event)" 
+    @mousemove="component_mousemove($event)" 
+    @touchstart="component_mousemove($event)" 
+    @touchmove="component_mousemove($event)"  
+    style="position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);cursor: default;"
+  >
 
     <div class="global clearfix" :style="get_global_style()">
       <div class="marginfix" style="height: 1px;margin-bottom: -1px;"></div>
@@ -43,7 +49,6 @@ export default {
       poin_time: 0,
       now_year: new Date().getFullYear(),
       zoom_fix: 2,
-      zoom_step: .1,
       zoom_min: .05,
       pan_speed: 2 // the larger the faster
     }
@@ -63,6 +68,16 @@ export default {
     //   s.global_left+=ve.deltaX;
     //   s.global_top+=ve.deltaY;
     // })
+
+    let hammer=new Hammer(s.r.component);
+    hammer.get('pinch').set({ enable: true });
+    hammer.on('pinchin', function(e){
+
+      s.zoom_out(s.x_to_time(e.center.x));
+    })
+    hammer.on('pinchout', function(e){
+      s.zoom_in(s.x_to_time(e.center.x));
+    })
   },
   directives:{
     pan: {
@@ -83,25 +98,25 @@ export default {
     }
   },
   methods:{
-    zoom_in(){
+    zoom_in(current_time){
       let s=this;
       let prev_zoom = s.zoom;
 
-      s.zoom_step = s.zoom / 10;
-      s.zoom = +(s.zoom + s.zoom_step).toFixed(s.zoom_fix);
+      let zoom_step = s.zoom / 10;
+      s.zoom = +(s.zoom + zoom_step).toFixed(s.zoom_fix);
 
-      s.global_left += -((s.poin_time - s.global.min) * s.zoom - (s.poin_time - s.global.min) * prev_zoom);
+      s.global_left += -((current_time - s.global.min) * s.zoom - (current_time - s.global.min) * prev_zoom);
     },
-    zoom_out(){
+    zoom_out(current_time){
       let s=this;
       let prev_zoom = s.zoom;
 
       let zoom;
-      s.zoom_step = s.zoom / 10;
-      zoom = +(s.zoom - s.zoom_step).toFixed(s.zoom_fix);
+      let zoom_step = s.zoom / 10;
+      zoom = +(s.zoom - zoom_step).toFixed(s.zoom_fix);
       if (zoom >= s.zoom_min) {
         s.zoom = zoom;
-        s.global_left += ((s.poin_time - s.global.min) * prev_zoom - (s.poin_time - s.global.min) * s.zoom);
+        s.global_left += ((current_time - s.global.min) * prev_zoom - (current_time - s.global.min) * s.zoom);
       }
     },
     component_mousemove(e){
@@ -116,6 +131,10 @@ export default {
         s.poin.y=e.clientY;
       }
       s.poin_time = Math.floor((s.poin.x - s.global_left) / s.zoom + s.global.min);
+    },
+    x_to_time(x){
+      let s=this
+      return Math.floor((x - s.global_left) / s.zoom + s.global.min);
     },
     component_pan(ve){
       let s=this
@@ -136,10 +155,10 @@ export default {
       // s.zoom+=-e.deltaY/10000;
       // if(s.zoom<.01) s.zoom=.01;
       if(e.deltaY<0){
-        s.zoom_in();
+        s.zoom_in(s.poin_time);
       }
       else{
-        s.zoom_out();
+        s.zoom_out(s.poin_time);
       }
     },
     get_global_style(){
