@@ -203,7 +203,7 @@ export default {
         height: height+'px',
         'box-sizing': 'border-box',
         border: 'solid 1px gray',
-        'line-height': height+'px',
+        'line-height': height-2+'px',
         color: 'black',
         'text-shadow': 'rgb(255, 255, 255) 1px 1px 0px',
         'word-break': 'keep-all',
