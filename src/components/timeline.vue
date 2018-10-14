@@ -1,22 +1,29 @@
 <template>
-  <div class="component timeline" ref="component" v-pan="{fn:component_pan, args:[]}" 
-    @mousewheel="onmousewheel($event)" 
-    @mousemove="component_mousemove($event)" 
-    @touchstart="component_mousemove($event)" 
-    @touchmove="component_mousemove($event)"  
+  <div class="component timeline" ref="component" 
     style="position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);cursor: default;"
   >
 
-    <div class="global clearfix" :style="get_global_style()">
-      <div class="marginfix" style="height: 1px;margin-bottom: -1px;"></div>
-      <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)" style="background: white;">
-        <div class="row" v-for="(row, i) in area.rows" :style="get_row_style(row, i, area)">
-          <div class="period" :class="{act:period_act===period}" v-for="(period, i) in row.periods" 
-            @mouseenter="period_mouseenter(period, i)" 
-            @touchstart="period_mouseenter(period, i)" 
-            @mouseleave="period_mouseleave(period, i)" 
-            :style="get_period_style(period, i, area)"
-          >{{period.name}}</div>
+    <div class="global_wrap"
+      v-pan="{fn:component_pan, args:[]}" 
+      @mousewheel="onmousewheel($event)" 
+      @mousemove="component_mousemove($event)" 
+      @touchstart="component_mousemove($event)" 
+      @touchmove="component_mousemove($event)"  
+      style="position: absolute;left:0;top:0;width:100%;height:100%;"
+    >
+      <div class="global clearfix" :style="get_global_style()">
+        <div class="marginfix" style="height: 1px;margin-bottom: -1px;"></div>
+        <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)" style="background: white;">
+          <div class="row" v-for="(row, i) in area.rows" :style="get_row_style(row, i, area)">
+            <div class="period" :class="{act:period_act===period}" v-for="(period, i) in row.periods" 
+              @mouseenter="period_mouseenter(period, i)" 
+              @touchstart="period_mouseenter(period, i)" 
+              @mouseleave="period_mouseleave(period, i)" 
+              @mousedown="period_mousedown($event)"
+              v-hammer:press="period_press"
+              :style="get_period_style(period, i, area)"
+            >{{period.name}}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -33,17 +40,21 @@
       <div class="area" :class="{act:act_areas.includes(area)}" v-hammer:tap="()=>menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
     </div>
 
-    <div class="pophover" v-if="period_act" :style="get_pophover_style()">
+    <div class="pophover" v-if="period_act&&is_show_pophover" :style="get_pophover_style()">
       <div>{{period_act.name}}  </div>
       <div>公元: {{period_act.from}} ~ {{period_act.to}}</div>
       <div style="color:rgb(160,160,160);">距今: {{now_year-period_act.from}} ~ {{now_year-period_act.to}}</div>
       <div>时长: {{period_act.to-period_act.from}}</div>
-      <!-- <a :href="'https://baike.baidu.com/item/'+period_act.name"
-         target="_blank"
-         >百度百科</a>
+
+    </div>
+
+    <div class="popmenu" v-if="period_act&&is_show_popmenu" @click="is_show_popmenu=false" :style="popmenu_style">
+      <a :href="'https://baike.baidu.com/item/'+period_act.name"
+        target="_blank" style="display: block;"
+      >百度百科</a>
       <a :href="'https://www.baidu.com/s?wd='+period_act.name"
-         target="_blank"
-         >百度搜索</a> -->
+        target="_blank" style="display: block;"
+      >百度搜索</a>
     </div>
 
   </div>
@@ -57,6 +68,9 @@ export default {
   data () {
     return {
       r: null,
+      popmenu_style: null,
+      is_show_popmenu: false,
+      is_show_pophover: false,
       global: global,
       period_height: 30,
       zoom: .1,
@@ -118,13 +132,38 @@ export default {
     }
   },
   methods:{
+    period_contextmenu(ne){
+      let s=this
+      console.log('contextmenu', ne)
+    },
+    period_mousedown(ne){
+      let s=this;
+      if(ne.button===2){
+        s.popmenu_style=s.get_popmenu_style();
+        s.is_show_popmenu=true;
+      }
+    },
+    period_press(){
+      let s=this;
+      s.popmenu_style=s.get_popmenu_style();
+      s.is_show_popmenu=true;
+    },
+    get_popmenu_style(){
+      let s=this;
+      let style={
+        left: s.poin.x-100+'px',
+        top: s.poin.y-50+'px',
+      }
+      return style;
+    },
     period_mouseenter(period, i){
       let s=this
       s.period_act=period;
+      s.is_show_pophover=true;
     },
     period_mouseleave(period, i){
       let s=this
-      s.period_act=null;
+      s.is_show_pophover=false
     },
     get_pophover_style(){
       let s=this;
@@ -170,6 +209,7 @@ export default {
         s.poin.y=e.clientY;
       }
       s.poin_time = Math.floor((s.poin.x - s.global_left) / s.zoom + s.global.min);
+      s.is_show_popmenu=false;
     },
     x_to_time(x){
       let s=this
@@ -253,6 +293,7 @@ export default {
   .v_bar{    position: absolute; top: 0;    height: 100%; width: 1px; background: #000; pointer-events: none;}
   .poin_time{    position: absolute; top: 0;color: #fff; line-height: 24px;white-space: nowrap;}
   .pophover{border: 1px solid gray; background: rgba(255,255,255,.9); border-radius: 4px; text-align: left; padding: 10px; position: absolute; width: 300px; pointer-events: none;}
+  .popmenu{border: 1px solid gray; background: white; border-radius: 4px;  padding: 10px; position: absolute;  background: white;width:200px;height:100px;line-height: 50px;}
   .menu .area{background: rgb(160,160,160);border: solid 1px;padding:6px 6px;cursor: pointer;}
   .menu .area.act{background: white;}
   .global .period{position: absolute;top: 0;box-sizing: border-box;border: solid 1px gray;color:black;text-shadow:rgb(255, 255, 255) 1px 1px 0px;word-break: keep-all;}
