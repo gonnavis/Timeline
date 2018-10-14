@@ -63,7 +63,7 @@ VSHammer.prototype={
   },
   poindown(ne){
     let ve=this.ne_to_ve(ne)
-    console.log('poindown', ve)
+    // console.log('poindown', ve)
     ne.preventDefault();
 
     if(ve.button===0){

@@ -1,7 +1,8 @@
 <template>
-  <div class="component timeline" ref="component" v-pan="{fn:component_pan, args:[]}" @mousewheel="onmousewheel($event)" style="position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);cursor: default;">
+  <div class="component timeline" ref="component" v-pan="{fn:component_pan, args:[]}" @mousewheel="onmousewheel($event)" @mousemove="component_mousemove($event)" @touchstart="component_mousemove($event)" @touchmove="component_mousemove($event)" style="position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);cursor: default;">
 
-    <div class="global" :style="get_global_style()">
+    <div class="global clearfix" :style="get_global_style()">
+      <div class="marginfix" style="height: 1px;margin-bottom: -1px;"></div>
       <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)" style="background: white;">
         <div class="row" v-for="(row, i) in area.rows" :style="get_row_style(row, i, area)">
           <div class="period" v-for="(period, i) in row.periods" :style="get_period_style(period, i, area)">{{period.name}}</div>
@@ -9,9 +10,16 @@
       </div>
     </div>
 
+    <div class="ruler"></div>
+    <div class="v_bar" :style="{left: poin.x+'px'}"> </div>
+    <div class="poin_time":style="{left:poin.x+'px'}">
+      <span>{{poin_time}}</span>
+      <span style="margin-left: 5px;color:gray;">距今: {{now_year-poin_time}}</span>
+    </div>
+
     <div class="menu clearfix" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);">
       <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
-      <div class="area" :class="{act:act_areas.includes(area)}" v-hammer:tap="function(){menu_area_click(area, i)}" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
+      <div class="area" :class="{act:act_areas.includes(area)}" v-hammer:tap="()=>menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
     </div>
 
   </div>
@@ -29,8 +37,11 @@ export default {
       period_height: 30,
       zoom: .1,
       global_left: 0,
-      global_top: 0,
+      global_top: 50,
       act_areas: [],
+      poin: {x:0, y:0}, // pointer
+      poin_time: 0,
+      now_year: new Date().getFullYear(),
     }
   },
   created(){
@@ -68,6 +79,19 @@ export default {
     }
   },
   methods:{
+    component_mousemove(e){
+      let s=this;
+      // console.log(e);
+      if(e.touches){
+        s.poin.x=e.touches[0].clientX;
+        s.poin.y=e.touches[0].clientY;
+      }
+      else{
+        s.poin.x=e.clientX;
+        s.poin.y=e.clientY;
+      }
+      s.poin_time = Math.floor((s.poin.x - s.global_left) / s.zoom + s.global.min);
+    },
     component_pan(ve){
       let s=this
       s.global_left+=ve.deltaX*3;
@@ -143,6 +167,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .menu .area{background: gray;border: solid 1px;padding:3px 6px;cursor: pointer;}
+  .ruler{    height: 24px; background: #000; position: absolute; top: 0; left: 0; width: 100%;}
+  .v_bar{    position: absolute; top: 0;    height: 100%; width: 1px; background: #000; pointer-events: none;}
+  .poin_time{    position: absolute; top: 0;color: #fff; line-height: 24px;white-space: nowrap;}
+  .menu .area{background: rgb(160,160,160);border: solid 1px;padding:6px 6px;cursor: pointer;}
   .menu .area.act{background: white;}
 </style>
