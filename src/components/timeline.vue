@@ -37,7 +37,8 @@
 
     <div class="menu clearfix" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);">
       <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
-      <div class="area" :class="{act:act_areas.includes(area)}" v-hammer:tap="()=>menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
+      <a class="item" href="http://gonnavis.com/timeline_old2/" target="_blank">返回旧版</a>
+      <div class="item area" :class="{act:act_areas.includes(area)}" v-hammer:tap="()=>menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
     </div>
 
     <div class="pophover" v-if="period_act&&is_show_pophover" :style="get_pophover_style()">
@@ -294,8 +295,8 @@ export default {
   .poin_time{    position: absolute; top: 0;color: #fff; line-height: 24px;white-space: nowrap;}
   .pophover{border: 1px solid gray; background: rgba(255,255,255,.9); border-radius: 4px; text-align: left; padding: 10px; position: absolute; width: 300px; pointer-events: none;}
   .popmenu{border: 1px solid gray; background: white; border-radius: 4px;  padding: 10px; position: absolute;  background: white;width:200px;height:100px;line-height: 50px;}
-  .menu .area{background: rgb(160,160,160);border: solid 1px;padding:6px 6px;cursor: pointer;}
-  .menu .area.act{background: white;}
+  .menu .item{background: rgb(160,160,160);border: solid 1px;padding:6px 6px;cursor: pointer;}
+  .menu .item.act{background: white;}
   .global .period{position: absolute;top: 0;box-sizing: border-box;border: solid 1px gray;color:black;text-shadow:rgb(255, 255, 255) 1px 1px 0px;word-break: keep-all;}
   .global .period.act{border-color:red;border-width: 2px;}
 </style>
