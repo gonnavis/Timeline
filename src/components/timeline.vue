@@ -8,7 +8,7 @@
       @mousewheel="onmousewheel($event)" 
       @mousemove="component_mousemove($event)" 
       @touchstart="component_mousemove($event)" 
-      @touchmove="component_mousemove($event)"  
+      @touchmove="component_mousemove($event);is_show_pophover=false;"  
       style="position: absolute;left:0;top:0;width:100%;height:100%;"
     >
       <div class="global clearfix" :style="get_global_style()">
