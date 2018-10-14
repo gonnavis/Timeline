@@ -34,7 +34,7 @@ export default {
     return {
       r: null,
       global: global,
-      period_height: 30,
+      period_height: 22,
       zoom: .1,
       global_left: 0,
       global_top: 50,
@@ -42,6 +42,9 @@ export default {
       poin: {x:0, y:0}, // pointer
       poin_time: 0,
       now_year: new Date().getFullYear(),
+      zoom_fix: 2,
+      zoom_step: .1,
+      zoom_min: .1,
     }
   },
   created(){
@@ -79,6 +82,27 @@ export default {
     }
   },
   methods:{
+    zoom_in(){
+      let s=this;
+      let prev_zoom = s.zoom;
+
+      s.zoom_step = s.zoom / 10;
+      s.zoom = +(s.zoom + s.zoom_step).toFixed(s.zoom_fix);
+
+      s.global_left += -((s.poin_time - s.global.min) * s.zoom - (s.poin_time - s.global.min) * prev_zoom);
+    },
+    zoom_out(){
+      let s=this;
+      let prev_zoom = s.zoom;
+
+      let zoom;
+      s.zoom_step = s.zoom / 10;
+      zoom = +(s.zoom - s.zoom_step).toFixed(s.zoom_fix);
+      if (zoom > s.zoom_min) {
+        s.zoom = zoom;
+        s.global_left += ((s.poin_time - s.global.min) * prev_zoom - (s.poin_time - s.global.min) * s.zoom);
+      }
+    },
     component_mousemove(e){
       let s=this;
       // console.log(e);
@@ -108,8 +132,14 @@ export default {
     onmousewheel(e){
       let s=this;
       // console.log(e);
-      s.zoom+=-e.deltaY/10000;
-      if(s.zoom<.01) s.zoom=.01;
+      // s.zoom+=-e.deltaY/10000;
+      // if(s.zoom<.01) s.zoom=.01;
+      if(e.deltaY<0){
+        s.zoom_in();
+      }
+      else{
+        s.zoom_out();
+      }
     },
     get_global_style(){
       let s=this;
