@@ -64,6 +64,7 @@
 <script>
 // import data from './data.js'
 import global from './preprocess_data.js'
+import State from 'javascript-state-machine'
 export default {
   name: 'timeline',
   data () {
@@ -85,13 +86,22 @@ export default {
       zoom_min: .05,
       pan_speed: 2, // the larger the faster
       period_act: null,
-
+      state: null,
     }
   },
   created(){
     let s=window.s=this
     console.log(global)
     s.act_areas.push(global.areas[0])
+
+    s.state=new State({
+      init: 'idle',
+      transitions:[
+        {name:'tapedtoidle', from:'taped', to:'idle'},
+        {name:'idletoptaped', from:'idle', to:'taped'},
+        {name:'tapedtopanzoom', from:'taped', to:'panzoom'},
+      ]
+    })
   },
   mounted(){
     let s=this
@@ -104,15 +114,32 @@ export default {
     //   s.global_top+=ve.deltaY;
     // })
 
-    let hammer=new Hammer(s.r.component);
-    hammer.get('pinch').set({ enable: true });
-    hammer.on('pinchin', function(e){
-
+    let hmr_component=new Hammer(s.r.component);
+    hmr_component.get('pinch').set({ enable: true });
+    hmr_component.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+    hmr_component.on('pinchin', function(e){
       s.zoom_out(s.x_to_time(e.center.x));
     })
-    hammer.on('pinchout', function(e){
+    hmr_component.on('pinchout', function(e){
       s.zoom_in(s.x_to_time(e.center.x));
     })
+    hmr_component.on('tap', function(e){
+      s.state.idletoptaped()
+      setTimeout(()=>{
+        s.state.tapedtoidle()
+      }, 300)
+    })
+    hmr_component.on('pandown', function(e){
+      console.log('pandown')
+    })
+    hmr_component.on('panup', function(e){
+      console.log('panup')
+    })
+
+
+
+
+
   },
   directives:{
     pan: {
