@@ -64,7 +64,7 @@
 <script>
 // import data from './data.js'
 import global from './preprocess_data.js'
-import State from 'javascript-state-machine'
+import StateMachine from 'javascript-state-machine'
 export default {
   name: 'timeline',
   data () {
@@ -86,7 +86,7 @@ export default {
       zoom_min: .05,
       pan_speed: 2, // the larger the faster
       period_act: null,
-      state: null,
+      fsm: null,
     }
   },
   created(){
@@ -94,13 +94,17 @@ export default {
     console.log(global)
     s.act_areas.push(global.areas[0])
 
-    s.state=new State({
+    s.fsm=new StateMachine({
       init: 'idle',
       transitions:[
         {name:'tapedtoidle', from:'taped', to:'idle'},
         {name:'idletoptaped', from:'idle', to:'taped'},
         {name:'tapedtopanzoom', from:'taped', to:'panzoom'},
-      ]
+        {name:'panzoomtoidle', from:'panzoom', to:'idle'},
+      ],
+      methods: {
+        onInvalidTransition:function(){ },
+      }
     })
   },
   mounted(){
@@ -124,16 +128,28 @@ export default {
       s.zoom_in(s.x_to_time(e.center.x));
     })
     hmr_component.on('tap', function(e){
-      s.state.idletoptaped()
+      console.log('tap')
+      s.fsm.idletoptaped()
       setTimeout(()=>{
-        s.state.tapedtoidle()
-      }, 300)
+        s.fsm.tapedtoidle()
+      }, 500)
     })
-    hmr_component.on('pandown', function(e){
-      console.log('pandown')
+    hmr_component.on('pan', function(e){
+      console.log('pan', e.direction, e)
+      if(s.fsm.is('taped')){
+        s.fsm.tapedtopanzoom()
+      }
+      if(s.fsm.is('panzoom')){
+        if(e.direction===8){ // up
+          s.zoom_in(s.x_to_time(e.center.x))
+        }else if(e.direction===16){ // down
+          s.zoom_out(s.x_to_time(e.center.x))
+        }
+      }
+
     })
-    hmr_component.on('panup', function(e){
-      console.log('panup')
+    hmr_component.on('panend', function(e){
+      s.fsm.panzoomtoidle()
     })
 
 
