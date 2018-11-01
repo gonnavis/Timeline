@@ -36,8 +36,12 @@ export default {
       renderer.setSize( window.innerWidth, window.innerHeight );
       s.r.container.appendChild( renderer.domElement );
 
-      var geometry = new THREE.ConeGeometry( 1, 3, 32 );
-      var material = new THREE.MeshLambertMaterial( { color: 0x00ff00 } );
+      var geometry = new THREE.SphereBufferGeometry( 5, 32, 32 );
+      // var material = new THREE.MeshLambertMaterial( { 
+      var material = new THREE.MeshBasicMaterial( { 
+        color: 0xffffff,
+        map: new THREE.TextureLoader().load(require('../assets/map_color.jpg')),
+      } );
       var mesh = new THREE.Mesh( geometry, material );
       scene.add( mesh );
 
