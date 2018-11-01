@@ -1,14 +1,16 @@
 <template>
   <div class="component wrap">
-    <timeline></timeline>
+    <!-- <timeline></timeline> -->
+    <Map></Map>
   </div>
 </template>
 
 <script>
 import timeline from './timeline'
+import Map from './Map'
 export default {
   name: 'wrap',
-  components:{timeline},
+  components:{timeline, Map},
   data () {
     return {
     }
