@@ -1,8 +1,9 @@
 <h1>历史时间线</h1>
 
-<a href="http://gonnavis.com/timeline" target="_blank">在线演示</a>
+<a href="http://gonnavis.com/timeline" target="_blank">在线演示 demo</a>
 
-<img src="http://gonnavis.com/timeline/preview2.png">
+<!-- <img src="http://gonnavis.com/timeline/preview2.png"> -->
+<img src="https://raw.githubusercontent.com/gonnavis/Timeline/master/other/screenshoot.png">
 
 <h3>简介</h3>
 <p>自动排列，直观地显示各个历史时间段。</p> 
