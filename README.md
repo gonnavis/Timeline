@@ -10,14 +10,14 @@
 
 <h3>运行</h3>
 <p>
-  npm install<br>
-  npm run dev<br>
+  cnpm install<br>
+  cnpm run dev<br>
   http://localhost:8080/<br>
 </p>
 
 <h3>编译</h3>
 <p>
-  npm run build<br>
+  cnpm run build<br>
 </p>
 
 <h3>计划开发功能</h3>
