@@ -102,20 +102,26 @@ export default {
 
       if(s.state==='idle'){
         s.state='start'
-        s.start_point=new THREE.Vector3().copy(s.point)
+        s.prev_point=new THREE.Vector3().copy(s.point)
       }else if(s.state==='start'){
-        s.state='idle'
-        s.line3=new THREE.Line3(s.start_point, s.point)
-        for(let i=0, len=100;i<len;i++){
+        s.line3=new THREE.Line3(s.prev_point, s.point)
+        let geo=new THREE.Geometry()
+        let mtl=new THREE.LineBasicMaterial({color:'red'})
+        for(let i=0, len=5;i<len;i++){
           console.log(111)
           let point=new THREE.Vector3()
-          s.line3.at(i/len, point)
-          s.add_point(s.set_distance(point, 10.1))
+          s.line3.at(i/(len-1), point)
+          geo.vertices.push(s.set_distance(point, 10.05))
         }
+        let line=new THREE.Line(geo, mtl)
+        s.scene.add(line)
+
+
+        s.prev_point.copy(s.point)
       }
 
       // s.add_point(s.point, )
-      // s.add_point_same_distance(s.point, 10)
+      s.add_point_same_distance(s.point, 10)
     },
     add_point(vec3){
       let s=this
