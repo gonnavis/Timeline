@@ -1,6 +1,6 @@
 <template>
   <div class="component Map full">
-    <div class="container full" ref="container"></div>
+    <div class="container full" ref="container" v-hammer:tap="tap"></div>
   </div>
 </template>
 
@@ -11,6 +11,9 @@ export default {
   components:{},
   data () {
     return {
+      raycaster: new THREE.Raycaster(),
+      mouse: new THREE.Vector2(),
+      state: 'idle',
     }
   },
   mounted(){
@@ -23,54 +26,59 @@ export default {
     init_three(){
       let s=this
 
-      var scene = new THREE.Scene();
-      var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+      var scene= s.scene = new THREE.Scene();
+      var camera = s.camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
-      scene.add( new THREE.AmbientLight( 0x333333 ) );
-      var light = new THREE.PointLight( 0xffffff );
-      light.position.set(-3,6,10);
-      scene.add( light );
+      scene.add( new THREE.AmbientLight( 0xffffff, 2.5 ) );
+      // var light = new THREE.PointLight( 0xffffff );
+      // light.position.set(-3,6,10);
+      // scene.add( light );
 
 
       var renderer = new THREE.WebGLRenderer();
       renderer.setSize( window.innerWidth, window.innerHeight );
       s.r.container.appendChild( renderer.domElement );
 
-      var geometry = new THREE.SphereBufferGeometry( 5, 32, 32 );
+      // var geometry = new THREE.SphereBufferGeometry( 5, 32, 32 );
+      var geometry = s.geometry = new THREE.IcosahedronBufferGeometry(10, 4)
       // var material = new THREE.MeshLambertMaterial( { 
-      var material = new THREE.MeshBasicMaterial( { 
+      var material = s.material = new THREE.MeshStandardMaterial( { 
         color: 0xffffff,
-        map: new THREE.TextureLoader().load(require('../assets/map_color.jpg')),
+        map: new THREE.TextureLoader().load(require('../assets/thematicmapping/2_no_clouds_4k.jpg')),
+        // map: new THREE.TextureLoader().load(require('../assets/map_color.jpg')),
+        // displacementMap: new THREE.TextureLoader().load(require('../assets/map_height.jpg')),
+        displacementScale: .3,
       } );
-      var mesh = new THREE.Mesh( geometry, material );
-      scene.add( mesh );
+      var mesh_earth = s.mesh_earth = new THREE.Mesh( geometry, material );
+      mesh_earth.rotation.y=-.2
+      scene.add( mesh_earth );
 
-      camera.position.set(10,10,10);
+      camera.position.set(0,10,26);
 
       var controls = new THREE.OrbitControls(camera , renderer.domElement);
 
       // helper
-        var helper={};
-        helper.gridHelper = new THREE.GridHelper( 20 , 20 );
-        scene.add( helper.gridHelper );
+        // var helper={};
+        // helper.gridHelper = new THREE.GridHelper( 20 , 20 );
+        // scene.add( helper.gridHelper );
 
-        helper.geometry_x = new THREE.BoxGeometry( 10 , 0.1 , 0.1 );
-        helper.material_x = new THREE.MeshBasicMaterial( {color:'red'});
-        helper.mesh_x=new THREE.Mesh(helper.geometry_x,helper.material_x);
-        helper.mesh_x.position.x=5;
-        helper.gridHelper.add(helper.mesh_x);
+        // helper.geometry_x = new THREE.BoxGeometry( 10 , 0.1 , 0.1 );
+        // helper.material_x = new THREE.MeshBasicMaterial( {color:'red'});
+        // helper.mesh_x=new THREE.Mesh(helper.geometry_x,helper.material_x);
+        // helper.mesh_x.position.x=5;
+        // helper.gridHelper.add(helper.mesh_x);
 
-        helper.geometry_y = new THREE.BoxGeometry( .1 , 10 , 0.1 );
-        helper.material_y = new THREE.MeshBasicMaterial( {color:'green'});
-        helper.mesh_y=new THREE.Mesh(helper.geometry_y,helper.material_y);
-        helper.mesh_y.position.y=5;
-        helper.gridHelper.add(helper.mesh_y);
+        // helper.geometry_y = new THREE.BoxGeometry( .1 , 10 , 0.1 );
+        // helper.material_y = new THREE.MeshBasicMaterial( {color:'green'});
+        // helper.mesh_y=new THREE.Mesh(helper.geometry_y,helper.material_y);
+        // helper.mesh_y.position.y=5;
+        // helper.gridHelper.add(helper.mesh_y);
 
-        helper.geometry_z = new THREE.BoxGeometry( .1 , .1 , 10 );
-        helper.material_z = new THREE.MeshBasicMaterial( {color:'blue'});
-        helper.mesh_z=new THREE.Mesh(helper.geometry_z,helper.material_z);
-        helper.mesh_z.position.z=5;
-        helper.gridHelper.add(helper.mesh_z);
+        // helper.geometry_z = new THREE.BoxGeometry( .1 , .1 , 10 );
+        // helper.material_z = new THREE.MeshBasicMaterial( {color:'blue'});
+        // helper.mesh_z=new THREE.Mesh(helper.geometry_z,helper.material_z);
+        // helper.mesh_z.position.z=5;
+        // helper.gridHelper.add(helper.mesh_z);
 
       var animate = function () {
         requestAnimationFrame( animate );
@@ -79,6 +87,39 @@ export default {
       };
 
       animate();
+    },
+    tap(he){
+      let s=this
+      s.mouse.x=(he.center.x/window.innerWidth)*2-1
+      s.mouse.y=-(he.center.y/window.innerHeight)*2+1
+
+      if(s.state==='idle'){
+        s.state='start'
+      }else if(s.state==='start'){
+        s.state='idle'
+      }
+
+      s.add_point()
+    },
+    add_point(he){
+      let s=this
+
+      s.raycaster.setFromCamera(s.mouse, s.camera)
+      let intersect=s.raycaster.intersectObject(s.mesh_earth)[0]
+      if(intersect){
+        // console.log(intersect)
+        let geo=new THREE.IcosahedronBufferGeometry(.1,3)
+        let mtl=new THREE.MeshBasicMaterial({color:'red'})
+        let mesh=new THREE.Mesh(geo, mtl)
+        s.scene.add(mesh)
+        mesh.position.copy(intersect.point)
+      }
+    },
+    mousemove(e){
+      let s=this
+      s.mouse.x=(e.clientX/window.innerWidth)*2-1
+      s.mouse.y=-(e.clientY/window.innerHeight)*2+1
+      // console.log(s.mouse.x, s.mouse.y)
     }
   }
 }

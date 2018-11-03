@@ -1,0 +1,11 @@
+
+
+map data
+  google search: country boundary data
+  
+  https://gadm.org/formats.html
+
+  https://gadm.org/
+
+  http://thematicmapping.org/downloads/world_borders.php
+  http://blog.mastermaps.com/
