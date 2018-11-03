@@ -58,27 +58,27 @@ export default {
       var controls = new THREE.OrbitControls(camera , renderer.domElement);
 
       // helper
-        // var helper={};
-        // helper.gridHelper = new THREE.GridHelper( 20 , 20 );
-        // scene.add( helper.gridHelper );
+        var helper={};
+        helper.gridHelper = new THREE.GridHelper( 20 , 20 );
+        scene.add( helper.gridHelper );
 
-        // helper.geometry_x = new THREE.BoxGeometry( 10 , 0.1 , 0.1 );
-        // helper.material_x = new THREE.MeshBasicMaterial( {color:'red'});
-        // helper.mesh_x=new THREE.Mesh(helper.geometry_x,helper.material_x);
-        // helper.mesh_x.position.x=5;
-        // helper.gridHelper.add(helper.mesh_x);
+        helper.geometry_x = new THREE.BoxGeometry( 10 , 0.1 , 0.1 );
+        helper.material_x = new THREE.MeshBasicMaterial( {color:'red'});
+        helper.mesh_x=new THREE.Mesh(helper.geometry_x,helper.material_x);
+        helper.mesh_x.position.x=5;
+        helper.gridHelper.add(helper.mesh_x);
 
-        // helper.geometry_y = new THREE.BoxGeometry( .1 , 10 , 0.1 );
-        // helper.material_y = new THREE.MeshBasicMaterial( {color:'green'});
-        // helper.mesh_y=new THREE.Mesh(helper.geometry_y,helper.material_y);
-        // helper.mesh_y.position.y=5;
-        // helper.gridHelper.add(helper.mesh_y);
+        helper.geometry_y = new THREE.BoxGeometry( .1 , 10 , 0.1 );
+        helper.material_y = new THREE.MeshBasicMaterial( {color:'green'});
+        helper.mesh_y=new THREE.Mesh(helper.geometry_y,helper.material_y);
+        helper.mesh_y.position.y=5;
+        helper.gridHelper.add(helper.mesh_y);
 
-        // helper.geometry_z = new THREE.BoxGeometry( .1 , .1 , 10 );
-        // helper.material_z = new THREE.MeshBasicMaterial( {color:'blue'});
-        // helper.mesh_z=new THREE.Mesh(helper.geometry_z,helper.material_z);
-        // helper.mesh_z.position.z=5;
-        // helper.gridHelper.add(helper.mesh_z);
+        helper.geometry_z = new THREE.BoxGeometry( .1 , .1 , 10 );
+        helper.material_z = new THREE.MeshBasicMaterial( {color:'blue'});
+        helper.mesh_z=new THREE.Mesh(helper.geometry_z,helper.material_z);
+        helper.mesh_z.position.z=5;
+        helper.gridHelper.add(helper.mesh_z);
 
       var animate = function () {
         requestAnimationFrame( animate );
@@ -99,9 +99,10 @@ export default {
         s.state='idle'
       }
 
-      s.add_point()
+      // s.add_point()
+      s.add_point_same_distance(10)
     },
-    add_point(he){
+    add_point(){
       let s=this
 
       s.raycaster.setFromCamera(s.mouse, s.camera)
@@ -114,6 +115,52 @@ export default {
         s.scene.add(mesh)
         mesh.position.copy(intersect.point)
       }
+    },
+    add_point_same_distance(distance){
+      let s=this
+
+      s.raycaster.setFromCamera(s.mouse, s.camera)
+      let intersect=s.raycaster.intersectObject(s.mesh_earth)[0]
+      if(intersect){
+        // console.log(intersect)
+        let geo=new THREE.IcosahedronBufferGeometry(.1,3)
+        let mtl=new THREE.MeshBasicMaterial({color:'red'})
+        let mesh=new THREE.Mesh(geo, mtl)
+        s.scene.add(mesh)
+
+
+        mesh.position.copy(get_same_distance_vec3(intersect.point))
+      }
+
+      function get_same_distance_vec3(vec3){
+        let vec3_result=new THREE.Vector3().copy(vec3)
+        vec3_result.normalize()
+        vec3_result.multiplyScalar(distance)
+        return vec3_result
+      }
+    },
+    add_arc(){
+      let s=this
+      let radius=10.1
+      let start=0
+      let end=2*Math.PI
+      end=Math.PI/3
+      let curve = new THREE.EllipseCurve(
+        0,  0,            // ax, aY
+        radius, radius,           // xRadius, yRadius
+        start,  end,  // aStartAngle, aEndAngle
+        false,            // aClockwise
+        0                 // aRotation
+      );
+
+      let points = curve.getPoints( 50 );
+      let geometry = new THREE.BufferGeometry().setFromPoints( points );
+
+      let material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
+
+      // Create the final object to add to the scene
+      let arc = s.arc = new THREE.Line( geometry, material );
+      s.scene.add( arc );
     },
     mousemove(e){
       let s=this
