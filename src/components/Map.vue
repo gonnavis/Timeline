@@ -13,6 +13,7 @@ export default {
     return {
       raycaster: new THREE.Raycaster(),
       mouse: new THREE.Vector2(),
+      point: new THREE.Vector3(),
       state: 'idle',
     }
   },
@@ -93,51 +94,54 @@ export default {
       s.mouse.x=(he.center.x/window.innerWidth)*2-1
       s.mouse.y=-(he.center.y/window.innerHeight)*2+1
 
+      s.raycaster.setFromCamera(s.mouse, s.camera)
+      let intersect=s.raycaster.intersectObject(s.mesh_earth)[0]
+      if(intersect){
+        s.point.copy(intersect.point)
+      }
+
       if(s.state==='idle'){
         s.state='start'
+        s.start_point=new THREE.Vector3().copy(s.point)
       }else if(s.state==='start'){
         s.state='idle'
+        s.line3=new THREE.Line3(s.start_point, s.point)
+        for(let i=0, len=100;i<len;i++){
+          console.log(111)
+          let point=new THREE.Vector3()
+          s.line3.at(i/len, point)
+          s.add_point(s.set_distance(point, 10.1))
+        }
       }
 
-      // s.add_point()
-      s.add_point_same_distance(10)
+      // s.add_point(s.point, )
+      // s.add_point_same_distance(s.point, 10)
     },
-    add_point(){
+    add_point(vec3){
       let s=this
 
-      s.raycaster.setFromCamera(s.mouse, s.camera)
-      let intersect=s.raycaster.intersectObject(s.mesh_earth)[0]
-      if(intersect){
-        // console.log(intersect)
-        let geo=new THREE.IcosahedronBufferGeometry(.1,3)
-        let mtl=new THREE.MeshBasicMaterial({color:'red'})
-        let mesh=new THREE.Mesh(geo, mtl)
-        s.scene.add(mesh)
-        mesh.position.copy(intersect.point)
-      }
+      let geo=new THREE.IcosahedronBufferGeometry(.1,3)
+      let mtl=new THREE.MeshBasicMaterial({color:'red'})
+      let mesh=new THREE.Mesh(geo, mtl)
+      s.scene.add(mesh)
+      mesh.position.copy(vec3)
     },
-    add_point_same_distance(distance){
+    add_point_same_distance(vec3, distance){
       let s=this
 
-      s.raycaster.setFromCamera(s.mouse, s.camera)
-      let intersect=s.raycaster.intersectObject(s.mesh_earth)[0]
-      if(intersect){
-        // console.log(intersect)
-        let geo=new THREE.IcosahedronBufferGeometry(.1,3)
-        let mtl=new THREE.MeshBasicMaterial({color:'red'})
-        let mesh=new THREE.Mesh(geo, mtl)
-        s.scene.add(mesh)
+      let geo=new THREE.IcosahedronBufferGeometry(.1,3)
+      let mtl=new THREE.MeshBasicMaterial({color:'red'})
+      let mesh=new THREE.Mesh(geo, mtl)
+      s.scene.add(mesh)
 
 
-        mesh.position.copy(get_same_distance_vec3(intersect.point))
-      }
-
-      function get_same_distance_vec3(vec3){
-        let vec3_result=new THREE.Vector3().copy(vec3)
-        vec3_result.normalize()
-        vec3_result.multiplyScalar(distance)
-        return vec3_result
-      }
+      mesh.position.copy(s.set_distance(vec3, distance))
+    },
+    set_distance(vec3, distance){
+      let vec3_result=new THREE.Vector3().copy(vec3)
+      vec3_result.normalize()
+      vec3_result.multiplyScalar(distance)
+      return vec3_result
     },
     add_arc(){
       let s=this
