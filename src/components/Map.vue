@@ -5,9 +5,15 @@
 </template>
 
 <script>
+/*
+  export map 
+  JSON.stringify({
+    boundary :smap.vec3s_boundary_dot,
+  })
+*/
 
-// JSON.stringify(smap.vec3s_boundary_dot)
-
+import data from './data.js'
+import global from './preprocess_data.js'
 export default {
   name: 'Map',
   props: ['p'],
@@ -28,9 +34,16 @@ export default {
   mounted(){
     let s=window.smap=this
     s.r=s.$refs
+    window.data=data
 
     s.init_three()
     s.scene.add(s.group_boundary)
+
+    // draw 唐朝 boundary
+      data[0].periods[24].map.boundary.forEach(xyz=>{
+        s.vec3s_boundary_dot.push(new THREE.Vector3(...Object.values(xyz)))
+      })
+      s.draw_boundary()
   },
   methods:{
     vec3(vec3){
