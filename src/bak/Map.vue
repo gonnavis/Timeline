@@ -76,7 +76,7 @@ export default {
 
 
       s.vec3s_boundary_dot.forEach((vec3_dot, i)=>{
-        let geo=new THREE.IcosahedronBufferGeometry(.07, 2)
+        let geo=new THREE.IcosahedronBufferGeometry(.1, 2)
         let mtl=new THREE.MeshBasicMaterial({color:'red'})
         let obj3d=new THREE.Mesh(geo, mtl)
 
@@ -95,12 +95,10 @@ export default {
         let line3=new THREE.Line3(prev_dot, dot)
         let geo=new THREE.Geometry()
         let mtl=new THREE.LineBasicMaterial({color:'red'})
-        let len=Math.ceil(line3.distance())+1
-        // console.log(line3.distance(), len)
-        for(let i=0;i<len;i++){
+        for(let i=0, len=5;i<len;i++){
           let vec3=new THREE.Vector3()
           line3.at(i/(len-1), vec3)
-          geo.vertices.push(s.set_distance(vec3, 10.02))
+          geo.vertices.push(s.set_distance(vec3, 10.05))
           // geo.vertices.push(vec3)
         }
         let line=new THREE.Line(geo, mtl)
@@ -123,6 +121,40 @@ export default {
         s.draw_boundary()
         s.controls.enabled = true; 
       } );
+    },
+    tap_boundary(he){
+      let s=this
+      s.mouse.x=(he.center.x/window.innerWidth)*2-1
+      s.mouse.y=-(he.center.y/window.innerHeight)*2+1
+
+      s.raycaster.setFromCamera(s.mouse, s.camera)
+      let intersect=s.raycaster.intersectObject(s.mesh_earth)[0]
+      if(intersect){
+        s.point.copy(intersect.point)
+      }
+
+      if(s.state==='idle'){
+        s.state='start'
+        s.prev_point=new THREE.Vector3().copy(s.point)
+      }else if(s.state==='start'){
+        s.line3=new THREE.Line3(s.prev_point, s.point)
+        let geo=new THREE.Geometry()
+        let mtl=new THREE.LineBasicMaterial({color:'red'})
+        for(let i=0, len=5;i<len;i++){
+          console.log(111)
+          let point=new THREE.Vector3()
+          s.line3.at(i/(len-1), point)
+          geo.vertices.push(s.set_distance(point, 10.05))
+        }
+        let line=new THREE.Line(geo, mtl)
+        s.scene.add(line)
+
+
+        s.prev_point.copy(s.point)
+      }
+
+      // s.add_point(s.point, )
+      s.add_point_same_distance(s.point, 10)
     },
     add_point(vec3){
       let s=this
