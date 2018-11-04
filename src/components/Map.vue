@@ -15,6 +15,11 @@ export default {
       mouse: new THREE.Vector2(),
       point: new THREE.Vector3(),
       state: 'idle',
+      vec3s_boundary_dot: [],
+      vec3s_boundary_line: [],
+      group_boundary: new THREE.Group(),
+      obj3ds_dot_in_boundary: [],
+      obj3ds_line_in_boundary: [],
     }
   },
   mounted(){
@@ -22,8 +27,175 @@ export default {
     s.r=s.$refs
 
     s.init_three()
+    s.scene.add(s.group_boundary)
   },
   methods:{
+    vec3(vec3){
+      return new THREE.Vector3().copy(vec3)
+    },
+    tap(he){
+      let s=this
+      s.mouse.x=(he.center.x/window.innerWidth)*2-1
+      s.mouse.y=-(he.center.y/window.innerHeight)*2+1
+
+      s.raycaster.setFromCamera(s.mouse, s.camera)
+      let intersect=s.raycaster.intersectObject(s.mesh_earth)[0]
+      // console.log(intersect)
+      if(intersect){
+        // s.point.copy(intersect.point)
+        s.vec3s_boundary_dot.push(s.vec3(intersect.point))
+        s.draw_boundary()
+      }
+
+      if(s.state==='idle'){
+        s.state='start'
+      }else if(s.state==='start'){
+      }
+
+      // s.add_point(s.point, )
+      // s.add_point_same_distance(s.point, 10)
+    },
+    draw_boundary(){
+      let s=this
+      s.group_boundary.remove(...s.obj3ds_dot_in_boundary)
+      s.obj3ds_dot_in_boundary.forEach(obj=>{
+        obj.geometry=null
+        obj.material=null
+        obj=null
+      })
+      s.group_boundary.remove(...s.obj3ds_line_in_boundary)
+      s.obj3ds_line_in_boundary.forEach(obj=>{
+        obj.geometry=null
+        obj.material=null
+        obj=null
+      })
+
+
+      s.vec3s_boundary_dot.forEach((vec3_dot, i)=>{
+        let geo=new THREE.IcosahedronBufferGeometry(.1, 2)
+        let mtl=new THREE.MeshBasicMaterial({color:'red'})
+        let obj3d=new THREE.Mesh(geo, mtl)
+
+        s.group_boundary.add(obj3d)
+        s.obj3ds_dot_in_boundary.push( obj3d )
+
+        obj3d.position.copy(vec3_dot)
+
+      })
+
+
+      let prev_dot=s.vec3s_boundary_dot[0]
+      for(let i=1;i<s.vec3s_boundary_dot.length;i++){
+        let dot=s.vec3s_boundary_dot[i]
+
+        let line3=new THREE.Line3(prev_dot, dot)
+        let geo=new THREE.Geometry()
+        let mtl=new THREE.LineBasicMaterial({color:'red'})
+        for(let i=0, len=5;i<len;i++){
+          let vec3=new THREE.Vector3()
+          line3.at(i/(len-1), vec3)
+          geo.vertices.push(s.set_distance(vec3, 10.05))
+          // geo.vertices.push(vec3)
+        }
+        let line=new THREE.Line(geo, mtl)
+
+        s.group_boundary.add(line)
+        s.obj3ds_line_in_boundary.push( line )
+
+        
+        prev_dot=s.vec3s_boundary_dot[i]
+      }
+    },
+    tap_boundary(he){
+      let s=this
+      s.mouse.x=(he.center.x/window.innerWidth)*2-1
+      s.mouse.y=-(he.center.y/window.innerHeight)*2+1
+
+      s.raycaster.setFromCamera(s.mouse, s.camera)
+      let intersect=s.raycaster.intersectObject(s.mesh_earth)[0]
+      if(intersect){
+        s.point.copy(intersect.point)
+      }
+
+      if(s.state==='idle'){
+        s.state='start'
+        s.prev_point=new THREE.Vector3().copy(s.point)
+      }else if(s.state==='start'){
+        s.line3=new THREE.Line3(s.prev_point, s.point)
+        let geo=new THREE.Geometry()
+        let mtl=new THREE.LineBasicMaterial({color:'red'})
+        for(let i=0, len=5;i<len;i++){
+          console.log(111)
+          let point=new THREE.Vector3()
+          s.line3.at(i/(len-1), point)
+          geo.vertices.push(s.set_distance(point, 10.05))
+        }
+        let line=new THREE.Line(geo, mtl)
+        s.scene.add(line)
+
+
+        s.prev_point.copy(s.point)
+      }
+
+      // s.add_point(s.point, )
+      s.add_point_same_distance(s.point, 10)
+    },
+    add_point(vec3){
+      let s=this
+
+      let geo=new THREE.IcosahedronBufferGeometry(.1,3)
+      let mtl=new THREE.MeshBasicMaterial({color:'red'})
+      let obj3d=new THREE.Mesh(geo, mtl)
+      s.scene.add(obj3d)
+      obj3d.position.copy(vec3)
+      return obj3d
+    },
+    add_point_same_distance(vec3, distance){
+      let s=this
+
+      let geo=new THREE.IcosahedronBufferGeometry(.1,3)
+      let mtl=new THREE.MeshBasicMaterial({color:'red'})
+      let mesh=new THREE.Mesh(geo, mtl)
+      s.scene.add(mesh)
+
+
+      mesh.position.copy(s.set_distance(vec3, distance))
+    },
+    set_distance(vec3, distance){
+      let vec3_result=new THREE.Vector3().copy(vec3)
+      vec3_result.normalize()
+      vec3_result.multiplyScalar(distance)
+      return vec3_result
+    },
+    add_arc(){
+      let s=this
+      let radius=10.1
+      let start=0
+      let end=2*Math.PI
+      end=Math.PI/3
+      let curve = new THREE.EllipseCurve(
+        0,  0,            // ax, aY
+        radius, radius,           // xRadius, yRadius
+        start,  end,  // aStartAngle, aEndAngle
+        false,            // aClockwise
+        0                 // aRotation
+      );
+
+      let points = curve.getPoints( 50 );
+      let geometry = new THREE.BufferGeometry().setFromPoints( points );
+
+      let material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
+
+      // Create the final object to add to the scene
+      let arc = s.arc = new THREE.Line( geometry, material );
+      s.scene.add( arc );
+    },
+    mousemove(e){
+      let s=this
+      s.mouse.x=(e.clientX/window.innerWidth)*2-1
+      s.mouse.y=-(e.clientY/window.innerHeight)*2+1
+      // console.log(s.mouse.x, s.mouse.y)
+    },
     init_three(){
       let s=this
 
@@ -89,95 +261,6 @@ export default {
 
       animate();
     },
-    tap(he){
-      let s=this
-      s.mouse.x=(he.center.x/window.innerWidth)*2-1
-      s.mouse.y=-(he.center.y/window.innerHeight)*2+1
-
-      s.raycaster.setFromCamera(s.mouse, s.camera)
-      let intersect=s.raycaster.intersectObject(s.mesh_earth)[0]
-      if(intersect){
-        s.point.copy(intersect.point)
-      }
-
-      if(s.state==='idle'){
-        s.state='start'
-        s.prev_point=new THREE.Vector3().copy(s.point)
-      }else if(s.state==='start'){
-        s.line3=new THREE.Line3(s.prev_point, s.point)
-        let geo=new THREE.Geometry()
-        let mtl=new THREE.LineBasicMaterial({color:'red'})
-        for(let i=0, len=5;i<len;i++){
-          console.log(111)
-          let point=new THREE.Vector3()
-          s.line3.at(i/(len-1), point)
-          geo.vertices.push(s.set_distance(point, 10.05))
-        }
-        let line=new THREE.Line(geo, mtl)
-        s.scene.add(line)
-
-
-        s.prev_point.copy(s.point)
-      }
-
-      // s.add_point(s.point, )
-      s.add_point_same_distance(s.point, 10)
-    },
-    add_point(vec3){
-      let s=this
-
-      let geo=new THREE.IcosahedronBufferGeometry(.1,3)
-      let mtl=new THREE.MeshBasicMaterial({color:'red'})
-      let mesh=new THREE.Mesh(geo, mtl)
-      s.scene.add(mesh)
-      mesh.position.copy(vec3)
-    },
-    add_point_same_distance(vec3, distance){
-      let s=this
-
-      let geo=new THREE.IcosahedronBufferGeometry(.1,3)
-      let mtl=new THREE.MeshBasicMaterial({color:'red'})
-      let mesh=new THREE.Mesh(geo, mtl)
-      s.scene.add(mesh)
-
-
-      mesh.position.copy(s.set_distance(vec3, distance))
-    },
-    set_distance(vec3, distance){
-      let vec3_result=new THREE.Vector3().copy(vec3)
-      vec3_result.normalize()
-      vec3_result.multiplyScalar(distance)
-      return vec3_result
-    },
-    add_arc(){
-      let s=this
-      let radius=10.1
-      let start=0
-      let end=2*Math.PI
-      end=Math.PI/3
-      let curve = new THREE.EllipseCurve(
-        0,  0,            // ax, aY
-        radius, radius,           // xRadius, yRadius
-        start,  end,  // aStartAngle, aEndAngle
-        false,            // aClockwise
-        0                 // aRotation
-      );
-
-      let points = curve.getPoints( 50 );
-      let geometry = new THREE.BufferGeometry().setFromPoints( points );
-
-      let material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
-
-      // Create the final object to add to the scene
-      let arc = s.arc = new THREE.Line( geometry, material );
-      s.scene.add( arc );
-    },
-    mousemove(e){
-      let s=this
-      s.mouse.x=(e.clientX/window.innerWidth)*2-1
-      s.mouse.y=-(e.clientY/window.innerHeight)*2+1
-      // console.log(s.mouse.x, s.mouse.y)
-    }
   }
 }
 </script>
