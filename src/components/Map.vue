@@ -57,18 +57,22 @@ export default {
     },
     draw_boundary(){
       let s=this
+
       s.group_boundary.remove(...s.obj3ds_dot_in_boundary)
       s.obj3ds_dot_in_boundary.forEach(obj=>{
         obj.geometry=null
         obj.material=null
         obj=null
       })
+      s.obj3ds_dot_in_boundary=[]
+
       s.group_boundary.remove(...s.obj3ds_line_in_boundary)
       s.obj3ds_line_in_boundary.forEach(obj=>{
         obj.geometry=null
         obj.material=null
         obj=null
       })
+      s.obj3ds_line_in_boundary=[]
 
 
       s.vec3s_boundary_dot.forEach((vec3_dot, i)=>{
@@ -102,9 +106,18 @@ export default {
         s.group_boundary.add(line)
         s.obj3ds_line_in_boundary.push( line )
 
-        
+
         prev_dot=s.vec3s_boundary_dot[i]
       }
+
+// debugger
+      if(s.dragControls)  s.dragControls.dispose()
+      var dragControls = s.dragControls = new THREE.DragControls( s.obj3ds_dot_in_boundary, s.camera, s.renderer.domElement );
+      dragControls.addEventListener( 'dragstart', function ( event ) { s.controls.enabled = false; } );
+      dragControls.addEventListener( 'dragend', function ( event ) { 
+        console.log(event)
+        s.controls.enabled = true; 
+      } );
     },
     tap_boundary(he){
       let s=this
@@ -208,7 +221,7 @@ export default {
       // scene.add( light );
 
 
-      var renderer = new THREE.WebGLRenderer();
+      var renderer = s.renderer = new THREE.WebGLRenderer();
       renderer.setSize( window.innerWidth, window.innerHeight );
       s.r.container.appendChild( renderer.domElement );
 
@@ -228,7 +241,7 @@ export default {
 
       camera.position.set(0,10,26);
 
-      var controls = new THREE.OrbitControls(camera , renderer.domElement);
+      var controls = s.controls = new THREE.OrbitControls(camera , renderer.domElement);
 
       // helper
         var helper={};
