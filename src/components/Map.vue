@@ -18,8 +18,8 @@ export default {
       vec3s_boundary_dot: [],
       vec3s_boundary_line: [],
       group_boundary: new THREE.Group(),
-      obj3ds_dot_in_boundary: [],
-      obj3ds_line_in_boundary: [],
+      obj3ds_boundary_dot: [],
+      obj3ds_boundary_line: [],
     }
   },
   mounted(){
@@ -58,21 +58,21 @@ export default {
     draw_boundary(){
       let s=this
 
-      s.group_boundary.remove(...s.obj3ds_dot_in_boundary)
-      s.obj3ds_dot_in_boundary.forEach(obj=>{
+      s.group_boundary.remove(...s.obj3ds_boundary_dot)
+      s.obj3ds_boundary_dot.forEach(obj=>{
         obj.geometry=null
         obj.material=null
         obj=null
       })
-      s.obj3ds_dot_in_boundary=[]
+      s.obj3ds_boundary_dot=[]
 
-      s.group_boundary.remove(...s.obj3ds_line_in_boundary)
-      s.obj3ds_line_in_boundary.forEach(obj=>{
+      s.group_boundary.remove(...s.obj3ds_boundary_line)
+      s.obj3ds_boundary_line.forEach(obj=>{
         obj.geometry=null
         obj.material=null
         obj=null
       })
-      s.obj3ds_line_in_boundary=[]
+      s.obj3ds_boundary_line=[]
 
 
       s.vec3s_boundary_dot.forEach((vec3_dot, i)=>{
@@ -81,7 +81,7 @@ export default {
         let obj3d=new THREE.Mesh(geo, mtl)
 
         s.group_boundary.add(obj3d)
-        s.obj3ds_dot_in_boundary.push( obj3d )
+        s.obj3ds_boundary_dot.push( obj3d )
 
         obj3d.position.copy(vec3_dot)
 
@@ -104,7 +104,7 @@ export default {
         let line=new THREE.Line(geo, mtl)
 
         s.group_boundary.add(line)
-        s.obj3ds_line_in_boundary.push( line )
+        s.obj3ds_boundary_line.push( line )
 
 
         prev_dot=s.vec3s_boundary_dot[i]
@@ -112,10 +112,13 @@ export default {
 
 // debugger
       if(s.dragControls)  s.dragControls.dispose()
-      var dragControls = s.dragControls = new THREE.DragControls( s.obj3ds_dot_in_boundary, s.camera, s.renderer.domElement );
+      var dragControls = s.dragControls = new THREE.DragControls( s.obj3ds_boundary_dot, s.camera, s.renderer.domElement );
       dragControls.addEventListener( 'dragstart', function ( event ) { s.controls.enabled = false; } );
       dragControls.addEventListener( 'dragend', function ( event ) { 
-        console.log(event)
+        // console.log(event)
+        let index=s.obj3ds_boundary_dot.findIndex(n=>n===event.object)
+        s.vec3s_boundary_dot[index].copy(s.obj3ds_boundary_dot[index].position)
+        s.draw_boundary()
         s.controls.enabled = true; 
       } );
     },
