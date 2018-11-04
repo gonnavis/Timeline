@@ -5,6 +5,9 @@
 </template>
 
 <script>
+
+// JSON.stringify(smap.vec3s_boundary_dot)
+
 export default {
   name: 'Map',
   props: ['p'],
