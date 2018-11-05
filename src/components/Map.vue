@@ -96,7 +96,7 @@ export default {
         let mtl=new THREE.MeshBasicMaterial({color:'red'})
         let obj3d=new THREE.Mesh(geo, mtl)
 
-        s.group_boundary.add(obj3d)
+        if(s.p.is_edit) s.group_boundary.add(obj3d)
         s.obj3ds_boundary_dot.push( obj3d )
 
         obj3d.position.copy(vec3_dot)

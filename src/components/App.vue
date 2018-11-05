@@ -1,12 +1,19 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view :p="p" />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data(){
+    return {
+      p:{
+        is_edit: vs.getQueryStringByName('is_edit')
+      }
+    }
+  },
 }
 </script>
 

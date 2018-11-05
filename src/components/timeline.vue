@@ -135,7 +135,7 @@ export default {
       }, 500)
     })
     hmr_component.on('pan', function(e){
-      console.log('pan', e.direction, e)
+      // console.log('pan', e.direction, e)
       if(s.fsm.is('taped')){
         s.fsm.tapedtopanzoom()
       }
