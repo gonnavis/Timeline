@@ -302,6 +302,13 @@ export default {
 
       var controls = s.controls = new THREE.OrbitControls(camera , renderer.domElement);
 
+      window.addEventListener( 'resize', onWindowResize, false );
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+      }
+      
       // helper
         // var helper={};
         // helper.gridHelper = new THREE.GridHelper( 20 , 20 );
