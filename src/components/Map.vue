@@ -41,9 +41,11 @@ export default {
     s.init_three()
     s.scene.add(s.group_boundary)
 
+    s.prepare_boundarys()
+
     let init_draw
     init_draw=true
-    // init_draw=false
+    init_draw=false
     if(init_draw){
       let index
       index=data[0].periods.findIndex(n=>n.name==='唐朝')
@@ -148,7 +150,6 @@ export default {
 
       }
 
-// debugger
       if(s.dragControls)  s.dragControls.dispose()
       var dragControls = s.dragControls = new THREE.DragControls( s.obj3ds_boundary_dot, s.camera, s.renderer.domElement );
       dragControls.addEventListener( 'dragstart', function ( event ) { s.controls.enabled = false; } );
@@ -159,6 +160,54 @@ export default {
         s.draw_boundary()
         s.controls.enabled = true; 
       } );
+    },
+    prepare_boundarys(){
+      let s=this
+
+      for(let i=0;i<data.length;i++){
+        let area=data[i]
+        for(let j=0;j<area.periods.length;j++){
+          let period=area.periods[j]
+          if(!period.map.boundary) continue
+          for(let k=0;k<period.map.boundary.length;k++){
+            period.map.boundary[k]=new THREE.Vector3( ...Object.values(period.map.boundary[k]) )
+          }
+        }
+      }
+
+      for(let i=0;i<data.length;i++){
+        let area=data[i]
+        for(let j=0;j<area.periods.length;j++){
+          let period=area.periods[j]
+          if(!period.map.boundary) continue
+          let prev_dot=period.map.boundary[0]
+          for(let k=1;k<period.map.boundary.length;k++){
+            let dot=period.map.boundary[k]
+            add_line(prev_dot, dot)
+
+            prev_dot=period.map.boundary[k]
+          }
+          add_line(prev_dot, period.map.boundary[0])
+
+          function add_line(prev_dot, dot){
+            let line3=new THREE.Line3(prev_dot, dot)
+            let geo=new THREE.Geometry()
+            let mtl=new THREE.LineBasicMaterial({color:'red'})
+            let len=Math.ceil(line3.distance())+1
+            // console.log(line3.distance(), len)
+            for(let l=0;l<len;l++){
+              let vec3=new THREE.Vector3()
+              line3.at(l/(len-1), vec3)
+              geo.vertices.push(s.set_distance(vec3, 10.02))
+              // geo.vertices.push(vec3)
+            }
+            let line=new THREE.Line(geo, mtl)
+
+            s.scene.add(line)
+            // s.obj3ds_boundary_line.push( line )
+          }
+        }
+      }
     },
     add_point(vec3){
       let s=this
