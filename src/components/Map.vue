@@ -43,16 +43,10 @@ export default {
 
     s.prepare_boundarys()
 
-    let init_draw
-    init_draw=true
-    init_draw=false
-    if(init_draw){
+    let init_draw_name=''
+    if(init_draw_name){
       let index
-      index=data[0].periods.findIndex(n=>n.name==='唐朝')
-      index=data[0].periods.findIndex(n=>n.name==='宋朝')
-      index=data[0].periods.findIndex(n=>n.name==='元朝')
-      index=data[0].periods.findIndex(n=>n.name==='明朝')
-      index=data[0].periods.findIndex(n=>n.name==='清朝')
+      index=data[0].periods.findIndex(n=>n.name===init_draw_name)
       data[0].periods[index].map.boundary.forEach(xyz=>{
         s.vec3s_boundary_dot.push(new THREE.Vector3(...Object.values(xyz)))
       })
@@ -308,7 +302,7 @@ export default {
         camera.updateProjectionMatrix();
         renderer.setSize( window.innerWidth, window.innerHeight );
       }
-      
+
       // helper
         // var helper={};
         // helper.gridHelper = new THREE.GridHelper( 20 , 20 );
