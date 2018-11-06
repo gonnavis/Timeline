@@ -112,6 +112,13 @@ export default {
       let prev_dot=s.vec3s_boundary_dot[0]
       for(let i=1;i<s.vec3s_boundary_dot.length;i++){
         let dot=s.vec3s_boundary_dot[i]
+        add_line(prev_dot, dot)
+
+        prev_dot=s.vec3s_boundary_dot[i]
+      }
+      add_line(prev_dot, s.vec3s_boundary_dot[0])
+
+      function add_line(prev_dot, dot){
 
         let line3=new THREE.Line3(prev_dot, dot)
         let geo=new THREE.Geometry()
@@ -129,8 +136,6 @@ export default {
         s.group_boundary.add(line)
         s.obj3ds_boundary_line.push( line )
 
-
-        prev_dot=s.vec3s_boundary_dot[i]
       }
 
 // debugger
