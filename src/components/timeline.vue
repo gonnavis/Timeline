@@ -1,7 +1,7 @@
 <template>
-  <div class="component timeline" :class="{transparent: p.is_show_map}" ref="component" >
+  <div class="component timeline" :class="{transparent: p.map_state!==0, pointer_events_none: p.map_state===1}" ref="component" >
 
-    <div class="global_wrap"
+    <div class="global_wrap" v-show="p.map_state!==1"
       v-pan="{fn:component_pan, args:[]}" 
       @mousewheel="onmousewheel($event)" 
       @mousemove="component_mousemove($event)" 
@@ -26,20 +26,21 @@
       </div>
     </div>
 
-    <div class="ruler"></div>
-    <div class="v_bar" :style="{left: poin.x+'px'}"> </div>
-    <div class="poin_time":style="{left:poin.x+'px'}">
+    <div class="ruler" v-show="p.map_state!==1"></div>
+    <div class="v_bar" v-show="p.map_state!==1" :style="{left: poin.x+'px'}"> </div>
+    <div class="poin_time" v-show="p.map_state!==1" :style="{left:poin.x+'px'}">
       <span>{{poin_time}}</span>
       <span style="margin-left: 5px;color:rgb(80,80,80);">距今: {{now_year-poin_time}}</span>
     </div>
 
-    <div class="menu clearfix" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);">
+    <div class="menu clearfix" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);pointer-events: all;">
       <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
       <a class="item" href="http://gonnavis.com/timeline_old2/" target="_blank">返回旧版</a>
+      <a class="item" @click="toggle_map()">切换地图</a>
       <div class="item area" :class="{act:act_areas.includes(area)}" v-hammer:tap="()=>menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
     </div>
 
-    <div class="pophover" v-if="period_act&&is_show_pophover" :style="get_pophover_style()">
+    <div class="pophover" v-if="period_act&&is_show_pophover" v-show="p.map_state!==1" :style="get_pophover_style()">
       <div>{{period_act.name}}  </div>
       <div>公元: {{period_act.from}} ~ {{period_act.to}}</div>
       <div style="color:rgb(160,160,160);">距今: {{now_year-period_act.from}} ~ {{now_year-period_act.to}}</div>
@@ -47,7 +48,7 @@
 
     </div>
 
-    <div class="popmenu" v-if="period_act&&is_show_popmenu" @click="is_show_popmenu=false" :style="popmenu_style">
+    <div class="popmenu" v-if="period_act&&is_show_popmenu" v-show="p.map_state!==1" @click="is_show_popmenu=false" :style="popmenu_style">
       <a :href="'https://baike.baidu.com/item/'+period_act.name"
         target="_blank" style="display: block;"
       >百度百科</a>
@@ -175,6 +176,14 @@ export default {
     }
   },
   methods:{
+    toggle_map(){
+      let s=this
+      s.p.map_state--
+      if(s.p.map_state<0){
+        s.p.map_state=2
+      }
+      console.log(s.p.map_state)
+    },
     period_contextmenu(ne){
       let s=this
       console.log('contextmenu', ne)
@@ -371,4 +380,6 @@ export default {
   .component.transparent .global .period{text-shadow:rgba(255, 255, 255, .6) 1px 1px 0px;}
   .component.transparent .global .period.act{border-color:rgba(255,0,0,.5);}
   /*.component.transparent .pophover{background: rgba(255,255,255,.5);}*/
+
+  .pointer_events_none{pointer-events: none;}
 </style>

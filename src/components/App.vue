@@ -11,7 +11,7 @@ export default {
     return {
       p:{
         is_edit: vs.getQueryStringByName('is_edit'),
-        is_show_map: true,
+        map_state: 2, // 0 only timeline   1 only map   2 timeline & map
       }
     }
   },

@@ -335,6 +335,7 @@ export default {
       camera.position.set(0,10,26);
 
       var controls = s.controls = new THREE.OrbitControls(camera , renderer.domElement);
+      controls.enablePan=false
 
       window.addEventListener( 'resize', onWindowResize, false );
       function onWindowResize() {
