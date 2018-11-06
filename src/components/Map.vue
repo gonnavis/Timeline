@@ -41,11 +41,15 @@ export default {
     s.init_three()
     s.scene.add(s.group_boundary)
 
-    // init draw
+    let init_draw
+    init_draw=true
+    // init_draw=false
+    if(init_draw){
       let index
       index=data[0].periods.findIndex(n=>n.name==='唐朝')
       index=data[0].periods.findIndex(n=>n.name==='宋朝')
       index=data[0].periods.findIndex(n=>n.name==='元朝')
+      index=data[0].periods.findIndex(n=>n.name==='明朝')
       data[0].periods[index].map.boundary.forEach(xyz=>{
         s.vec3s_boundary_dot.push(new THREE.Vector3(...Object.values(xyz)))
       })
@@ -53,6 +57,7 @@ export default {
       s.camera.position.copy(data[0].periods[index].map.camera_position)
       // s.camera.position.multiplyScalar(s.camera_distance)
       s.camera.lookAt(0,0,0)
+    }
   },
   methods:{
     vec3(vec3){
