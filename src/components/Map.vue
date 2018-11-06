@@ -50,6 +50,7 @@ export default {
       index=data[0].periods.findIndex(n=>n.name==='宋朝')
       index=data[0].periods.findIndex(n=>n.name==='元朝')
       index=data[0].periods.findIndex(n=>n.name==='明朝')
+      index=data[0].periods.findIndex(n=>n.name==='清朝')
       data[0].periods[index].map.boundary.forEach(xyz=>{
         s.vec3s_boundary_dot.push(new THREE.Vector3(...Object.values(xyz)))
       })

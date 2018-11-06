@@ -1,7 +1,7 @@
 <template>
   <div class="component wrap">
     <Map :p="p" ></Map>
-    <timeline :p="p"  v-if="!p.is_edit" style="opacity: .5;"></timeline>
+    <timeline :p="p"  v-if="!p.is_edit"></timeline>
   </div>
 </template>
 
