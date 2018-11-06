@@ -9,6 +9,7 @@
   export map 
   JSON.stringify({
     boundary :smap.vec3s_boundary_dot,
+    camera_position: smap.camera.position.normalize(),
   })
 */
 
@@ -29,6 +30,7 @@ export default {
       group_boundary: new THREE.Group(),
       obj3ds_boundary_dot: [],
       obj3ds_boundary_line: [],
+      camera_distance: 35,
     }
   },
   mounted(){
@@ -44,6 +46,9 @@ export default {
         s.vec3s_boundary_dot.push(new THREE.Vector3(...Object.values(xyz)))
       })
       s.draw_boundary()
+      s.camera.position.copy(data[0].periods[24].map.camera_position)
+      s.camera.position.multiplyScalar(s.camera_distance)
+      s.camera.lookAt(0,0,0)
   },
   methods:{
     vec3(vec3){
