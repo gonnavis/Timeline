@@ -241,27 +241,27 @@ export default {
       var controls = s.controls = new THREE.OrbitControls(camera , renderer.domElement);
 
       // helper
-        var helper={};
-        helper.gridHelper = new THREE.GridHelper( 20 , 20 );
-        scene.add( helper.gridHelper );
+        // var helper={};
+        // helper.gridHelper = new THREE.GridHelper( 20 , 20 );
+        // scene.add( helper.gridHelper );
 
-        helper.geometry_x = new THREE.BoxGeometry( 10 , 0.1 , 0.1 );
-        helper.material_x = new THREE.MeshBasicMaterial( {color:'red'});
-        helper.mesh_x=new THREE.Mesh(helper.geometry_x,helper.material_x);
-        helper.mesh_x.position.x=5;
-        helper.gridHelper.add(helper.mesh_x);
+        // helper.geometry_x = new THREE.BoxGeometry( 10 , 0.1 , 0.1 );
+        // helper.material_x = new THREE.MeshBasicMaterial( {color:'red'});
+        // helper.mesh_x=new THREE.Mesh(helper.geometry_x,helper.material_x);
+        // helper.mesh_x.position.x=5;
+        // helper.gridHelper.add(helper.mesh_x);
 
-        helper.geometry_y = new THREE.BoxGeometry( .1 , 10 , 0.1 );
-        helper.material_y = new THREE.MeshBasicMaterial( {color:'green'});
-        helper.mesh_y=new THREE.Mesh(helper.geometry_y,helper.material_y);
-        helper.mesh_y.position.y=5;
-        helper.gridHelper.add(helper.mesh_y);
+        // helper.geometry_y = new THREE.BoxGeometry( .1 , 10 , 0.1 );
+        // helper.material_y = new THREE.MeshBasicMaterial( {color:'green'});
+        // helper.mesh_y=new THREE.Mesh(helper.geometry_y,helper.material_y);
+        // helper.mesh_y.position.y=5;
+        // helper.gridHelper.add(helper.mesh_y);
 
-        helper.geometry_z = new THREE.BoxGeometry( .1 , .1 , 10 );
-        helper.material_z = new THREE.MeshBasicMaterial( {color:'blue'});
-        helper.mesh_z=new THREE.Mesh(helper.geometry_z,helper.material_z);
-        helper.mesh_z.position.z=5;
-        helper.gridHelper.add(helper.mesh_z);
+        // helper.geometry_z = new THREE.BoxGeometry( .1 , .1 , 10 );
+        // helper.material_z = new THREE.MeshBasicMaterial( {color:'blue'});
+        // helper.mesh_z=new THREE.Mesh(helper.geometry_z,helper.material_z);
+        // helper.mesh_z.position.z=5;
+        // helper.gridHelper.add(helper.mesh_z);
 
       var animate = function () {
         requestAnimationFrame( animate );
