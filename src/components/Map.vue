@@ -185,60 +185,63 @@ export default {
           }
           add_line(prev_dot, period.map.boundary[0])
 
-          // function add_line(prev_dot, dot){
-          //   let line3=new THREE.Line3(prev_dot, dot)
-          //   let geo=new THREE.Geometry()
-          //   let mtl=new THREE.LineBasicMaterial({color:'red'})
-          //   let len=Math.ceil(line3.distance())+1
-          //   // console.log(line3.distance(), len)
-          //   for(let l=0;l<len;l++){
-          //     let vec3=new THREE.Vector3()
-          //     line3.at(l/(len-1), vec3)
-          //     geo.vertices.push(s.set_distance(vec3, 10.02))
-          //     // geo.vertices.push(vec3)
-          //   }
-          //   let line=new THREE.Line(geo, mtl)
-
-          //   boundary_mesh.add(line)
-          //   s.scene.add(boundary_mesh)
-          // }
-
           function add_line(prev_dot, dot){
             let line3=new THREE.Line3(prev_dot, dot)
+            let geo=new THREE.Geometry()
+            let mtl=new THREE.LineBasicMaterial({
+              color:'red',
+              // linewidth: 1,
+            })
             let len=Math.ceil(line3.distance())+1
             // console.log(line3.distance(), len)
-            let positions = [];
-            let colors = [];
             for(let l=0;l<len;l++){
               let vec3=new THREE.Vector3()
               line3.at(l/(len-1), vec3)
-              vec3=s.set_distance(vec3, 10.05)
-              // geo.vertices.push(s.set_distance(vec3, 10.02))
+              geo.vertices.push(s.set_distance(vec3, 10.02))
               // geo.vertices.push(vec3)
-              positions.push(vec3.x, vec3.y, vec3.z)
-              colors.push(1,0,0)
             }
-            let geometry = new THREE.LineGeometry();
-            geometry.setPositions( positions );
-            geometry.setColors( colors );
-
-            let matLine = new THREE.LineMaterial( {
-
-              color: 0xffffff,
-              linewidth: .003, // in pixels
-              vertexColors: THREE.VertexColors,
-              //resolution:  // to be set by renderer, eventually
-              dashed: false
-
-            } );
-
-            let line = new THREE.Line2( geometry, matLine );
-            line.computeLineDistances();
-            line.scale.set( 1, 1, 1 );
+            let line=new THREE.Line(geo, mtl)
 
             boundary_mesh.add(line)
             s.scene.add(boundary_mesh)
           }
+
+          // function add_line(prev_dot, dot){
+          //   let line3=new THREE.Line3(prev_dot, dot)
+          //   let len=Math.ceil(line3.distance())+1
+          //   // console.log(line3.distance(), len)
+          //   let positions = [];
+          //   let colors = [];
+          //   for(let l=0;l<len;l++){
+          //     let vec3=new THREE.Vector3()
+          //     line3.at(l/(len-1), vec3)
+          //     vec3=s.set_distance(vec3, 10.05)
+          //     // geo.vertices.push(s.set_distance(vec3, 10.02))
+          //     // geo.vertices.push(vec3)
+          //     positions.push(vec3.x, vec3.y, vec3.z)
+          //     colors.push(1,0,0)
+          //   }
+          //   let geometry = new THREE.LineGeometry();
+          //   geometry.setPositions( positions );
+          //   geometry.setColors( colors );
+
+          //   let matLine = new THREE.LineMaterial( {
+
+          //     color: 0xffffff,
+          //     linewidth: .003, // in pixels
+          //     vertexColors: THREE.VertexColors,
+          //     //resolution:  // to be set by renderer, eventually
+          //     dashed: false
+
+          //   } );
+
+          //   let line = new THREE.Line2( geometry, matLine );
+          //   line.computeLineDistances();
+          //   line.scale.set( 1, 1, 1 );
+
+          //   boundary_mesh.add(line)
+          //   s.scene.add(boundary_mesh)
+          // }
           period.map.boundary_mesh=boundary_mesh
         }
       }
