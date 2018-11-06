@@ -10,10 +10,15 @@ export default {
   data(){
     return {
       p:{
-        is_edit: vs.getQueryStringByName('is_edit')
+        is_edit: vs.getQueryStringByName('is_edit'),
+        is_show_map: true,
       }
     }
   },
+  mounted(){
+    let s=window.sapp=this
+
+  }
 }
 </script>
 

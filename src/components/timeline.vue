@@ -1,7 +1,5 @@
 <template>
-  <div class="component timeline" ref="component" 
-    style="position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);cursor: default;"
-  >
+  <div class="component timeline" :class="{transparent: p.is_show_map}" ref="component" >
 
     <div class="global_wrap"
       v-pan="{fn:component_pan, args:[]}" 
@@ -13,7 +11,7 @@
     >
       <div class="global clearfix" :style="get_global_style()">
         <div class="marginfix" style="height: 1px;margin-bottom: -1px;"></div>
-        <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)" style="background: white;">
+        <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)" >
           <div class="row" v-for="(row, i) in area.rows" :style="get_row_style(row, i, area)">
             <div class="period" :class="{act:period_act===period}" v-for="(period, i) in row.periods" 
               @mouseenter="period_mouseenter(period, i)" 
@@ -32,7 +30,7 @@
     <div class="v_bar" :style="{left: poin.x+'px'}"> </div>
     <div class="poin_time":style="{left:poin.x+'px'}">
       <span>{{poin_time}}</span>
-      <span style="margin-left: 5px;color:gray;">距今: {{now_year-poin_time}}</span>
+      <span style="margin-left: 5px;color:rgb(80,80,80);">距今: {{now_year-poin_time}}</span>
     </div>
 
     <div class="menu clearfix" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);">
@@ -67,6 +65,7 @@ import global from './preprocess_data.js'
 import StateMachine from 'javascript-state-machine'
 export default {
   name: 'timeline',
+  props: ['p'],
   data () {
     return {
       r: null,
@@ -75,8 +74,8 @@ export default {
       is_show_pophover: false,
       global: global,
       period_height: 30,
-      zoom: .1,
-      global_left: 0,
+      zoom: .34,
+      global_left: -2308,
       global_top: 50,
       act_areas: [],
       poin: {x:0, y:0}, // pointer
@@ -90,7 +89,7 @@ export default {
     }
   },
   created(){
-    let s=window.s=this
+    let s=window.stimeline=this
     console.log(global)
     s.act_areas.push(global.areas[0])
 
@@ -301,7 +300,6 @@ export default {
         position: 'relative',
         width: '100%',
         height: height+'px',
-        border: 'solid 1px rgb(200,200,200)',
         margin: '10px 0',
       };
       return style;
@@ -333,13 +331,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .ruler{    height: 24px; background: #000; position: absolute; top: 0; left: 0; width: 100%;}
-  .v_bar{    position: absolute; top: 0;    height: 100%; width: 1px; background: #000; pointer-events: none;}
-  .poin_time{    position: absolute; top: 0;color: #fff; line-height: 24px;white-space: nowrap;}
-  .pophover{border: 1px solid gray; background: rgba(255,255,255,.9); border-radius: 4px; text-align: left; padding: 10px; position: absolute; width: 300px; pointer-events: none;}
-  .popmenu{border: 1px solid gray; background: white; border-radius: 4px;  padding: 10px; position: absolute;  background: white;width:200px;height:100px;line-height: 50px;}
-  .menu .item{background: rgb(160,160,160);border: solid 1px;padding:6px 6px;cursor: pointer;}
-  .menu .item.act{background: white;}
-  .global .period{position: absolute;top: 0;box-sizing: border-box;border: solid 1px gray;color:black;text-shadow:rgb(255, 255, 255) 1px 1px 0px;word-break: keep-all;}
-  .global .period.act{border-color:red;border-width: 2px;}
+  .component{position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);cursor: default;}
+  .component .area{background: white; border: solid 1px rgb(200,200,200);}
+  .component .ruler{    height: 24px; background: #000; position: absolute; top: 0; left: 0; width: 100%;}
+  .component .v_bar{    position: absolute; top: 0;    height: 100%; width: 1px; background: #000; pointer-events: none;}
+  .component .poin_time{    position: absolute; top: 0;color: #fff; line-height: 24px;white-space: nowrap;}
+  .component .pophover{border: 1px solid gray; background: rgba(255,255,255,.9); border-radius: 4px; text-align: left; padding: 10px; position: absolute; width: 300px; pointer-events: none;}
+  .component .popmenu{border: 1px solid gray; background: white; border-radius: 4px;  padding: 10px; position: absolute;  background: white;width:200px;height:100px;line-height: 50px;}
+  .component .menu .item{background: rgb(160,160,160);border: solid 1px;padding:6px 6px;cursor: pointer;}
+  .component .menu .item.act{background: white;}
+  .component .global .period{position: absolute;top: 0;box-sizing: border-box;border: solid 1px gray;color:black;text-shadow:rgb(255, 255, 255) 1px 1px 0px;word-break: keep-all;}
+  .component .global .period.act{border-color:red;border-width: 2px;}
+
+
+  .component.transparent{background: rgba(0,0,0,.3);}
+  .component.transparent .area{background: rgba(255,255,255,.1);border: solid 1px rgba(200,200,200,.1);}
+  .component.transparent .global .period{text-shadow:rgba(255, 255, 255, .6) 1px 1px 0px;}
+  .component.transparent .global .period.act{border-color:rgba(255,0,0,.5);}
+  .component.transparent .pophover{background: rgba(255,255,255,.5);}
 </style>
