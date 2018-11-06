@@ -211,8 +211,18 @@ export default {
       })
       if(period.map.boundary_mesh){
         period.map.boundary_mesh.visible=true
-        smap.camera.position.copy(period.map.camera_position)
-        smap.camera.lookAt(0,0,0)
+        // smap.camera.position.copy(period.map.camera_position)
+        // smap.camera.lookAt(0,0,0)
+
+        let to=new THREE.Vector3( ...Object.values(smap.camera.position) )
+        let tween=s.tween=new TWEEN.Tween(to)
+          .to(period.map.camera_position, 500)
+          .easing( TWEEN.Easing.Quadratic.InOut )
+          .onUpdate(()=>{
+            smap.camera.position.copy(to)
+            smap.camera.lookAt(0,0,0)
+          })
+          .start()
       }
 
     },

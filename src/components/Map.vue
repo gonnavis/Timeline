@@ -325,9 +325,10 @@ export default {
         // helper.mesh_z.position.z=5;
         // helper.gridHelper.add(helper.mesh_z);
 
-      var animate = function () {
+      var animate = function (time) {
         requestAnimationFrame( animate );
 
+        TWEEN.update(time)
         renderer.render(scene, camera);
       };
 
