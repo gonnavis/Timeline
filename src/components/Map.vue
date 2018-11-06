@@ -180,6 +180,8 @@ export default {
         for(let j=0;j<area.periods.length;j++){
           let period=area.periods[j]
           if(!period.map.boundary) continue
+          let boundary_mesh=s.boundary_mesh=new THREE.Group()
+          boundary_mesh.visible=false
           let prev_dot=period.map.boundary[0]
           for(let k=1;k<period.map.boundary.length;k++){
             let dot=period.map.boundary[k]
@@ -203,9 +205,10 @@ export default {
             }
             let line=new THREE.Line(geo, mtl)
 
-            s.scene.add(line)
-            // s.obj3ds_boundary_line.push( line )
+            boundary_mesh.add(line)
+            s.scene.add(boundary_mesh)
           }
+          period.map.boundary_mesh=boundary_mesh
         }
       }
     },

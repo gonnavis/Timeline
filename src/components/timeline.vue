@@ -203,6 +203,18 @@ export default {
       let s=this
       s.period_act=period;
       s.is_show_pophover=true;
+
+      s.global.areas.forEach(area=>{
+        area.periods.forEach(period=>{
+          if(period.map.boundary_mesh) period.map.boundary_mesh.visible=false
+        })
+      })
+      if(period.map.boundary_mesh){
+        period.map.boundary_mesh.visible=true
+        smap.camera.position.copy(period.map.camera_position)
+        smap.camera.lookAt(0,0,0)
+      }
+
     },
     period_mouseleave(period, i){
       let s=this
