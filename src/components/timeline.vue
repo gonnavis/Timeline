@@ -32,16 +32,16 @@
       <span>{{poin_time}}</span>
       <span style="margin-left: 5px;color:gray;">距今: {{now_year-poin_time}}</span>
     </div>
+    <div class="detail" v-if="period_act" style="position:absolute;width:100%;top:24px;display: flex;background: black;color:white;justify-content: space-around;">
+      <div>{{period_act.name}}  </div>
+      <div><span style="color:gray;">时长: </span>{{period_act.to-period_act.from}}</div>
+      <div><span style="color:gray;">公元: </span>{{period_act.from}}~{{period_act.to}}</div>
+      <div style="color:gray;">距今: {{now_year-period_act.from}}~{{now_year-period_act.to}}</div>
+      <a :href="'https://baike.baidu.com/item/'+period_act.name" target="_blank" style="color:cyan;">百科</a>
+      <a :href="'https://www.baidu.com/s?wd='+period_act.name" target="_blank" style="color:cyan;">搜索</a>
+    </div>
 
     <div class="footer" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;flex-direction: column;">
-      <div class="detail" v-if="period_act" style="display: flex;background: black;color:white;justify-content: space-around;">
-        <div>{{period_act.name}}  </div>
-        <div><span style="color:gray;">时长:</span>{{period_act.to-period_act.from}}</div>
-        <div><span style="color:gray;">公元:</span>{{period_act.from}}~{{period_act.to}}</div>
-        <div style="color:rgb(160,160,160);">距今:{{now_year-period_act.from}}~{{now_year-period_act.to}}</div>
-        <a :href="'https://baike.baidu.com/item/'+period_act.name" target="_blank" style="color:cyan;">百科</a>
-        <a :href="'https://www.baidu.com/s?wd='+period_act.name" target="_blank" style="color:cyan;">搜索</a>
-      </div>
       <div class="menu clearfix" style="display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);pointer-events: all;">
         <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
         <a class="item" href="http://gonnavis.com/timeline_old2/" target="_blank">返回旧版</a>
@@ -58,14 +58,14 @@
 
     </div> -->
 
-    <!-- <div class="popmenu" v-if="period_act&&is_show_popmenu" v-show="p.map_state!==1" @click="is_show_popmenu=false" :style="popmenu_style">
+    <div class="popmenu" v-if="period_act&&is_show_popmenu" v-show="p.map_state!==1" @click="is_show_popmenu=false" :style="popmenu_style">
       <a :href="'https://baike.baidu.com/item/'+period_act.name"
         target="_blank" style="display: block;"
       >百度百科</a>
       <a :href="'https://www.baidu.com/s?wd='+period_act.name"
         target="_blank" style="display: block;"
       >百度搜索</a>
-    </div> -->
+    </div>
 
   </div>
 </template>
@@ -87,7 +87,7 @@ export default {
       period_height: 30,
       zoom: .34,
       global_left: -2308,
-      global_top: 50,
+      global_top: 100,
       act_areas: [],
       poin: {x:0, y:0}, // pointer
       poin_time: 0,
@@ -208,7 +208,7 @@ export default {
     period_press(){
       let s=this;
       s.popmenu_style=s.get_popmenu_style();
-      s.is_show_popmenu=true;
+      // s.is_show_popmenu=true;
     },
     get_popmenu_style(){
       let s=this;
