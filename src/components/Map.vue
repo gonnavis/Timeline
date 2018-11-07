@@ -62,6 +62,7 @@ export default {
     },
     tap(he){
       let s=this
+      if(!s.p.is_edit) return
       s.mouse.x=(he.center.x/window.innerWidth)*2-1
       s.mouse.y=-(he.center.y/window.innerHeight)*2+1
 
