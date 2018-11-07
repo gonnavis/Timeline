@@ -1,14 +1,17 @@
 <template>
   <div class="component wrap">
-    <timeline></timeline>
+    <Map :p="p" ></Map>
+    <timeline :p="p"  v-if="!p.is_edit"></timeline>
   </div>
 </template>
 
 <script>
 import timeline from './timeline'
+import Map from './Map'
 export default {
   name: 'wrap',
-  components:{timeline},
+  components:{timeline, Map},
+  props: ['p'],
   data () {
     return {
     }
