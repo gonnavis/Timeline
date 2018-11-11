@@ -9,7 +9,7 @@
   export map 
   JSON.stringify({
     boundary :smap.vec3s_boundary_dot,
-    camera_position: smap.camera.position.normalize(),
+    camera_position: smap.camera.position,
   })
 */
 

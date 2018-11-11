@@ -4,6 +4,7 @@
 
 <!-- <img src="http://gonnavis.com/timeline/preview2.png"> -->
 <img src="https://raw.githubusercontent.com/gonnavis/Timeline/master/other/screenshoot.png">
+<img src="https://raw.githubusercontent.com/gonnavis/Timeline/master/other/screenshoot_2.jpg">
 
 <h3>简介</h3>
 <p>自动排列，直观地显示各个历史时间段。</p> 
@@ -18,6 +19,14 @@
 <h3>编译</h3>
 <p>
   cnpm run build<br>
+</p>
+
+<h3>地图编辑模式</h3>
+<p>
+  http://localhost:8081/?is_edit=true<br>
+  点击框选边界<br>
+  控制台执行:  JSON.stringify({boundary :smap.vec3s_boundary_dot,camera_position: smap.camera.position.normalize(),})<br>
+  将结束复制粘贴如 src/components/data.js 中对应朝代的 map 属性内<br>
 </p>
 
 <h3>计划开发功能</h3>
