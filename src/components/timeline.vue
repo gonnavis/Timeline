@@ -73,7 +73,7 @@
       >百度搜索</a>
     </div>
 
-    <div class="pop_wrap" v-show="is_show_pop_help" style="pointer-events: all;">
+    <div class="pop_wrap" v-show="is_show_pop_help" style="pointer-events: all;user-select: text;">
       <div class="pop pop_help">
         <div>
           <a href="https://gitee.com/gonnavis/Timeline" target="_blank">gitee</a>
@@ -92,6 +92,8 @@
           <div>切换显示:</div>
           <div>时间线和地图 / 纯地图 / 纯时间线</div>
         </div>
+        <div>QQ群: 680915237</div>
+        <div>邮箱: gonnavis@163.com</div>
         <div class="close" @click="is_show_pop_help=false"></div>
       </div>
     </div>
