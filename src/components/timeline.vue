@@ -20,7 +20,10 @@
               @mousedown="period_mousedown($event)"
               v-hammer:press="period_press"
               :style="get_period_style(period, i, area)"
-            >{{period.name}}</div>
+            >
+              <span class="name">{{period.name}}</span>
+              <img v-show="period.map.boundary" class="map_icon" src="../assets/map.png">
+          </div>
           </div>
         </div>
       </div>
@@ -44,7 +47,10 @@
     <div class="footer" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;flex-direction: column;">
       <div class="menu clearfix" style="display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);pointer-events: all;">
         <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
-        <a class="item" href="http://gonnavis.com/timeline_old2/" target="_blank">返回旧版</a>
+        <!-- <a class="item" href="http://gonnavis.com/timeline_old2/" target="_blank">返回旧版</a> -->
+        <div class="item" @click="is_show_pop_help=true">
+          <img src="../assets/help.png" style="width:19px;height:19px;display: block;">
+        </div>
         <a class="item" @click="toggle_map()">切换显示</a>
         <div class="item area" :class="{act:act_areas.includes(area)}" v-hammer:tap="()=>menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
       </div>
@@ -67,6 +73,29 @@
       >百度搜索</a>
     </div>
 
+    <div class="pop_wrap" v-show="is_show_pop_help" style="pointer-events: all;">
+      <div class="pop pop_help">
+        <div>
+          <a href="https://gitee.com/gonnavis/Timeline" target="_blank">gitee</a>
+          &nbsp;&nbsp;&nbsp;
+          <a href="https://github.com/gonnavis/Timeline" target="_blank">github</a>
+        </div>
+        <div>
+          <div>移动:</div>
+          <div>点击拖拽</div>
+        </div>
+        <div>
+          <div>缩放:</div>
+          <div>鼠标滚轮 / 双指捏 / 双击并按住上下移动</div>
+        </div>
+        <div>
+          <div>切换显示:</div>
+          <div>时间线和地图 / 纯地图 / 纯时间线</div>
+        </div>
+        <div class="close" @click="is_show_pop_help=false"></div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -83,6 +112,7 @@ export default {
       popmenu_style: null,
       is_show_popmenu: false,
       is_show_pophover: false,
+      is_show_pop_help: false,
       global: global,
       period_height: 30,
       zoom: .34,
@@ -379,9 +409,11 @@ export default {
   .component .poin_time{    position: absolute; top: 0;color: #fff; line-height: 24px;white-space: nowrap;}
   .component .pophover{border: 1px solid gray; background: rgba(255,255,255,.9); border-radius: 4px; text-align: left; padding: 10px; position: absolute; width: 300px; pointer-events: none;}
   .component .popmenu{border: 1px solid gray; background: white; border-radius: 4px;  padding: 10px; position: absolute;  background: white;width:200px;height:100px;line-height: 50px;}
-  .component .menu .item{background: rgb(160,160,160);border: solid 1px;padding:6px 6px;cursor: pointer;}
+  .component .menu .item{background: rgb(160,160,160);border: solid 1px;padding:6px 6px;cursor: pointer;height: 19px;}
   .component .menu .item.act{background: white;}
   .component .global .period{position: absolute;top: 0;box-sizing: border-box;border: solid 1px gray;color:black;text-shadow:rgb(255, 255, 255) 1px 1px 0px;word-break: keep-all;}
+  .component .global .period .name{position: relative;z-index: 1;}
+  .component .global .period .map_icon{position: absolute;left:0;bottom:0;width:10px;height: 10px;pointer-events: none;opacity: .7;background: rgba(255,255,255,.3);z-index: 2;}
   .component .global .period.act{border-color:red;border-width: 2px;}
   .component .detail>*{padding:2px;}
 
@@ -393,4 +425,10 @@ export default {
   /*.component.transparent .pophover{background: rgba(255,255,255,.5);}*/
 
   .pointer_events_none{pointer-events: none;}
+
+  .pop_wrap{position: absolute;left:0;top:0;width:100%;height: 100%;background: rgba(0,0,0,.5);}
+  .pop_wrap .pop{padding:10px;box-sizing: border-box;line-height: 2em;font-size: 16px;display: flex;flex-direction: column;justify-content: center;}
+  .pop_wrap .pop>*{margin:10px 0;}
+  .pop_wrap .pop_help{position: absolute;left:0;right: 0;top:0;bottom:0;width:80%;height:80%;max-width:640px;margin: auto;background: white;border-radius: 4px;}
+  .pop_wrap .close{position: absolute;right: -15px;top:-15px;background: url(../assets/close.png) no-repeat center center / 100% 100%; width:30px;height:30px;margin:0;opacity: .7;}
 </style>
