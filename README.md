@@ -23,7 +23,7 @@
 
 <h3>地图编辑模式</h3>
 <p>
-  http://localhost:8081/?is_edit=true<br>
+  http://localhost:8080/?is_edit=true<br>
   点击框选边界<br>
   控制台执行:  JSON.stringify({boundary :smap.vec3s_boundary_dot,camera_position: smap.camera.position,})<br>
   将结果复制粘贴入 src/components/data.js 中对应朝代的 map 属性内<br>

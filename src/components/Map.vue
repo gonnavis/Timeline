@@ -327,7 +327,7 @@ export default {
         map: new THREE.TextureLoader().load(require('../assets/thematicmapping/2_no_clouds_4k.jpg')),
         // map: new THREE.TextureLoader().load(require('../assets/map_color.jpg')),
         // displacementMap: new THREE.TextureLoader().load(require('../assets/map_height.jpg')),
-        displacementScale: .3,
+        // displacementScale: .3,
       } );
       var mesh_earth = s.mesh_earth = new THREE.Mesh( geometry, material );
       mesh_earth.rotation.y=-.2
