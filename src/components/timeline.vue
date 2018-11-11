@@ -412,8 +412,8 @@ export default {
   .component .menu .item{background: rgb(160,160,160);border: solid 1px;padding:6px 6px;cursor: pointer;height: 19px;}
   .component .menu .item.act{background: white;}
   .component .global .period{position: absolute;top: 0;box-sizing: border-box;border: solid 1px gray;color:black;text-shadow:rgb(255, 255, 255) 1px 1px 0px;word-break: keep-all;}
-  .component .global .period .name{position: relative;z-index: 1;}
-  .component .global .period .map_icon{position: absolute;left:0;bottom:0;width:10px;height: 10px;pointer-events: none;opacity: .7;background: rgba(255,255,255,.3);z-index: 2;}
+  .component .global .period .name{}
+  .component .global .period .map_icon{position: absolute;left:0;bottom:0;width:10px;height: 10px;pointer-events: none;opacity: .7;background: rgba(255,255,255,.3);}
   .component .global .period.act{border-color:red;border-width: 2px;}
   .component .detail>*{padding:2px;}
 
