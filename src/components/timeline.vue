@@ -429,8 +429,8 @@ export default {
   .pointer_events_none{pointer-events: none;}
 
   .pop_wrap{position: absolute;left:0;top:0;width:100%;height: 100%;background: rgba(0,0,0,.5);}
-  .pop_wrap .pop{padding:10px;box-sizing: border-box;line-height: 2em;font-size: 16px;display: flex;flex-direction: column;justify-content: center;}
+  .pop_wrap .pop{padding:10px;box-sizing: border-box;font-size: 16px;display: flex;flex-direction: column;justify-content: space-around;}
   .pop_wrap .pop>*{margin:10px 0;}
-  .pop_wrap .pop_help{position: absolute;left:0;right: 0;top:0;bottom:0;width:80%;height:80%;max-width:640px;margin: auto;background: white;border-radius: 4px;}
+  .pop_wrap .pop_help{position: absolute;left:0;right: 0;top:0;bottom:0;width:80%;height:80%;max-width:500px;max-height:500px;margin: auto;background: white;border-radius: 4px;}
   .pop_wrap .close{position: absolute;right: -15px;top:-15px;background: url(../assets/close.png) no-repeat center center / 100% 100%; width:30px;height:30px;margin:0;opacity: .7;}
 </style>
