@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style type="text/css"> @import "style.css"; </style>
+<script type="application/x-javascript">
+
+var MAX_YEAR = 2017;
+
+var data = {
+	map_x: 2500,
+	map_y: 580,
+	year: -4000,
+	zoom: 1,
+	lang: 'ja',
+};
+
+</script>
+<script type="application/x-javascript" src="js/era.js"></script>
+<script type="application/x-javascript" src="js/territory.js"></script>
+<script type="application/x-javascript" src="js/regions.js"></script>
+<script type="application/x-javascript" src="js/LangButton.js"></script>
+<script type="application/x-javascript" src="js/ZoomBar.js"></script>
+<script type="application/x-javascript" src="js/YearText.js"></script>
+<script type="application/x-javascript" src="js/YearBar.js"></script>
+<script type="application/x-javascript" src="js/Region.js"></script>
+<script type="application/x-javascript" src="js/Map.js"></script>
+<script type="application/x-javascript" src="js/twha.js"></script>
+<title>The World Historical Atras - beta</title>
+</head>
+<body>
+<div id="head">
+<div id="scale-zoom"><img src="img/thumb-v.png" id="scale-zoom-cursor" alt=""></div>
+<div class="lang-button" id="lang-ja"></div><div class="lang-button" id="lang-en"></div><div class="lang-button" id="lang-zh"></div>
+<div id="year"><span id="year-text"></span><input type="text" id="year-input" value=""></div>
+<div id="year-sub"></div>
+</div>
+<div id="layer-land"></div>
+<div id="layer-tert"></div>
+<div id="layer-info"></div>
+<div id="year-bar">
+<img id="year-bar-cursor" src="img/year-pos.png" alt=""><img id="year-arrow-left" src="img/arrow-left.png" alt=""><canvas id="year-bar-scale" height="32"></canvas><img id="year-arrow-right" src="img/arrow-right.png" alt="">
+</div>
+</body>
+</html>
