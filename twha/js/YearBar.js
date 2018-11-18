@@ -78,25 +78,35 @@ function YearBar()
 	};
 	this.update = update_cursor;
 
-	year_bar.addEventListener('mousedown', function(e)
+  year_bar.addEventListener('mousewheel', function(e)
+  {
+    console.log(e)
+    e.preventDefault()
+    e.stopPropagation()
+    var step
+    if(e.ctrlKey) step=10
+    else if(e.shiftKey) step=5
+    else step=1
+    if(e.deltaY>0){
+      data.year+=step
+    }else if(e.deltaY<0){
+      data.year-=step
+    }
+    update_cursor();
+    if (on_changed_handler) {
+      on_changed_handler();
+    }
+  });
+
+  var is_mousedown=false
+  year_bar.addEventListener('mousedown', function(e){
+    // console.log(e)
+    set_year(e)
+  })
+	year_bar.addEventListener('mousemove', function(e)
 	{
-		var xpos = e.clientX;
-		if (xpos < _SIZE) {
-			data.year--;
-		} else if (xpos > scale_width + _SIZE) {
-			data.year++;
-		} else {
-			var yr = (xpos - 32) * 9400 / scale_width - 200;
-			if (yr > 3000) {
-				yr = (yr + 3000) / 2;
-			}
-			yr -= 4000;
-			data.year = Math.round(yr);
-		}
-		update_cursor();
-		if (on_changed_handler) {
-			on_changed_handler();
-		}
+    e.preventDefault()
+    set_year(e)
 	});
 	arrow_l.addEventListener('mouseenter', function()
 	{
@@ -114,4 +124,25 @@ function YearBar()
 	{
 		arrow_r.src = 'img/arrow-right.png';
 	});
+
+  function set_year(e){
+    if(e.buttons!==1) return
+    var xpos = e.clientX;
+    if (xpos < _SIZE) {
+      data.year--;
+    } else if (xpos > scale_width + _SIZE) {
+      data.year++;
+    } else {
+      var yr = (xpos - 32) * 9400 / scale_width - 200;
+      if (yr > 3000) {
+        yr = (yr + 3000) / 2;
+      }
+      yr -= 4000;
+      data.year = Math.round(yr);
+    }
+    update_cursor();
+    if (on_changed_handler) {
+      on_changed_handler();
+    }
+  }
 }
