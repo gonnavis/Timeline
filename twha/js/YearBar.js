@@ -78,13 +78,14 @@ function YearBar()
 	};
 	this.update = update_cursor;
 
+  year_bar.addEventListener('contextmenu', function(e){ e.preventDefault() })
   year_bar.addEventListener('mousewheel', function(e)
   {
     console.log(e)
     e.preventDefault()
     e.stopPropagation()
     var step
-    if(e.ctrlKey) step=10
+    if(e.ctrlKey || e.buttons===2) step=10
     else if(e.shiftKey) step=5
     else step=1
     if(e.deltaY>0){
