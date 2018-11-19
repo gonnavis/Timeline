@@ -23,6 +23,10 @@
 <h3>计划开发功能</h3>
 <p>对应时期的地图，完善标尺，时间段嵌套，自定义／上传时间段。 </p>
 
+<h3>The World Historical Atras 项目代码</h3>
+<p>果然已经有人整理了所有年代的历史地图并做成了网页, 不需要我自己再搞一遍了, http://x768.com/w/twha.ja 奇怪的是他并没有放到线上, 我稍微改了改放到了线上 http://gonnavis.com/timeline/twha/ 目前只支持pc</p>
+<p>代码放在本项目的 twha 文件夹下，后续准备融合到主体项目内</p>
+
 <h3>备注</h3>
 <p>
   angular2 版: SHA-1: b2bbf00d95ac24568e1941da56a91884b95edc8d<br>
