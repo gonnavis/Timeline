@@ -26694,7 +26694,7 @@ var region_list = [
 [ 1938, 1945,"cn/kuomin","重庆国民政府","Nationalist Goverment of Chongqing","@","国民政府","Kuomintang","@"],
 [ 1945, 1948,"cn/kuomin","南京国民政府","Nationalist Goverment of Nanjing","@","国民政府","Kuomintang","@",2850,600,0],
 [ 1948, 1949,"cn/kuomin","中华民国","Republic of China","@","中华民国","Kuomintang","@"],
-[ 1949, 9999,"cn/kuomin","中华民国（台湾）","Republic of China(Taiwan)","@","台湾","Taiwan","@",3000,670,0],
+[ 1949, 9999,""," "," ","@"," "," ","@",3000,670,0],
 ["大総统","President","@"],
 [ 1917, 1918,"cn/sun-yat-sen","孙文","Sun Yat-sen","孙中山"],
 [ 1918, 1920,"cn/cen-chun-xuan","岑春煊","Cen Chun-xuan","@"],
