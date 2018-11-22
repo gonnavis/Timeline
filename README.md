@@ -2,11 +2,12 @@
 
 <a href="http://gonnavis.com/timeline/" target="_blank">在线演示</a>
 &nbsp;
-<a href="http://gonnavis.com/timeline/twha/" target="_blank">完整历史地图版(twha)</a>
+<a href="http://gonnavis.com/timeline/twha/" target="_blank">在线演示twha版</a>
 
 <!-- <img src="http://gonnavis.com/timeline/preview2.png"> -->
 <img src="https://raw.githubusercontent.com/gonnavis/Timeline/master/other/screenshoot.png">
 <img src="https://raw.githubusercontent.com/gonnavis/Timeline/master/other/screenshoot_2.jpg">
+<img src="https://raw.githubusercontent.com/gonnavis/Timeline/master/other/screenshoot_twha.jpg">
 
 <h3>简介</h3>
 <p>自动排列，直观地显示各个历史时间段。</p> 
