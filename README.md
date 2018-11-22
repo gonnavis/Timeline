@@ -1,6 +1,8 @@
 <h1>历史时间线</h1>
 
-<a href="http://gonnavis.com/timeline" target="_blank">在线演示 demo</a>
+<a href="http://gonnavis.com/timeline/" target="_blank">在线演示</a>
+&nbsp;
+<a href="http://gonnavis.com/timeline/twha/" target="_blank">完整历史地图版(twha)</a>
 
 <!-- <img src="http://gonnavis.com/timeline/preview2.png"> -->
 <img src="https://raw.githubusercontent.com/gonnavis/Timeline/master/other/screenshoot.png">
