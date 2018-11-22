@@ -20,7 +20,10 @@
               @mousedown="period_mousedown($event)"
               v-hammer:press="period_press"
               :style="get_period_style(period, i, area)"
-            >{{period.name}}</div>
+            >
+              <span class="name">{{period.name}}</span>
+              <img v-show="period.map.boundary" class="map_icon" src="../assets/map.png">
+          </div>
           </div>
         </div>
       </div>
@@ -30,23 +33,36 @@
     <div class="v_bar" v-show="p.map_state!==1" :style="{left: poin.x+'px'}"> </div>
     <div class="poin_time" v-show="p.map_state!==1" :style="{left:poin.x+'px'}">
       <span>{{poin_time}}</span>
-      <span style="margin-left: 5px;color:rgb(80,80,80);">距今: {{now_year-poin_time}}</span>
+      <span style="margin-left: 5px;color:gray;">距今: {{now_year-poin_time}}</span>
+    </div>
+    <div class="detail" v-if="period_act" v-show="p.map_state!==1" style="position:absolute;width:100%;top:24px;display: flex;background: black;color:white;justify-content: space-around;">
+      <div>{{period_act.name}}  </div>
+      <div><span style="color:gray;">时长: </span>{{period_act.to-period_act.from}}</div>
+      <div><span style="color:gray;">公元: </span>{{period_act.from}}~{{period_act.to}}</div>
+      <div style="color:gray;">距今: {{now_year-period_act.from}}~{{now_year-period_act.to}}</div>
+      <a :href="'https://baike.baidu.com/item/'+period_act.name" target="_blank" style="color:cyan;">百科</a>
+      <a :href="'https://www.baidu.com/s?wd='+period_act.name" target="_blank" style="color:cyan;">搜索</a>
     </div>
 
-    <div class="menu clearfix" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);pointer-events: all;">
-      <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
-      <a class="item" href="http://gonnavis.com/timeline_old2/" target="_blank">返回旧版</a>
-      <a class="item" @click="toggle_map()">切换地图</a>
-      <div class="item area" :class="{act:act_areas.includes(area)}" v-hammer:tap="()=>menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
+    <div class="footer" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;flex-direction: column;">
+      <div class="menu clearfix" style="display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);pointer-events: all;">
+        <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
+        <!-- <a class="item" href="http://gonnavis.com/timeline_old2/" target="_blank">返回旧版</a> -->
+        <div class="item" @click="is_show_pop_help=true">
+          <img src="../assets/help.png" style="width:19px;height:19px;display: block;">
+        </div>
+        <a class="item" @click="toggle_map()">切换显示</a>
+        <div class="item area" :class="{act:act_areas.includes(area)}" v-hammer:tap="()=>menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
+      </div>
     </div>
 
-    <div class="pophover" v-if="period_act&&is_show_pophover" v-show="p.map_state!==1" :style="get_pophover_style()">
+    <!-- <div class="pophover" v-if="period_act&&is_show_pophover" v-show="p.map_state!==1" :style="get_pophover_style()">
       <div>{{period_act.name}}  </div>
       <div>公元: {{period_act.from}} ~ {{period_act.to}}</div>
       <div style="color:rgb(160,160,160);">距今: {{now_year-period_act.from}} ~ {{now_year-period_act.to}}</div>
       <div>时长: {{period_act.to-period_act.from}}</div>
 
-    </div>
+    </div> -->
 
     <div class="popmenu" v-if="period_act&&is_show_popmenu" v-show="p.map_state!==1" @click="is_show_popmenu=false" :style="popmenu_style">
       <a :href="'https://baike.baidu.com/item/'+period_act.name"
@@ -57,12 +73,38 @@
       >百度搜索</a>
     </div>
 
+    <div class="pop_wrap" v-show="is_show_pop_help" style="pointer-events: all;user-select: text;">
+      <div class="pop pop_help">
+        <div>
+          <a href="https://gitee.com/gonnavis/Timeline" target="_blank">gitee</a>
+          &nbsp;&nbsp;&nbsp;
+          <a href="https://github.com/gonnavis/Timeline" target="_blank">github</a>
+        </div>
+        <div>
+          <div>移动:</div>
+          <div>点击拖拽</div>
+        </div>
+        <div>
+          <div>缩放:</div>
+          <div>鼠标滚轮 / 双指捏 / 双击并按住上下移动</div>
+        </div>
+        <div>
+          <div>切换显示:</div>
+          <div>时间线和地图 / 纯地图 / 纯时间线</div>
+        </div>
+        <div>QQ群: 680915237</div>
+        <div>邮箱: gonnavis@163.com</div>
+        <div class="close" @click="is_show_pop_help=false"></div>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
 // import data from './data.js'
 import global from './preprocess_data.js'
+import StateMachine from 'javascript-state-machine'
 export default {
   name: 'timeline',
   props: ['p'],
@@ -72,11 +114,12 @@ export default {
       popmenu_style: null,
       is_show_popmenu: false,
       is_show_pophover: false,
+      is_show_pop_help: false,
       global: global,
       period_height: 30,
       zoom: .34,
       global_left: -2308,
-      global_top: 50,
+      global_top: 100,
       act_areas: [],
       poin: {x:0, y:0}, // pointer
       poin_time: 0,
@@ -85,13 +128,26 @@ export default {
       zoom_min: .05,
       pan_speed: 2, // the larger the faster
       period_act: null,
-
+      fsm: null,
     }
   },
   created(){
     let s=window.stimeline=this
     console.log(global)
     s.act_areas.push(global.areas[0])
+
+    s.fsm=new StateMachine({
+      init: 'idle',
+      transitions:[
+        {name:'tapedtoidle', from:'taped', to:'idle'},
+        {name:'idletoptaped', from:'idle', to:'taped'},
+        {name:'tapedtopanzoom', from:'taped', to:'panzoom'},
+        {name:'panzoomtoidle', from:'panzoom', to:'idle'},
+      ],
+      methods: {
+        onInvalidTransition:function(){ },
+      }
+    })
   },
   mounted(){
     let s=this
@@ -104,15 +160,38 @@ export default {
     //   s.global_top+=ve.deltaY;
     // })
 
-    let hammer=new Hammer(s.r.component);
-    hammer.get('pinch').set({ enable: true });
-    hammer.on('pinchin', function(e){
-
+    let hmr_component=new Hammer(s.r.component);
+    hmr_component.get('pinch').set({ enable: true });
+    hmr_component.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+    hmr_component.on('pinchin', function(e){
       s.zoom_out(s.x_to_time(e.center.x));
     })
-    hammer.on('pinchout', function(e){
+    hmr_component.on('pinchout', function(e){
       s.zoom_in(s.x_to_time(e.center.x));
-      console.log('pan', e.direction, e)
+    })
+    hmr_component.on('tap', function(e){
+      console.log('tap')
+      s.fsm.idletoptaped()
+      setTimeout(()=>{
+        s.fsm.tapedtoidle()
+      }, 500)
+    })
+    hmr_component.on('pan', function(e){
+      // console.log('pan', e.direction, e)
+      if(s.fsm.is('taped')){
+        s.fsm.tapedtopanzoom()
+      }
+      if(s.fsm.is('panzoom')){
+        if(e.direction===8){ // up
+          s.zoom_in(s.x_to_time(e.center.x))
+        }else if(e.direction===16){ // down
+          s.zoom_out(s.x_to_time(e.center.x))
+        }
+      }
+
+    })
+    hmr_component.on('panend', function(e){
+      s.fsm.panzoomtoidle()
     })
 
 
@@ -161,7 +240,7 @@ export default {
     period_press(){
       let s=this;
       s.popmenu_style=s.get_popmenu_style();
-      s.is_show_popmenu=true;
+      // s.is_show_popmenu=true;
     },
     get_popmenu_style(){
       let s=this;
@@ -332,10 +411,13 @@ export default {
   .component .poin_time{    position: absolute; top: 0;color: #fff; line-height: 24px;white-space: nowrap;}
   .component .pophover{border: 1px solid gray; background: rgba(255,255,255,.9); border-radius: 4px; text-align: left; padding: 10px; position: absolute; width: 300px; pointer-events: none;}
   .component .popmenu{border: 1px solid gray; background: white; border-radius: 4px;  padding: 10px; position: absolute;  background: white;width:200px;height:100px;line-height: 50px;}
-  .component .menu .item{background: rgb(160,160,160);border: solid 1px;padding:6px 6px;cursor: pointer;}
+  .component .menu .item{background: rgb(160,160,160);border: solid 1px;padding:6px 6px;cursor: pointer;height: 19px;}
   .component .menu .item.act{background: white;}
   .component .global .period{position: absolute;top: 0;box-sizing: border-box;border: solid 1px gray;color:black;text-shadow:rgb(255, 255, 255) 1px 1px 0px;word-break: keep-all;}
+  .component .global .period .name{}
+  .component .global .period .map_icon{position: absolute;left:0;bottom:0;width:10px;height: 10px;pointer-events: none;opacity: .7;background: rgba(255,255,255,.3);}
   .component .global .period.act{border-color:red;border-width: 2px;}
+  .component .detail>*{padding:2px;}
 
 
   .component.transparent{background: rgba(0,0,0,.3);}
@@ -345,4 +427,10 @@ export default {
   /*.component.transparent .pophover{background: rgba(255,255,255,.5);}*/
 
   .pointer_events_none{pointer-events: none;}
+
+  .pop_wrap{position: absolute;left:0;top:0;width:100%;height: 100%;background: rgba(0,0,0,.5);}
+  .pop_wrap .pop{padding:10px;box-sizing: border-box;font-size: 16px;display: flex;flex-direction: column;justify-content: space-around;}
+  .pop_wrap .pop>*{margin:10px 0;}
+  .pop_wrap .pop_help{position: absolute;left:0;right: 0;top:0;bottom:0;width:80%;height:80%;max-width:500px;max-height:500px;margin: auto;background: white;border-radius: 4px;}
+  .pop_wrap .close{position: absolute;right: -15px;top:-15px;background: url(../assets/close.png) no-repeat center center / 100% 100%; width:30px;height:30px;margin:0;opacity: .7;}
 </style>

@@ -42,95 +42,7 @@ export default [
     ]
   },
   {
-    name: '春秋战国', periods: [
-      { name: '秦国', from: -900, to: -207 },
-      { name: '吴国', from: -1046, to: -473 },
-      { name: '齐国', from: -1046, to: -379 },
-      { name: '鲁国', from: -1046, to: -256 },
-      { name: '燕国', from: -1046, to: -221 },
-      { name: '蔡国', from: -1046, to: -447 },
-      { name: '曹国', from: -1046, to: -487 },
-      { name: '陈国', from: -1046, to: -478 },
-      { name: '卫国', from: -1040, to: -209 },
-      { name: '宋国', from: -1040, to: -286 },
-      { name: '晋国', from: -1033, to: -349 },
-      { name: '楚国', from: -1046, to: -223 },
-      { name: '越国', from: -2070, to: -306 },
-      { name: '郑国', from: -806, to: -375 },
-      { name: '魏国', from: -403, to: -225 },
-      { name: '赵国', from: -403, to: -222 },
-      { name: '韩国', from: -403, to: -230 }]
-  },
-  {
-    name: '三国', periods: [
-      { name: '曹魏', from: 220, to: 266 },
-      { name: '蜀汉', from: 221, to: 263 },
-      { name: '孙吴', from: 229, to: 280 }]
-  },
-  {
-    name: '十六国', periods: [
-      { name: '前凉', from: 300, to: 376 ,alias:''},
-      { name: '南凉', from: 397, to: 414 ,alias:''},
-      { name: '北凉', from: 397, to: 439 ,alias:''},
-      { name: '西凉', from: 400, to: 421 ,alias:''},
-      { name: '后凉', from: 386, to: 403 ,alias:''},
-      { name: '前燕', from: 307, to: 370 ,alias:''},
-      { name: '南燕', from: 398, to: 410 ,alias:''},
-      { name: '后燕', from: 384, to: 407 ,alias:''},
-      { name: '北燕', from: 407, to: 436 ,alias:'黄龙国,东燕'},
-      { name: '前秦', from: 351, to: 394 ,alias:''},
-      { name: '后秦', from: 384, to: 417 ,alias:''},
-      { name: '西秦', from: 385, to: 431 ,alias:''},
-      { name: '汉赵', from: 304, to: 329 ,alias:''},
-      { name: '后赵', from: 319, to: 351 ,alias:''},
-      { name: '成汉', from: 304, to: 347 ,alias:''},
-      { name: '胡夏', from: 407, to: 431 ,alias:''},
-      { name: '代', from: 338, to: 376 ,alias:''},
-      { name: '西燕', from: 384, to: 394 ,alias:''},
-      { name: '冉魏', from: 350, to: 352 ,alias:''},
-      { name: '西蜀', from: 405, to: 413 ,alias:''},
-      { name: '翟魏', from: 388, to: 392 ,alias:''},
-    ]
-  },
-  {
-    name: '南朝', periods: [
-      { name: '南朝宋', from: 420, to: 479 },
-      { name: '南朝齐', from: 479, to: 502 },
-      { name: '南朝梁', from: 502, to: 557 },
-      { name: '南朝陈', from: 557, to: 589 }]
-  },
-  {
-    name: '北朝', periods: [
-      { name: '北魏', from: 386, to: 534 ,alias:'后魏,拓跋魏,元魏'},
-      { name: '东魏', from: 534, to: 550 ,alias:''},
-      { name: '北齐', from: 550, to: 577 ,alias:''},
-      { name: '西魏', from: 535, to: 556 ,alias:''},
-      { name: '北周', from: 557, to: 581 ,alias:''},
-    ]
-  },
-  {
-    name: '五代', periods: [
-      { name: '后梁', from: 907, to: 923 },
-      { name: '后唐', from: 923, to: 936 },
-      { name: '后晋', from: 936, to: 947 },
-      { name: '后汉', from: 947, to: 951 },
-      { name: '后周', from: 951, to: 960 }]
-  },
-  {
-    name: '十国', periods: [
-      { name: '前蜀', from: 907, to: 925 },
-      { name: '后蜀', from: 934, to: 965 },
-      { name: '南吴', from: 902, to: 937 },
-      { name: '南唐', from: 937, to: 975 },
-      { name: '吴越国', from: 907, to: 978 },
-      { name: '闽国', from: 909, to: 945 },
-      { name: '南楚', from: 896, to: 951 },
-      { name: '南汉', from: 917, to: 971 },
-      { name: '南平', from: 907, to: 963 },
-      { name: '北汉', from: 951, to: 979 }]
-  },
-  {
-    name: '周边', periods: [
+    name: '东亚', periods: [
       { name: '鲜卑', from: 200, to: 600, map:JSON.parse('{}') },
       { name: '突厥', from: 552, to: 658, map:JSON.parse('{}') },
       { name: '吐蕃', from: 618, to: 1100, map:JSON.parse('{}') },
@@ -233,76 +145,99 @@ export default [
       { name: '奥尔梅克文明', from: -1800, to: -300, alias: '', name_en: '', map:JSON.parse('{}') },
     ]
   },
-      { name: '秦国', from: -900, to: -207 },
-      { name: '吴国', from: -1046, to: -473 },
-      { name: '齐国', from: -1046, to: -379 },
-      { name: '鲁国', from: -1046, to: -256 },
-      { name: '燕国', from: -1046, to: -221 },
-      { name: '蔡国', from: -1046, to: -447 },
-      { name: '曹国', from: -1046, to: -487 },
-      { name: '陈国', from: -1046, to: -478 },
-      { name: '卫国', from: -1040, to: -209 },
-      { name: '宋国', from: -1040, to: -286 },
-      { name: '晋国', from: -1033, to: -349 },
-      { name: '楚国', from: -1046, to: -223 },
-      { name: '越国', from: -2070, to: -306 },
-      { name: '郑国', from: -806, to: -375 },
-      { name: '魏国', from: -403, to: -225 },
-      { name: '赵国', from: -403, to: -222 },
-      { name: '韩国', from: -403, to: -230 }]
+  {
+    name: '春秋战国', periods: [
+      { name: '秦国', from: -900, to: -207, map:JSON.parse('{}') },
+      { name: '吴国', from: -1046, to: -473, map:JSON.parse('{}') },
+      { name: '齐国', from: -1046, to: -379, map:JSON.parse('{}') },
+      { name: '鲁国', from: -1046, to: -256, map:JSON.parse('{}') },
+      { name: '燕国', from: -1046, to: -221, map:JSON.parse('{}') },
+      { name: '蔡国', from: -1046, to: -447, map:JSON.parse('{}') },
+      { name: '曹国', from: -1046, to: -487, map:JSON.parse('{}') },
+      { name: '陈国', from: -1046, to: -478, map:JSON.parse('{}') },
+      { name: '卫国', from: -1040, to: -209, map:JSON.parse('{}') },
+      { name: '宋国', from: -1040, to: -286, map:JSON.parse('{}') },
+      { name: '晋国', from: -1033, to: -349, map:JSON.parse('{}') },
+      { name: '楚国', from: -1046, to: -223, map:JSON.parse('{}') },
+      { name: '越国', from: -2070, to: -306, map:JSON.parse('{}') },
+      { name: '郑国', from: -806, to: -375, map:JSON.parse('{}') },
+      { name: '魏国', from: -403, to: -225, map:JSON.parse('{}') },
+      { name: '赵国', from: -403, to: -222, map:JSON.parse('{}') },
+      { name: '韩国', from: -403, to: -230, map:JSON.parse('{}') },
     ]
-      { name: '曹魏', from: 220, to: 266 },
-      { name: '蜀汉', from: 221, to: 263 },
-      { name: '孙吴', from: 229, to: 280 }]
+  },
+  {
+    name: '三国', periods: [
+      { name: '曹魏', from: 220, to: 266, map:JSON.parse('{}') },
+      { name: '蜀汉', from: 221, to: 263, map:JSON.parse('{}') },
+      { name: '孙吴', from: 229, to: 280, map:JSON.parse('{}') },
     ]
-      { name: '前凉', from: 300, to: 376 ,alias:''},
-      { name: '南凉', from: 397, to: 414 ,alias:''},
-      { name: '北凉', from: 397, to: 439 ,alias:''},
-      { name: '西凉', from: 400, to: 421 ,alias:''},
-      { name: '后凉', from: 386, to: 403 ,alias:''},
-      { name: '前燕', from: 307, to: 370 ,alias:''},
-      { name: '南燕', from: 398, to: 410 ,alias:''},
-      { name: '后燕', from: 384, to: 407 ,alias:''},
-      { name: '北燕', from: 407, to: 436 ,alias:'黄龙国,东燕'},
-      { name: '前秦', from: 351, to: 394 ,alias:''},
-      { name: '后秦', from: 384, to: 417 ,alias:''},
-      { name: '西秦', from: 385, to: 431 ,alias:''},
-      { name: '汉赵', from: 304, to: 329 ,alias:''},
-      { name: '后赵', from: 319, to: 351 ,alias:''},
-      { name: '成汉', from: 304, to: 347 ,alias:''},
-      { name: '胡夏', from: 407, to: 431 ,alias:''},
-      { name: '代', from: 338, to: 376 ,alias:''},
-      { name: '西燕', from: 384, to: 394 ,alias:''},
-      { name: '冉魏', from: 350, to: 352 ,alias:''},
-      { name: '西蜀', from: 405, to: 413 ,alias:''},
-      { name: '翟魏', from: 388, to: 392 ,alias:''},
-      { name: '南朝宋', from: 420, to: 479 },
-      { name: '南朝齐', from: 479, to: 502 },
-      { name: '南朝梁', from: 502, to: 557 },
-      { name: '南朝陈', from: 557, to: 589 }]
+  },
+  {
+    name: '十六国', periods: [
+      { name: '前凉', from: 300, to: 376 ,alias:'', map:JSON.parse('{}') },
+      { name: '南凉', from: 397, to: 414 ,alias:'', map:JSON.parse('{}') },
+      { name: '北凉', from: 397, to: 439 ,alias:'', map:JSON.parse('{}') },
+      { name: '西凉', from: 400, to: 421 ,alias:'', map:JSON.parse('{}') },
+      { name: '后凉', from: 386, to: 403 ,alias:'', map:JSON.parse('{}') },
+      { name: '前燕', from: 307, to: 370 ,alias:'', map:JSON.parse('{}') },
+      { name: '南燕', from: 398, to: 410 ,alias:'', map:JSON.parse('{}') },
+      { name: '后燕', from: 384, to: 407 ,alias:'', map:JSON.parse('{}') },
+      { name: '北燕', from: 407, to: 436 ,alias:'黄龙国,东燕', map:JSON.parse('{}') },
+      { name: '前秦', from: 351, to: 394 ,alias:'', map:JSON.parse('{}') },
+      { name: '后秦', from: 384, to: 417 ,alias:'', map:JSON.parse('{}') },
+      { name: '西秦', from: 385, to: 431 ,alias:'', map:JSON.parse('{}') },
+      { name: '汉赵', from: 304, to: 329 ,alias:'', map:JSON.parse('{}') },
+      { name: '后赵', from: 319, to: 351 ,alias:'', map:JSON.parse('{}') },
+      { name: '成汉', from: 304, to: 347 ,alias:'', map:JSON.parse('{}') },
+      { name: '胡夏', from: 407, to: 431 ,alias:'', map:JSON.parse('{}') },
+      { name: '代', from: 338, to: 376 ,alias:'', map:JSON.parse('{}') },
+      { name: '西燕', from: 384, to: 394 ,alias:'', map:JSON.parse('{}') },
+      { name: '冉魏', from: 350, to: 352 ,alias:'', map:JSON.parse('{}') },
+      { name: '西蜀', from: 405, to: 413 ,alias:'', map:JSON.parse('{}') },
+      { name: '翟魏', from: 388, to: 392 ,alias:'', map:JSON.parse('{}') },
     ]
-      { name: '北魏', from: 386, to: 534 ,alias:'后魏,拓跋魏,元魏'},
-      { name: '东魏', from: 534, to: 550 ,alias:''},
-      { name: '北齐', from: 550, to: 577 ,alias:''},
-      { name: '西魏', from: 535, to: 556 ,alias:''},
-      { name: '北周', from: 557, to: 581 ,alias:''},
-      { name: '后梁', from: 907, to: 923 },
-      { name: '后唐', from: 923, to: 936 },
-      { name: '后晋', from: 936, to: 947 },
-      { name: '后汉', from: 947, to: 951 },
-      { name: '后周', from: 951, to: 960 }]
+  },
+  {
+    name: '南朝', periods: [
+      { name: '南朝宋', from: 420, to: 479, map:JSON.parse('{}') },
+      { name: '南朝齐', from: 479, to: 502, map:JSON.parse('{}') },
+      { name: '南朝梁', from: 502, to: 557, map:JSON.parse('{}') },
+      { name: '南朝陈', from: 557, to: 589, map:JSON.parse('{}') },
     ]
-      { name: '前蜀', from: 907, to: 925 },
-      { name: '后蜀', from: 934, to: 965 },
-      { name: '南吴', from: 902, to: 937 },
-      { name: '南唐', from: 937, to: 975 },
-      { name: '吴越国', from: 907, to: 978 },
-      { name: '闽国', from: 909, to: 945 },
-      { name: '南楚', from: 896, to: 951 },
-      { name: '南汉', from: 917, to: 971 },
-      { name: '南平', from: 907, to: 963 },
-      { name: '北汉', from: 951, to: 979 }]
+  },
+  {
+    name: '北朝', periods: [
+      { name: '北魏', from: 386, to: 534 ,alias:'后魏,拓跋魏,元魏', map:JSON.parse('{}') },
+      { name: '东魏', from: 534, to: 550 ,alias:'', map:JSON.parse('{}') },
+      { name: '北齐', from: 550, to: 577 ,alias:'', map:JSON.parse('{}') },
+      { name: '西魏', from: 535, to: 556 ,alias:'', map:JSON.parse('{}') },
+      { name: '北周', from: 557, to: 581 ,alias:'', map:JSON.parse('{}') },
     ]
+  },
+  {
+    name: '五代', periods: [
+      { name: '后梁', from: 907, to: 923, map:JSON.parse('{}') },
+      { name: '后唐', from: 923, to: 936, map:JSON.parse('{}') },
+      { name: '后晋', from: 936, to: 947, map:JSON.parse('{}') },
+      { name: '后汉', from: 947, to: 951, map:JSON.parse('{}') },
+      { name: '后周', from: 951, to: 960, map:JSON.parse('{}') },
+    ]
+  },
+  {
+    name: '十国', periods: [
+      { name: '前蜀', from: 907, to: 925, map:JSON.parse('{}') },
+      { name: '后蜀', from: 934, to: 965, map:JSON.parse('{}') },
+      { name: '南吴', from: 902, to: 937, map:JSON.parse('{}') },
+      { name: '南唐', from: 937, to: 975, map:JSON.parse('{}') },
+      { name: '吴越国', from: 907, to: 978, map:JSON.parse('{}') },
+      { name: '闽国', from: 909, to: 945, map:JSON.parse('{}') },
+      { name: '南楚', from: 896, to: 951, map:JSON.parse('{}') },
+      { name: '南汉', from: 917, to: 971, map:JSON.parse('{}') },
+      { name: '南平', from: 907, to: 963, map:JSON.parse('{}') },
+      { name: '北汉', from: 951, to: 979, map:JSON.parse('{}') },
+    ]
+  },
   // {
   //   name: '地球史', periods: [
   //     { name: '冥古宙', from: -4600000000, to: -3800000000 },

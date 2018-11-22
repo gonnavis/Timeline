@@ -9,7 +9,7 @@
   export map 
   JSON.stringify({
     boundary :smap.vec3s_boundary_dot,
-    camera_position: smap.camera.position.normalize(),
+    camera_position: smap.camera.position,
   })
 */
 
@@ -62,6 +62,7 @@ export default {
     },
     tap(he){
       let s=this
+      if(!s.p.is_edit) return
       s.mouse.x=(he.center.x/window.innerWidth)*2-1
       s.mouse.y=-(he.center.y/window.innerHeight)*2+1
 
@@ -326,7 +327,7 @@ export default {
         map: new THREE.TextureLoader().load(require('../assets/thematicmapping/2_no_clouds_4k.jpg')),
         // map: new THREE.TextureLoader().load(require('../assets/map_color.jpg')),
         // displacementMap: new THREE.TextureLoader().load(require('../assets/map_height.jpg')),
-        displacementScale: .3,
+        // displacementScale: .3,
       } );
       var mesh_earth = s.mesh_earth = new THREE.Mesh( geometry, material );
       mesh_earth.rotation.y=-.2
