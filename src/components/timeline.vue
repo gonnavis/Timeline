@@ -221,7 +221,7 @@ export default {
   methods:{
     goto_twha(){
       let s=this
-      if(confirm('目前只支持pc访问, 确认跳转?')) location='http://gonnavis.com/timeline/twha'
+      if(confirm('目前只支持pc访问, 确认跳转?')) window.open('http://gonnavis.com/timeline/twha')
     },
     toggle_map(){
       let s=this
