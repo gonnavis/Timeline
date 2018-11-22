@@ -48,6 +48,7 @@
       <div class="menu clearfix" style="display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);pointer-events: all;">
         <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
         <!-- <a class="item" href="http://gonnavis.com/timeline_old2/" target="_blank">返回旧版</a> -->
+        <a class="item" @click="goto_twha()">完整历史地图</a>
         <div class="item" @click="is_show_pop_help=true">
           <img src="../assets/help.png" style="width:19px;height:19px;display: block;">
         </div>
@@ -218,6 +219,10 @@ export default {
     }
   },
   methods:{
+    goto_twha(){
+      let s=this
+      if(confirm('目前只支持pc访问, 确认跳转?')) location='http://gonnavis.com/timeline/twha'
+    },
     toggle_map(){
       let s=this
       s.p.map_state--
