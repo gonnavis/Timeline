@@ -35,13 +35,16 @@
       <span>{{poin_time}}</span>
       <span style="margin-left: 5px;color:gray;">距今: {{now_year-poin_time}}</span>
     </div>
-    <div class="detail" v-if="period_act" v-show="p.map_state!==1" style="position:absolute;width:100%;top:24px;display: flex;background: black;color:white;justify-content: space-around;">
-      <div>{{period_act.name}}  </div>
-      <div><span style="color:gray;">时长: </span>{{period_act.to-period_act.from}}</div>
-      <div><span style="color:gray;">公元: </span>{{period_act.from}}~{{period_act.to}}</div>
-      <div style="color:gray;">距今: {{now_year-period_act.from}}~{{now_year-period_act.to}}</div>
-      <a :href="'https://baike.baidu.com/item/'+period_act.name" target="_blank" style="color:cyan;">百科</a>
-      <a :href="'https://www.baidu.com/s?wd='+period_act.name" target="_blank" style="color:cyan;">搜索</a>
+    <div class="detail" v-if="period_act" v-show="p.map_state!==1" style="position:absolute;width:100%;top:24px;background: black;">
+      <div style="display: flex;color:white;justify-content: space-around;">
+        <div>{{period_act.name}}  </div>
+        <div><span style="color:gray;">时长: </span>{{period_act.to-period_act.from}}</div>
+        <div><span style="color:gray;">公元: </span>{{period_act.from}}~{{period_act.to}}</div>
+        <div style="color:gray;">距今: {{now_year-period_act.from}}~{{now_year-period_act.to}}</div>
+        <a :href="'https://baike.baidu.com/item/'+period_act.name" target="_blank" style="color:cyan;">百科</a>
+        <a :href="'https://www.baidu.com/s?wd='+period_act.name" target="_blank" style="color:cyan;">搜索</a>
+      </div>
+      <div v-if="period_act.alias" style="display: flex;color:white;justify-content: flex-start;">{{period_act.alias}}</div>
     </div>
 
     <div class="footer" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;flex-direction: column;">
