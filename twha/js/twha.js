@@ -7,6 +7,9 @@
     }
 })(function()
 {
+  var glob={
+    pan_target: null,
+  }
 	var screen_width = 0;
 	var screen_height = 0;
 	var resize_timer = -1;
@@ -14,8 +17,8 @@
 	var zoom_bar = new ZoomBar();
 	var lang_button = new LangButton();
 	var year_text = new YearText();
-	var year_bar = new YearBar();
-	var map = new Map();
+	var year_bar = new YearBar(glob);
+	var map = new Map(glob);
 
 	data.year_clamp = function()
 	{

@@ -1,6 +1,6 @@
 'use strict';
 
-function YearBar()
+function YearBar(glob)
 {
 	var _SIZE = 32;
 
@@ -102,10 +102,14 @@ function YearBar()
   var is_mousedown=false
   year_bar.addEventListener('mousedown', function(e){
     // console.log(e)
+    glob.pan_target=year_bar
     set_year(e)
   })
-	year_bar.addEventListener('mousemove', function(e)
+	window.addEventListener('mousemove', function(e)
 	{
+    if(!glob.pan_target || glob.pan_target!==year_bar){
+      return
+    }
     e.preventDefault()
     set_year(e)
 	});

@@ -1,6 +1,6 @@
 'use strict';
 
-function Map()
+function Map(glob)
 {
 	var MAP_SIZE = 450;
 	var MAP_X = 8;
@@ -301,11 +301,15 @@ function Map()
 
 	infoLayer.addEventListener('mousedown', function(e)
 	{
+    glob.pan_target=infoLayer
 		mousedown_x = e.clientX;
 		mousedown_y = e.clientY;
 	});
-	infoLayer.addEventListener('mousemove', function(e)
+	window.addEventListener('mousemove', function(e)
 	{
+    if(!glob.pan_target || glob.pan_target!==infoLayer){
+      return
+    }
 		if (e.buttons != 0 && mousedown_x !== e.clientX && mousedown_y !== e.clientY) {
 			// マウスドラッグによるスクロール
 			data.map_x += mousedown_x - e.clientX;
