@@ -7,7 +7,7 @@
     }
 })(function()
 {
-  var glob={
+  var glob={ 
     pan_target: null,
   }
 	var screen_width = 0;
