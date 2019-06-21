@@ -41,7 +41,7 @@
 
 <h3>备注</h3>
 <p>
-  目前使用 vue2 开发
+  目前使用 vue2 开发<br>
   之前的 angular2 版 git SHA-1: b2bbf00d95ac24568e1941da56a91884b95edc8d<br>
   之前的 angular1 版 git SHA-1: b5372193ab1ff344b9bd0d3dabb2e3339b436269
 </p>
