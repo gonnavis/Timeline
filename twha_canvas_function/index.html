@@ -29,19 +29,29 @@
     const cvs = document.createElement('canvas')
     const ctx = cvs.getContext('2d')
     const tile_size = 450
-    const tile_x_count = 7
+    const tile_x_count = 8
     const tile_y_count = 4
     cvs.width = tile_x_count * tile_size
     cvs.height = tile_y_count * tile_size
     cvs.style.position = 'fixed'
+    // cvs.style.left = '100px'
     cvs.style.left = '0px'
     cvs.style.top = '0px'
     cvs.style.zIndex = '99999'
-    cvs.style.width = '500px'
+    // cvs.style.width = '500px'
+    cvs.style.width = '100%'
     cvs.style.maxWidth = '100%'
-    cvs.style.pointerEvents = 'none'
+    // cvs.style.pointerEvents = 'none'
     window.onload = function() {
       document.body.appendChild(cvs)
+    }
+
+    function draw_all() {
+      for (let x = 0; x < tile_x_count; x++) {
+        for (let y = 0; y < tile_y_count; y++) {
+          map.getMapTertPart(x, y)
+        }
+      }
     }
   </script>
   <script type="application/x-javascript" src="js/era.js?v=2"></script>

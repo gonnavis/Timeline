@@ -60,7 +60,8 @@ function Map(glob)
 
   function getMapTertPart(i, j)
   {
-    ctx.clearRect(0, 0, cvs.width, cvs.height)
+    // ctx.clearRect(0, 0, cvs.width, cvs.height)
+    ctx.fillRect(0, 0, cvs.width, cvs.height)
     // debugger
     var idx = i + j * MAP_X;
     var mp = mpTertCache[idx];
@@ -71,10 +72,12 @@ function Map(glob)
     }
     mp.setAttribute('src', '../twha/t/' + i + j + '/' + getMapTertYear(data.year, i, j) + '.png');
     mp.onload = function() {
-      ctx.drawImage(mp, i * tile_size, j * tile_size)
+      ctx.drawImage(mp, i * (tile_size), j * (tile_size))
     }
     return mp;
   }
+
+  this.getMapTertPart = getMapTertPart
 
   function update_map()
   {
