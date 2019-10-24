@@ -7,7 +7,8 @@ angular.module('timeline.service',[])
 	// var zoom=0.3;
 	// var periodHeight=30;
 
-	var data=[//https://www.awesomestories.com/images/user/b4cbb7aae7.gif
+	var data=[ // 已废弃不用
+		//https://www.awesomestories.com/images/user/b4cbb7aae7.gif
 		{name:'夏朝',from:-2000,to:-1500},
 		{name:'商朝',from:-1700,to:-1027},
 		{name:'周朝',from:-1066,to:-221},
