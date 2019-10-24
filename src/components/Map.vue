@@ -6,7 +6,7 @@
 
 <script>
 /*
-  export map 
+  export map
   JSON.stringify({
     boundary :smap.vec3s_boundary_dot,
     camera_position: smap.camera.position,
@@ -148,12 +148,12 @@ export default {
       if(s.dragControls)  s.dragControls.dispose()
       var dragControls = s.dragControls = new THREE.DragControls( s.obj3ds_boundary_dot, s.camera, s.renderer.domElement );
       dragControls.addEventListener( 'dragstart', function ( event ) { s.controls.enabled = false; } );
-      dragControls.addEventListener( 'dragend', function ( event ) { 
+      dragControls.addEventListener( 'dragend', function ( event ) {
         // console.log(event)
         let index=s.obj3ds_boundary_dot.findIndex(n=>n===event.object)
         s.vec3s_boundary_dot[index].copy(s.obj3ds_boundary_dot[index].position)
         s.draw_boundary()
-        s.controls.enabled = true; 
+        s.controls.enabled = true;
       } );
     },
     prepare_boundarys(){
@@ -321,10 +321,11 @@ export default {
 
       // var geometry = new THREE.SphereBufferGeometry( 5, 32, 32 );
       var geometry = s.geometry = new THREE.IcosahedronBufferGeometry(10, 4)
-      // var material = new THREE.MeshLambertMaterial( { 
-      var material = s.material = new THREE.MeshStandardMaterial( { 
+      // var material = new THREE.MeshLambertMaterial( {
+      var material = s.material = new THREE.MeshStandardMaterial( {
         color: 0xffffff,
         map: new THREE.TextureLoader().load(require('../assets/thematicmapping/2_no_clouds_4k.jpg')),
+        // map: new THREE.TextureLoader().load(require('../assets/twha_year_0.png')),
         // map: new THREE.TextureLoader().load(require('../assets/map_color.jpg')),
         // displacementMap: new THREE.TextureLoader().load(require('../assets/map_height.jpg')),
         // displacementScale: .3,
