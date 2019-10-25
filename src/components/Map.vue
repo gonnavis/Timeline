@@ -343,6 +343,7 @@ export default {
         // displacementMap: new THREE.TextureLoader().load(require('../assets/map_height.jpg')),
         // displacementScale: .3,
       }));
+      s.p.material = material;
       update_twha_canvas(0);
       var mesh_earth = (s.mesh_earth = new THREE.Mesh(geometry, material));
       mesh_earth.rotation.y = -0.2;
@@ -390,8 +391,6 @@ export default {
         requestAnimationFrame(animate);
 
         TWEEN.update(time);
-        material.map.needsUpdate=true //todo only needsUpdate after await update_twha_canvas()
-        //todo three.js:19873 THREE.WebGLRenderer: image is not power of two (3600x1800). Resized to 2048x1024
         renderer.render(scene, camera);
       };
 

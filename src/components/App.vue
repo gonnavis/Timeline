@@ -6,20 +6,20 @@
 
 <script>
 export default {
-  name: 'App',
-  data(){
+  name: "App",
+  data() {
     return {
-      p:{
-        is_edit: vs.getQueryStringByName('is_edit'),
-        map_state: 2, // 0 only timeline   1 only map   2 timeline & map
+      p: {
+        is_edit: vs.getQueryStringByName("is_edit"),
+        map_state: 2, // 0 only timeline   1 only map   2 timeline & map,
+        material: null
       }
-    }
+    };
   },
-  mounted(){
-    let s=window.sapp=this
-
+  mounted() {
+    let s = (window.sapp = this);
   }
-}
+};
 </script>
 
 <style>

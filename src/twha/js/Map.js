@@ -82,7 +82,7 @@ function Map(glob)
 
   function getMapTertPart(i, j)
   {
-    console.log('getMapTertPart')
+    // console.log('getMapTertPart')
     // ctx.clearRect(0, 0, cvs.width, cvs.height)
     // ctx.fillRect(0, 0, cvs.width, cvs.height)
     // debugger
@@ -95,6 +95,7 @@ function Map(glob)
     }
     mp.setAttribute('src', 'static/twha/t/' + i + j + '/' + getMapTertYear(data.year, i, j) + '.png');
     mp.onload = function() {
+      console.log('draw one tile')
       ctx.drawImage(
         mp,
         0, 0, 450, 450,
