@@ -335,3 +335,5 @@ function Map(glob)
     e.preventDefault();
   });
 }
+
+export { Map }
