@@ -84,7 +84,7 @@ function Map(glob)
   {
     console.log('getMapTertPart')
     // ctx.clearRect(0, 0, cvs.width, cvs.height)
-    ctx.fillRect(0, 0, cvs.width, cvs.height)
+    // ctx.fillRect(0, 0, cvs.width, cvs.height)
     // debugger
     var idx = i + j * MAP_X;
     var mp = mpTertCache[idx];

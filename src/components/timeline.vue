@@ -88,6 +88,7 @@
 </template>
 
 <script>
+import _ from "lodash";
 // import data from './data.js'
 import global from "./preprocess_data.js";
 import StateMachine from "javascript-state-machine";
@@ -117,12 +118,6 @@ export default {
       period_act: null,
       fsm: null
     };
-  },
-  watch: {
-    poin_time(new_val) {
-      let s = this;
-      update_twha_canvas(new_val);
-    }
   },
   created() {
     let s = (window.stimeline = this);
@@ -207,6 +202,10 @@ export default {
     }
   },
   methods: {
+    throttled_update_twha_canvas: _.throttle(update_twha_canvas, 300, {
+      trailing: false
+    }),
+    // throttled_update_twha_canvas:update_twha_canvas,
     goto_twha() {
       let s = this;
       if (confirm("目前只支持pc访问, 确认跳转?"))
@@ -325,6 +324,7 @@ export default {
       s.poin_time = Math.floor(
         (s.poin.x - s.global_left) / s.zoom + s.global.min
       );
+      s.throttled_update_twha_canvas(s.poin_time);
       s.is_show_popmenu = false;
     },
     x_to_time(x) {
