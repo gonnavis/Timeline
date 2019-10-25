@@ -1,29 +1,15 @@
 <template>
-  <div class="component timeline" :class="{transparent: p.map_state!==0, pointer_events_none: p.map_state===1}" ref="component" >
+  <div class="component timeline" :class="{transparent: p.map_state!==0, pointer_events_none: p.map_state===1}" ref="component">
 
-    <div class="global_wrap" v-show="p.map_state!==1"
-      v-pan="{fn:component_pan, args:[]}" 
-      @mousewheel="onmousewheel($event)" 
-      @mousemove="component_mousemove($event)" 
-      @touchstart="component_mousemove($event)" 
-      @touchmove="component_mousemove($event);is_show_pophover=false;"  
-      style="position: absolute;left:0;top:0;width:100%;height:100%;"
-    >
+    <div class="global_wrap" v-show="p.map_state!==1" v-pan="{fn:component_pan, args:[]}" @mousewheel="onmousewheel($event)" @mousemove="component_mousemove($event)" @touchstart="component_mousemove($event)" @touchmove="component_mousemove($event);is_show_pophover=false;" style="position: absolute;left:0;top:0;width:100%;height:100%;">
       <div class="global clearfix" :style="get_global_style()">
         <div class="marginfix" style="height: 1px;margin-bottom: -1px;"></div>
-        <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)" >
+        <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)">
           <div class="row" v-for="(row, i) in area.rows" :style="get_row_style(row, i, area)">
-            <div class="period" :class="{act:period_act===period}" v-for="(period, i) in row.periods" 
-              @mouseenter="period_mouseenter(period, i)" 
-              @touchstart="period_mouseenter(period, i)" 
-              @mouseleave="period_mouseleave(period, i)" 
-              @mousedown="period_mousedown($event)"
-              v-hammer:press="period_press"
-              :style="get_period_style(period, i, area)"
-            >
+            <div class="period" :class="{act:period_act===period}" v-for="(period, i) in row.periods" @mouseenter="period_mouseenter(period, i)" @touchstart="period_mouseenter(period, i)" @mouseleave="period_mouseleave(period, i)" @mousedown="period_mousedown($event)" v-hammer:press="period_press" :style="get_period_style(period, i, area)">
               <span class="name">{{period.name}}</span>
               <img v-show="period.map.boundary" class="map_icon" src="../assets/map.png">
-          </div>
+            </div>
           </div>
         </div>
       </div>
@@ -37,7 +23,7 @@
     </div>
     <div class="detail" v-if="period_act" v-show="p.map_state!==1" style="position:absolute;width:100%;top:24px;background: black;">
       <div style="display: flex;color:white;justify-content: space-around;">
-        <div>{{period_act.name}}  </div>
+        <div>{{period_act.name}} </div>
         <div><span style="color:gray;">时长: </span>{{period_act.to-period_act.from}}</div>
         <div><span style="color:gray;">公元: </span>{{period_act.from}}~{{period_act.to}}</div>
         <div style="color:gray;">距今: {{now_year-period_act.from}}~{{now_year-period_act.to}}</div>
@@ -69,12 +55,8 @@
     </div> -->
 
     <div class="popmenu" v-if="period_act&&is_show_popmenu" v-show="p.map_state!==1" @click="is_show_popmenu=false" :style="popmenu_style">
-      <a :href="'https://baike.baidu.com/item/'+period_act.name"
-        target="_blank" style="display: block;"
-      >百度百科</a>
-      <a :href="'https://www.baidu.com/s?wd='+period_act.name"
-        target="_blank" style="display: block;"
-      >百度搜索</a>
+      <a :href="'https://baike.baidu.com/item/'+period_act.name" target="_blank" style="display: block;">百度百科</a>
+      <a :href="'https://www.baidu.com/s?wd='+period_act.name" target="_blank" style="display: block;">百度搜索</a>
     </div>
 
     <div class="pop_wrap" v-show="is_show_pop_help" style="pointer-events: all;user-select: text;">
@@ -107,12 +89,13 @@
 
 <script>
 // import data from './data.js'
-import global from './preprocess_data.js'
-import StateMachine from 'javascript-state-machine'
+import global from "./preprocess_data.js";
+import StateMachine from "javascript-state-machine";
+import { update_twha_canvas } from "../twha/get_twha_canvas.js";
 export default {
-  name: 'timeline',
-  props: ['p'],
-  data () {
+  name: "timeline",
+  props: ["p"],
+  data() {
     return {
       r: null,
       popmenu_style: null,
@@ -121,41 +104,47 @@ export default {
       is_show_pop_help: false,
       global: global,
       period_height: 30,
-      zoom: .34,
+      zoom: 0.34,
       global_left: -2308,
       global_top: 100,
       act_areas: [],
-      poin: {x:0, y:0}, // pointer
+      poin: { x: 0, y: 0 }, // pointer
       poin_time: 0,
       now_year: new Date().getFullYear(),
       zoom_fix: 2,
-      zoom_min: .05,
+      zoom_min: 0.05,
       pan_speed: 2, // the larger the faster
       period_act: null,
-      fsm: null,
+      fsm: null
+    };
+  },
+  watch: {
+    poin_time(new_val) {
+      let s = this;
+      update_twha_canvas(new_val);
     }
   },
-  created(){
-    let s=window.stimeline=this
-    console.log(global)
-    s.act_areas.push(global.areas[0])
+  created() {
+    let s = (window.stimeline = this);
+    console.log(global);
+    s.act_areas.push(global.areas[0]);
 
-    s.fsm=new StateMachine({
-      init: 'idle',
-      transitions:[
-        {name:'tapedtoidle', from:'taped', to:'idle'},
-        {name:'idletoptaped', from:'idle', to:'taped'},
-        {name:'tapedtopanzoom', from:'taped', to:'panzoom'},
-        {name:'panzoomtoidle', from:'panzoom', to:'idle'},
+    s.fsm = new StateMachine({
+      init: "idle",
+      transitions: [
+        { name: "tapedtoidle", from: "taped", to: "idle" },
+        { name: "idletoptaped", from: "idle", to: "taped" },
+        { name: "tapedtopanzoom", from: "taped", to: "panzoom" },
+        { name: "panzoomtoidle", from: "panzoom", to: "idle" }
       ],
       methods: {
-        onInvalidTransition:function(){ },
+        onInvalidTransition: function() {}
       }
-    })
+    });
   },
-  mounted(){
-    let s=this
-    s.r=s.$refs
+  mounted() {
+    let s = this;
+    s.r = s.$refs;
 
     // let vh=new VSHammer(s.r.component);
     // vh.on('pan', function(ve){
@@ -164,153 +153,153 @@ export default {
     //   s.global_top+=ve.deltaY;
     // })
 
-    let hmr_component=new Hammer(s.r.component);
-    hmr_component.get('pinch').set({ enable: true });
-    hmr_component.get('pan').set({ direction: Hammer.DIRECTION_ALL });
-    hmr_component.on('pinchin', function(e){
+    let hmr_component = new Hammer(s.r.component);
+    hmr_component.get("pinch").set({ enable: true });
+    hmr_component.get("pan").set({ direction: Hammer.DIRECTION_ALL });
+    hmr_component.on("pinchin", function(e) {
       s.zoom_out(s.x_to_time(e.center.x));
-    })
-    hmr_component.on('pinchout', function(e){
+    });
+    hmr_component.on("pinchout", function(e) {
       s.zoom_in(s.x_to_time(e.center.x));
-    })
-    hmr_component.on('tap', function(e){
-      console.log('tap')
-      s.fsm.idletoptaped()
-      setTimeout(()=>{
-        s.fsm.tapedtoidle()
-      }, 500)
-    })
-    hmr_component.on('pan', function(e){
+    });
+    hmr_component.on("tap", function(e) {
+      console.log("tap");
+      s.fsm.idletoptaped();
+      setTimeout(() => {
+        s.fsm.tapedtoidle();
+      }, 500);
+    });
+    hmr_component.on("pan", function(e) {
       // console.log('pan', e.direction, e)
-      if(s.fsm.is('taped')){
-        s.fsm.tapedtopanzoom()
+      if (s.fsm.is("taped")) {
+        s.fsm.tapedtopanzoom();
       }
-      if(s.fsm.is('panzoom')){
-        if(e.direction===8){ // up
-          s.zoom_in(s.x_to_time(e.center.x))
-        }else if(e.direction===16){ // down
-          s.zoom_out(s.x_to_time(e.center.x))
+      if (s.fsm.is("panzoom")) {
+        if (e.direction === 8) {
+          // up
+          s.zoom_in(s.x_to_time(e.center.x));
+        } else if (e.direction === 16) {
+          // down
+          s.zoom_out(s.x_to_time(e.center.x));
         }
       }
-
-    })
-    hmr_component.on('panend', function(e){
-      s.fsm.panzoomtoidle()
-    })
-
-
-
-
-
+    });
+    hmr_component.on("panend", function(e) {
+      s.fsm.panzoomtoidle();
+    });
   },
-  directives:{
+  directives: {
     pan: {
-      bind(el, binding){
-        let vh=new VSHammer(el);
-        vh.on('pan', function(ve){
-          binding.value.fn(ve, ...binding.value.args )
-        })
+      bind(el, binding) {
+        let vh = new VSHammer(el);
+        vh.on("pan", function(ve) {
+          binding.value.fn(ve, ...binding.value.args);
+        });
       }
     },
-    down:{
-      bind(el, binding){
-        let vh=new VSHammer(el);
-        vh.on('down', function(ve){
-          binding.value.fn(ve, ...binding.value.args )
-        })
+    down: {
+      bind(el, binding) {
+        let vh = new VSHammer(el);
+        vh.on("down", function(ve) {
+          binding.value.fn(ve, ...binding.value.args);
+        });
       }
     }
   },
-  methods:{
-    goto_twha(){
-      let s=this
-      if(confirm('目前只支持pc访问, 确认跳转?')) window.open('http://gonnavis.com/timeline/twha')
+  methods: {
+    goto_twha() {
+      let s = this;
+      if (confirm("目前只支持pc访问, 确认跳转?"))
+        window.open("http://gonnavis.com/timeline/twha");
     },
-    toggle_map(){
-      let s=this
-      s.p.map_state--
-      if(s.p.map_state<0){
-        s.p.map_state=2
+    toggle_map() {
+      let s = this;
+      s.p.map_state--;
+      if (s.p.map_state < 0) {
+        s.p.map_state = 2;
       }
-      console.log(s.p.map_state)
+      console.log(s.p.map_state);
     },
-    period_contextmenu(ne){
-      let s=this
-      console.log('contextmenu', ne)
+    period_contextmenu(ne) {
+      let s = this;
+      console.log("contextmenu", ne);
     },
-    period_mousedown(ne){
-      let s=this;
-      if(ne.button===2){
-        s.popmenu_style=s.get_popmenu_style();
-        s.is_show_popmenu=true;
+    period_mousedown(ne) {
+      let s = this;
+      if (ne.button === 2) {
+        s.popmenu_style = s.get_popmenu_style();
+        s.is_show_popmenu = true;
       }
     },
-    period_press(){
-      let s=this;
-      s.popmenu_style=s.get_popmenu_style();
+    period_press() {
+      let s = this;
+      s.popmenu_style = s.get_popmenu_style();
       // s.is_show_popmenu=true;
     },
-    get_popmenu_style(){
-      let s=this;
-      let style={
-        left: s.poin.x-100+'px',
-        top: s.poin.y-50+'px',
-      }
+    get_popmenu_style() {
+      let s = this;
+      let style = {
+        left: s.poin.x - 100 + "px",
+        top: s.poin.y - 50 + "px"
+      };
       return style;
     },
-    period_mouseenter(period, i){
-      let s=this
-      s.period_act=period;
-      s.is_show_pophover=true;
+    period_mouseenter(period, i) {
+      let s = this;
+      s.period_act = period;
+      s.is_show_pophover = true;
 
-      s.global.areas.forEach(area=>{
-        area.periods.forEach(period=>{
-          if(period.map.boundary_mesh) period.map.boundary_mesh.visible=false
-        })
-      })
-      if(period.map.boundary_mesh){
-        period.map.boundary_mesh.visible=true
+      s.global.areas.forEach(area => {
+        area.periods.forEach(period => {
+          if (period.map.boundary_mesh)
+            period.map.boundary_mesh.visible = false;
+        });
+      });
+      if (period.map.boundary_mesh) {
+        period.map.boundary_mesh.visible = true;
         // smap.camera.position.copy(period.map.camera_position)
         // smap.camera.lookAt(0,0,0)
 
-        let to=new THREE.Vector3( ...Object.values(smap.camera.position) )
-        let tween=s.tween=new TWEEN.Tween(to)
+        let to = new THREE.Vector3(...Object.values(smap.camera.position));
+        let tween = (s.tween = new TWEEN.Tween(to)
           .to(period.map.camera_position, 500)
-          .easing( TWEEN.Easing.Quadratic.InOut )
-          .onUpdate(()=>{
-            smap.camera.position.copy(to)
-            smap.camera.lookAt(0,0,0)
+          .easing(TWEEN.Easing.Quadratic.InOut)
+          .onUpdate(() => {
+            smap.camera.position.copy(to);
+            smap.camera.lookAt(0, 0, 0);
           })
-          .start()
+          .start());
       }
-
     },
-    period_mouseleave(period, i){
-      let s=this
-      s.is_show_pophover=false
+    period_mouseleave(period, i) {
+      let s = this;
+      s.is_show_pophover = false;
     },
-    get_pophover_style(){
-      let s=this;
-      let left=s.poin.x-320
-      if(left<0) left=0
-      let style={
-        left: left+'px',
+    get_pophover_style() {
+      let s = this;
+      let left = s.poin.x - 320;
+      if (left < 0) left = 0;
+      let style = {
+        left: left + "px",
         // left: 0+'px',
-        top: s.poin.y+30+'px',
-      }
+        top: s.poin.y + 30 + "px"
+      };
       return style;
     },
-    zoom_in(current_time){
-      let s=this;
+    zoom_in(current_time) {
+      let s = this;
       let prev_zoom = s.zoom;
 
       let zoom_step = s.zoom / 10;
       s.zoom = +(s.zoom + zoom_step).toFixed(s.zoom_fix);
 
-      s.global_left += -((current_time - s.global.min) * s.zoom - (current_time - s.global.min) * prev_zoom);
+      s.global_left += -(
+        (current_time - s.global.min) * s.zoom -
+        (current_time - s.global.min) * prev_zoom
+      );
     },
-    zoom_out(current_time){
-      let s=this;
+    zoom_out(current_time) {
+      let s = this;
       let prev_zoom = s.zoom;
 
       let zoom;
@@ -318,96 +307,98 @@ export default {
       zoom = +(s.zoom - zoom_step).toFixed(s.zoom_fix);
       if (zoom >= s.zoom_min) {
         s.zoom = zoom;
-        s.global_left += ((current_time - s.global.min) * prev_zoom - (current_time - s.global.min) * s.zoom);
+        s.global_left +=
+          (current_time - s.global.min) * prev_zoom -
+          (current_time - s.global.min) * s.zoom;
       }
     },
-    component_mousemove(e){
-      let s=this;
+    component_mousemove(e) {
+      let s = this;
       // console.log(e);
-      if(e.touches){
-        s.poin.x=e.touches[0].clientX;
-        s.poin.y=e.touches[0].clientY;
+      if (e.touches) {
+        s.poin.x = e.touches[0].clientX;
+        s.poin.y = e.touches[0].clientY;
+      } else {
+        s.poin.x = e.clientX;
+        s.poin.y = e.clientY;
       }
-      else{
-        s.poin.x=e.clientX;
-        s.poin.y=e.clientY;
-      }
-      s.poin_time = Math.floor((s.poin.x - s.global_left) / s.zoom + s.global.min);
-      s.is_show_popmenu=false;
+      s.poin_time = Math.floor(
+        (s.poin.x - s.global_left) / s.zoom + s.global.min
+      );
+      s.is_show_popmenu = false;
     },
-    x_to_time(x){
-      let s=this
+    x_to_time(x) {
+      let s = this;
       return Math.floor((x - s.global_left) / s.zoom + s.global.min);
     },
-    component_pan(ve){
-      let s=this
-      s.global_left+=ve.deltaX*s.pan_speed;
-      s.global_top+=ve.deltaY*s.pan_speed;
+    component_pan(ve) {
+      let s = this;
+      s.global_left += ve.deltaX * s.pan_speed;
+      s.global_top += ve.deltaY * s.pan_speed;
     },
-    menu_area_click(area, i){
-      let s=this;
-      if(s.act_areas.includes(area)){
+    menu_area_click(area, i) {
+      let s = this;
+      if (s.act_areas.includes(area)) {
         s.act_areas.splice(s.act_areas.indexOf(area), 1);
-      }else{
+      } else {
         s.act_areas.push(area);
       }
     },
-    onmousewheel(e){
-      let s=this;
+    onmousewheel(e) {
+      let s = this;
       // console.log(e);
       // s.zoom+=-e.deltaY/10000;
       // if(s.zoom<.01) s.zoom=.01;
-      if(e.deltaY<0){
+      if (e.deltaY < 0) {
         s.zoom_in(s.poin_time);
-      }
-      else{
+      } else {
         s.zoom_out(s.poin_time);
       }
     },
-    get_global_style(){
-      let s=this;
-      let style={
-        position: 'relative',
-        width: s.global.span*s.zoom + 200 + 'px',
-        left: s.global_left + 'px',
-        top: s.global_top+'px',
-      }
-      return style;
-    },
-    get_area_style(area, i){
-      let s=this
-      let height=area.rows.length*s.period_height
-      let style={
-        position: 'relative',
-        width: '100%',
-        height: height+'px',
-        margin: '10px 0',
+    get_global_style() {
+      let s = this;
+      let style = {
+        position: "relative",
+        width: s.global.span * s.zoom + 200 + "px",
+        left: s.global_left + "px",
+        top: s.global_top + "px"
       };
       return style;
     },
-    get_row_style(row, i, area){
-      let s=this
-      let height=s.period_height;
-      let style={
-        position: 'relative',
-        height: height+'px',
+    get_area_style(area, i) {
+      let s = this;
+      let height = area.rows.length * s.period_height;
+      let style = {
+        position: "relative",
+        width: "100%",
+        height: height + "px",
+        margin: "10px 0"
       };
       return style;
     },
-    get_period_style(period, i, area){
-      let s=this
-      let height=s.period_height;
-      let style={
-        left: (period.from-s.global.min)*s.zoom+'px',
-        width: period.span*s.zoom+'px',
-        height: height+'px',
-        'line-height': height-2+'px',
-        'background-color': period.color,
+    get_row_style(row, i, area) {
+      let s = this;
+      let height = s.period_height;
+      let style = {
+        position: "relative",
+        height: height + "px"
+      };
+      return style;
+    },
+    get_period_style(period, i, area) {
+      let s = this;
+      let height = s.period_height;
+      let style = {
+        left: (period.from - s.global.min) * s.zoom + "px",
+        width: period.span * s.zoom + "px",
+        height: height + "px",
+        "line-height": height - 2 + "px",
+        "background-color": period.color
       };
       return style;
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

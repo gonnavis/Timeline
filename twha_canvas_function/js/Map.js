@@ -78,6 +78,8 @@ function Map(glob)
     return -4000;
   }
 
+  this.getMapTertPart = getMapTertPart
+
   function getMapTertPart(i, j)
   {
     console.log('getMapTertPart')
@@ -98,7 +100,6 @@ function Map(glob)
     return mp;
   }
 
-  this.getMapTertPart = getMapTertPart
 
   function update_map()
   {
@@ -331,6 +332,17 @@ function Map(glob)
       visible_regions[i].update();
     }
   };
+  this.draw_all = function(year = 0) {
+    data.year = year
+    for (let x = 0; x < data.tile_x_count; x++) {
+      for (let y = 0; y < data.tile_y_count; y++) {
+        this.getMapTertPart(x, y)
+      }
+    }
+  }
+  this.get_canvas = function() {
+    return cvs
+  }
 
 }
 
