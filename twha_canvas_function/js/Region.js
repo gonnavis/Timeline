@@ -1,7 +1,8 @@
 'use strict';
 
-var BOX_WIDTH = 160;
-var REGION_WIDTH = BOX_WIDTH + 48 + 10;
+import { data } from './data.js'
+
+
 
 function Region(a)
 {

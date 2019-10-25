@@ -1,7 +1,27 @@
 'use strict';
 
+import { data } from './data.js'
+import { region_list } from './regions.js'
+import { Region } from './Region.js'
+import { territory } from './territory.js'
+
 function Map(glob)
 {
+  const cvs = document.createElement('canvas')
+  const ctx = cvs.getContext('2d')
+  const tile_size = 450
+  cvs.width = data.tile_x_count * tile_size
+  cvs.height = data.tile_y_count * tile_size
+  cvs.style.position = 'fixed'
+  // cvs.style.left = '100px'
+  cvs.style.left = '0px'
+  cvs.style.top = '0px'
+  cvs.style.zIndex = '99999'
+  // cvs.style.width = '500px'
+  cvs.style.width = '100%'
+  cvs.style.maxWidth = '100%'
+  document.body.appendChild(cvs)
+
   var MAP_SIZE = 450;
   var MAP_X = 8;
   var MAP_Y = 4;
@@ -9,9 +29,9 @@ function Map(glob)
 
   var mpLandCache = new Array(MAP_X * MAP_Y);
   var mpTertCache = new Array(MAP_X * MAP_Y);
-  // 指定した年のRegionパネル全て
+  // 指定年份的所有区域面板
   var regions_this_year = [];
-  // 画面上に見えているRegionパネル全て
+  // 屏幕上所有可见的“区域”面板
   var visible_regions = [];
 
   var curWidth, curHeight;
@@ -60,6 +80,7 @@ function Map(glob)
 
   function getMapTertPart(i, j)
   {
+    console.log('getMapTertPart')
     // ctx.clearRect(0, 0, cvs.width, cvs.height)
     ctx.fillRect(0, 0, cvs.width, cvs.height)
     // debugger
@@ -81,14 +102,14 @@ function Map(glob)
 
   function update_map()
   {
-    // zoomが変化している場合、座標中心も変化する
+    // zoom更改时，坐标中心也会更改
     if (prev_zoom !== data.zoom) {
       data.map_x = Math.round(data.map_x * SCALES[data.zoom] / SCALES[prev_zoom]);
       data.map_y = Math.round(data.map_y * SCALES[data.zoom] / SCALES[prev_zoom]);
       prev_zoom = data.zoom;
     }
 
-    // マップの表示範囲を計算
+    // 计算地图显示范围
     var curX = data.map_x;
     var curY = data.map_y;
     var mapSize = MAP_SIZE * SCALES[data.zoom];
@@ -120,7 +141,7 @@ function Map(glob)
     }
     var ey = py + maxH;
 
-    // マップを表示
+    // 显示地图
     for (var i = 0; i < MAP_X; i++) {
       var vi = (i >= px && i <= ex);
       if (rev) {
@@ -172,7 +193,7 @@ function Map(glob)
     }
   }
 
-  // 全Regionから、指定した年に含まれるものだけを抽出
+  // 从所有区域中提取指定年份中包含的那些
   function update_region_of_year(yr)
   {
     var ret = [];
@@ -242,7 +263,7 @@ function Map(glob)
         px += mapSize * 8;
       }
 
-      if (px > -curWidth2 - REGION_WIDTH && px < curWidth2 + 20 &&
+      if (px > -curWidth2 - data.REGION_WIDTH && px < curWidth2 + 20 &&
         py > -curHeight2 - 210 && py < curHeight2 + 15 && data.zoom >= nt.disp_level)
       {
         // 見えている
@@ -311,29 +332,6 @@ function Map(glob)
     }
   };
 
-  infoLayer.addEventListener('mousedown', function(e)
-  {
-    glob.pan_target = infoLayer
-    mousedown_x = e.clientX;
-    mousedown_y = e.clientY;
-  });
-  window.addEventListener('mousemove', function(e)
-  {
-    if (!glob.pan_target || glob.pan_target !== infoLayer) {
-      return
-    }
-    if (e.buttons != 0 && mousedown_x !== e.clientX && mousedown_y !== e.clientY) {
-      // マウスドラッグによるスクロール
-      data.map_x += mousedown_x - e.clientX;
-      data.map_y += mousedown_y - e.clientY;
-      limit_map_center();
-      mousedown_x = e.clientX;
-      mousedown_y = e.clientY;
-      update_map();
-      update_info();
-    }
-    e.preventDefault();
-  });
 }
 
 export { Map }
