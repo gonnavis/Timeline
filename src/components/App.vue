@@ -12,7 +12,9 @@ export default {
       p: {
         is_edit: vs.getQueryStringByName("is_edit"),
         map_state: 2, // 0 only timeline   1 only map   2 timeline & map,
-        material: null
+        material: null,
+        cvs_twha:null,
+        uniforms:null,
       }
     };
   },

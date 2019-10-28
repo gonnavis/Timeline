@@ -34,15 +34,19 @@ export default {
       obj3ds_boundary_dot: [],
       obj3ds_boundary_line: [],
       camera_distance: 35,
-      stats:new Stats(),
+      stats: new Stats()
     };
+  },
+  created() {
+    let s = this;
+    s.p.cvs_twha = new THREE.CanvasTexture(get_twha_canvas());
   },
   mounted() {
     let s = (window.smap = this);
     s.r = s.$refs;
     window.data = data;
 
-    document.body.appendChild(s.stats.domElement)
+    document.body.appendChild(s.stats.domElement);
 
     s.init_three();
     s.scene.add(s.group_boundary);
@@ -336,16 +340,60 @@ export default {
 
       // var geometry = new THREE.SphereBufferGeometry( 5, 32, 32 );
       var geometry = (s.geometry = new THREE.IcosahedronBufferGeometry(10, 4));
-      // var material = new THREE.MeshLambertMaterial( {
-      var material = (s.material = new THREE.MeshStandardMaterial({
-        color: 0xffffff,
-        map: new THREE.CanvasTexture(get_twha_canvas())
-        // map: new THREE.TextureLoader().load(require('../assets/thematicmapping/2_no_clouds_4k.jpg')),
-        // map: new THREE.TextureLoader().load(require('../assets/twha_year_0.png')),
-        // map: new THREE.TextureLoader().load(require('../assets/map_color.jpg')),
-        // displacementMap: new THREE.TextureLoader().load(require('../assets/map_height.jpg')),
-        // displacementScale: .3,
-      }));
+
+      // // var material = new THREE.MeshLambertMaterial( {
+      // var material = (s.material = new THREE.MeshStandardMaterial({
+      //   color: 0xffffff,
+      //   map: new THREE.CanvasTexture(get_twha_canvas())
+      //   // map: new THREE.TextureLoader().load(require('../assets/thematicmapping/2_no_clouds_4k.jpg')),
+      //   // map: new THREE.TextureLoader().load(require('../assets/twha_year_0.png')),
+      //   // map: new THREE.TextureLoader().load(require('../assets/map_color.jpg')),
+      //   // displacementMap: new THREE.TextureLoader().load(require('../assets/map_height.jpg')),
+      //   // displacementScale: .3,
+      // }));
+
+      var uniforms = {
+        tOne: { type: "t", value: new THREE.TextureLoader().load(require('../assets/thematicmapping/2_no_clouds_4k.jpg')) },
+        // tSec: { type: "t", value: new THREE.TextureLoader().load(require('../assets/twha_year_0.png')) },
+        tSec: { type: "t", value: s.p.cvs_twha }
+      };
+      s.p.uniforms = uniforms;
+      var material = new THREE.ShaderMaterial({
+        uniforms: uniforms,
+        vertexShader: `
+          varying vec2 vUv;
+
+          void main()
+          {
+              vUv = uv;
+              vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+              gl_Position = projectionMatrix * mvPosition;
+          }
+        `,
+        fragmentShader: `
+          #ifdef GL_ES
+          precision highp float;
+          #endif
+
+          uniform sampler2D tOne;
+          uniform sampler2D tSec;
+
+          varying vec2 vUv;
+
+          void main(void)
+          {
+              vec3 c;
+              vec4 Ca = texture2D(tOne, vUv);
+              vec4 Cb = texture2D(tSec, vUv);
+              c = Ca.rgb * .6 + Cb.rgb * .4;  // blending equation //ok
+              // c = Ca.rgb * Ca.a + Cb.rgb * Cb.a * (1.0 - Ca.a);  // blending equation
+              // c = Ca.rgb *  Cb.rgb;  // blending equation
+              // c = vec3( min(Ca.r,Cb.r), min(Ca.g,Cb.g), min(Ca.b,Cb.b)  );
+              gl_FragColor= vec4(c, 1.0);
+          }
+        `
+      });
+
       s.p.material = material;
       update_twha_canvas(0);
       var mesh_earth = (s.mesh_earth = new THREE.Mesh(geometry, material));
@@ -393,7 +441,7 @@ export default {
       var animate = function(time) {
         requestAnimationFrame(animate);
 
-        s.stats.update()
+        s.stats.update();
         TWEEN.update(time);
         renderer.render(scene, camera);
       };
