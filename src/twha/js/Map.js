@@ -21,6 +21,7 @@ function Map(glob)
   // cvs.style.width = '100%'
   // cvs.style.maxWidth = '100%'
   // document.body.appendChild(cvs)
+  let cvs_tiles={}
 
   var MAP_SIZE = 450;
   var MAP_X = 8;
@@ -88,6 +89,7 @@ function Map(glob)
     // debugger
     var idx = i + j * MAP_X;
     var mp = mpTertCache[idx];
+    // const cvs_tile_
     if (!mp) {
       mp = document.createElement('img');
       mp.setAttribute('alt', '');
@@ -95,7 +97,7 @@ function Map(glob)
     }
     mp.setAttribute('src', 'static/twha/t/' + i + j + '/' + getMapTertYear(data.year, i, j) + '.png');
     mp.onload = function() {
-      console.log('draw one tile')
+      // console.log('draw one tile')
       ctx.drawImage(
         mp,
         0, 0, 450, 450,

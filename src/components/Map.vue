@@ -33,7 +33,8 @@ export default {
       group_boundary: new THREE.Group(),
       obj3ds_boundary_dot: [],
       obj3ds_boundary_line: [],
-      camera_distance: 35
+      camera_distance: 35,
+      stats:new Stats(),
     };
   },
   mounted() {
@@ -41,10 +42,12 @@ export default {
     s.r = s.$refs;
     window.data = data;
 
+    document.body.appendChild(s.stats.domElement)
+
     s.init_three();
     s.scene.add(s.group_boundary);
 
-    s.prepare_boundarys();
+    // s.prepare_boundarys();
 
     let init_draw_name = "";
     if (init_draw_name) {
@@ -390,6 +393,7 @@ export default {
       var animate = function(time) {
         requestAnimationFrame(animate);
 
+        s.stats.update()
         TWEEN.update(time);
         renderer.render(scene, camera);
       };

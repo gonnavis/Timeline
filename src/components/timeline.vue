@@ -203,11 +203,11 @@ export default {
   },
   methods: {
     throttled_update_twha_canvas: _.throttle(function(year) {
-      console.log("throttled_update_twha_canvas");
+      // console.log("throttled_update_twha_canvas");
       update_twha_canvas(year);
       this.p.material.map.needsUpdate = true; //todo only needsUpdate after await update_twha_canvas()
       //todo three.js:19873 THREE.WebGLRenderer: image is not power of two (3600x1800). Resized to 2048x1024
-    }, 300),
+    }, 0,{heading:false}),
     // throttled_update_twha_canvas:update_twha_canvas,
     goto_twha() {
       let s = this;
