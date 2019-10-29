@@ -46,7 +46,7 @@ export default {
     s.r = s.$refs;
     window.data = data;
 
-    document.body.appendChild(s.stats.domElement);
+    document.body.appendChild(s.stats.dom);
 
     s.init_three();
     s.scene.add(s.group_boundary);

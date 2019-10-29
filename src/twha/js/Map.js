@@ -21,7 +21,7 @@ function Map(glob)
   // cvs.style.width = '100%'
   // cvs.style.maxWidth = '100%'
   // document.body.appendChild(cvs)
-  let cvs_tiles={}
+  let cvs_tiles = {}
 
   var MAP_SIZE = 450;
   var MAP_X = 8;
@@ -81,30 +81,28 @@ function Map(glob)
 
   this.getMapTertPart = getMapTertPart
 
-  function getMapTertPart(i, j)
+  async function getMapTertPart(i, j)
   {
-    // console.log('getMapTertPart')
-    // ctx.clearRect(0, 0, cvs.width, cvs.height)
-    // ctx.fillRect(0, 0, cvs.width, cvs.height)
-    // debugger
-    var idx = i + j * MAP_X;
-    var mp = mpTertCache[idx];
-    // const cvs_tile_
-    if (!mp) {
-      mp = document.createElement('img');
-      mp.setAttribute('alt', '');
-      mpTertCache[idx] = mp;
-    }
-    mp.setAttribute('src', 'static/twha/t/' + i + j + '/' + getMapTertYear(data.year, i, j) + '.png');
-    mp.onload = function() {
-      // console.log('draw one tile')
-      ctx.drawImage(
-        mp,
+    const mapTertYear = getMapTertYear(data.year, i, j)
+    const key = `${i}_${j}_${mapTertYear}`
+    const tile_size = 256
+    if (!cvs_tiles[key]) {
+      const cvs_tile = document.createElement('canvas')
+      const ctx_tile = cvs_tile.getContext('2d')
+      cvs_tile.width = tile_size
+      cvs_tile.height = tile_size
+      cvs_tiles[key] = cvs_tile
+
+      const img = await vs.load_img('static/twha/t/' + i + j + '/' + mapTertYear + '.png')
+      ctx_tile.drawImage(
+        img,
         0, 0, 450, 450,
-        i * (tile_size), j * (tile_size), tile_size, tile_size
+        0, 0, tile_size, tile_size
       )
     }
-    return mp;
+    ctx.drawImage(
+      cvs_tiles[key], i * tile_size, j * tile_size
+    )
   }
 
 

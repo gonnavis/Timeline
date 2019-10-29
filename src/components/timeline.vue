@@ -1,8 +1,8 @@
 <template>
-  <div class="component timeline" :class="{transparent: p.map_state!==0, pointer_events_none: p.map_state===1}" ref="component">
+  <div class="component timeline peoff" :class="{transparent: p.map_state!==0, pointer_events_none: p.map_state===1}" ref="component">
 
     <div class="global_wrap" v-show="p.map_state!==1" v-pan="{fn:component_pan, args:[]}" @mousewheel="onmousewheel($event)" @mousemove="component_mousemove($event)" @touchstart="component_mousemove($event)" @touchmove="component_mousemove($event);is_show_pophover=false;" style="position: absolute;left:0;top:0;width:100%;height:100%;">
-      <div class="global clearfix" :style="get_global_style()">
+      <div class="global clearfix peon" :style="get_global_style()">
         <div class="marginfix" style="height: 1px;margin-bottom: -1px;"></div>
         <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)">
           <div class="row" v-for="(row, i) in area.rows" :style="get_row_style(row, i, area)">
