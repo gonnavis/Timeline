@@ -13,10 +13,23 @@ export default {
         is_edit: vs.getQueryStringByName("is_edit"),
         map_state: 2, // 0 only timeline   1 only map   2 timeline & map,
         material: null,
-        cvs_twha: null,
-        uniforms: null
+        canvasTexture_twha: null,
+        canvasTexture_text: null,
+        uniforms: null,
+        ctx_text: null
       }
     };
+  },
+  created() {
+    let s = this;
+
+    const cvs_text = document.createElement("canvas");
+    const ctx_text = cvs_text.getContext("2d");
+    cvs_text.width = 2048;
+    cvs_text.height = 1024;
+
+
+    s.p.ctx_text = window.ctx_text = ctx_text;
   },
   mounted() {
     let s = (window.sapp = this);

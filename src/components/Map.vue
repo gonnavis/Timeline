@@ -39,7 +39,8 @@ export default {
   },
   created() {
     let s = this;
-    s.p.cvs_twha = new THREE.CanvasTexture(get_twha_canvas());
+    s.p.canvasTexture_twha = new THREE.CanvasTexture(get_twha_canvas());
+    s.p.canvasTexture_text = new THREE.CanvasTexture(ctx_text.canvas);
   },
   mounted() {
     let s = (window.smap = this);
@@ -353,9 +354,15 @@ export default {
       // }));
 
       var uniforms = {
-        tOne: { type: "t", value: new THREE.TextureLoader().load(require('../assets/thematicmapping/2_no_clouds_4k.jpg')) },
+        tOne: {
+          type: "t",
+          value: new THREE.TextureLoader().load(
+            require("../assets/thematicmapping/2_no_clouds_4k.jpg")
+          )
+        },
         // tSec: { type: "t", value: new THREE.TextureLoader().load(require('../assets/twha_year_0.png')) },
-        tSec: { type: "t", value: s.p.cvs_twha }
+        tSec: { type: "t", value: s.p.canvasTexture_twha },
+        tTrd: { type: "t", value: s.p.canvasTexture_text }
       };
       s.p.uniforms = uniforms;
       var material = new THREE.ShaderMaterial({
@@ -377,6 +384,7 @@ export default {
 
           uniform sampler2D tOne;
           uniform sampler2D tSec;
+          uniform sampler2D tTrd;
 
           varying vec2 vUv;
 
@@ -385,7 +393,9 @@ export default {
               vec3 c;
               vec4 Ca = texture2D(tOne, vUv);
               vec4 Cb = texture2D(tSec, vUv);
+              vec4 Cc = texture2D(tTrd, vUv);
               c = Ca.rgb * .6 + Cb.rgb * .4;  // blending equation //ok
+              c *= Cc.r;
               // c = Ca.rgb * Ca.a + Cb.rgb * Cb.a * (1.0 - Ca.a);  // blending equation
               // c = Ca.rgb *  Cb.rgb;  // blending equation
               // c = vec3( min(Ca.r,Cb.r), min(Ca.g,Cb.g), min(Ca.b,Cb.b)  );

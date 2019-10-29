@@ -1,6 +1,6 @@
 import { Map } from './js/Map.js'
 
-const map = new Map()
+const map = window.map = new Map()
 
 function get_twha_canvas() {
   const canvas = map.get_canvas()

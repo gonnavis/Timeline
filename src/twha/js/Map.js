@@ -21,7 +21,8 @@ function Map(glob)
   // cvs.style.width = '100%'
   // cvs.style.maxWidth = '100%'
   // document.body.appendChild(cvs)
-  let cvs_tiles = {}
+
+  let caches = {}
 
   var MAP_SIZE = 450;
   var MAP_X = 8;
@@ -86,12 +87,12 @@ function Map(glob)
     const mapTertYear = getMapTertYear(data.year, i, j)
     const key = `${i}_${j}_${mapTertYear}`
     const tile_size = 256
-    if (!cvs_tiles[key]) {
+    if (!caches[key]) {
       const cvs_tile = document.createElement('canvas')
       const ctx_tile = cvs_tile.getContext('2d')
       cvs_tile.width = tile_size
       cvs_tile.height = tile_size
-      cvs_tiles[key] = cvs_tile
+      caches[key] = cvs_tile
 
       const img = await vs.load_img('static/twha/t/' + i + j + '/' + mapTertYear + '.png')
       ctx_tile.drawImage(
@@ -101,7 +102,7 @@ function Map(glob)
       )
     }
     ctx.drawImage(
-      cvs_tiles[key], i * tile_size, j * tile_size
+      caches[key], i * tile_size, j * tile_size
     )
   }
 
@@ -233,8 +234,22 @@ function Map(glob)
   // infoLayerに追加
   function insert_visible_regions(nt)
   {
-    visible_regions.push(nt);
-    infoLayer.appendChild(nt.node);
+    /*
+      nt = rg
+
+      Region {pos_x: 2135, pos_y: 1020, disp_level: 1, node: div.region, update_year: ƒ, …}
+        disp_level: 1
+        node: div.region
+        pos_x: 2135
+        pos_y: 1020
+        update: ƒ (x, y)
+        update_year: ƒ ()
+        __proto__: Object
+    */
+    ctx_text.fillText(nt.node.innerText, nt.pos_x, nt.pos_y)
+    // console.log('nt', nt)
+    // visible_regions.push(nt);
+    // infoLayer.appendChild(nt.node);
   }
   // infoLayerから削除
   function remove_visible_region(rg)
@@ -246,8 +261,11 @@ function Map(glob)
     }
   }
 
+  this.update_info = update_info
+
   function update_info()
   {
+    // console.log('update_info')
     if (prev_year !== data.year) {
       regions_this_year = update_region_of_year(data.year);
       visible_regions = [];
@@ -258,6 +276,10 @@ function Map(glob)
     var curX = data.map_x;
     var curY = data.map_y;
 
+    ctx_text.fillStyle = "white";
+    ctx_text.fillRect(0, 0, ctx_text.canvas.width, ctx_text.canvas.height)
+    ctx_text.fillStyle = "black";
+    ctx_text.font = "6px sans-serif";
     for (var i = 0; i < regions_this_year.length; i++) {
       var nt = regions_this_year[i];
       var px = nt.pos_x * scale - curX;
@@ -268,22 +290,22 @@ function Map(glob)
       } else if (px < -mapSize * 4) {
         px += mapSize * 8;
       }
+      // console.log(1)
+      // if (px > -curWidth2 - data.REGION_WIDTH && px < curWidth2 + 20 &&
+      //   py > -curHeight2 - 210 && py < curHeight2 + 15 && data.zoom >= nt.disp_level)
+      // {
+      // 可以看到
+      nt.update(px + curWidth2, py + curHeight2);
 
-      if (px > -curWidth2 - data.REGION_WIDTH && px < curWidth2 + 20 &&
-        py > -curHeight2 - 210 && py < curHeight2 + 15 && data.zoom >= nt.disp_level)
-      {
-        // 見えている
-        nt.update(px + curWidth2, py + curHeight2);
-
-        if (!nt.node.parentNode) {
-          insert_visible_regions(nt);
-        }
-      } else {
-        // 見えなくなった
-        if (nt.node.parentNode) {
-          remove_visible_region(nt);
-        }
-      }
+      // if (!nt.node.parentNode) {
+      insert_visible_regions(nt);
+      // }
+      // } else {
+      //   // 消失了
+      //   if (nt.node.parentNode) {
+      //     remove_visible_region(nt);
+      //   }
+      // }
     }
   }
 

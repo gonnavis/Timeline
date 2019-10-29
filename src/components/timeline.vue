@@ -208,8 +208,10 @@ export default {
         // console.log("throttled_update_twha_canvas");
         update_twha_canvas(year);
         // this.p.material.map.needsUpdate = true; //todo only needsUpdate after await update_twha_canvas()
-        s.p.cvs_twha.needsUpdate=true;
-        s.p.uniforms.tSec.value = s.p.cvs_twha;
+        s.p.canvasTexture_twha.needsUpdate=true;
+        s.p.canvasTexture_text.needsUpdate=true;
+        s.p.uniforms.tSec.value = s.p.canvasTexture_twha;
+        s.p.uniforms.tTrd.value = s.p.canvasTexture_text;
         //todo three.js:19873 THREE.WebGLRenderer: image is not power of two (3600x1800). Resized to 2048x1024
       },
       0,
@@ -335,6 +337,7 @@ export default {
         (s.poin.x - s.global_left) / s.zoom + s.global.min
       );
       s.throttled_update_twha_canvas(s.poin_time);
+      map.update_info()
       s.is_show_popmenu = false;
     },
     x_to_time(x) {
