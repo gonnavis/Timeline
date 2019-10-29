@@ -390,16 +390,16 @@ export default {
 
           void main(void)
           {
-              vec3 c;
-              vec4 Ca = texture2D(tOne, vUv);
-              vec4 Cb = texture2D(tSec, vUv);
-              vec4 Cc = texture2D(tTrd, vUv);
-              c = Ca.rgb * .6 + Cb.rgb * .4;  // blending equation //ok
-              c *= Cc.r;
-              // c = Ca.rgb * Ca.a + Cb.rgb * Cb.a * (1.0 - Ca.a);  // blending equation
-              // c = Ca.rgb *  Cb.rgb;  // blending equation
-              // c = vec3( min(Ca.r,Cb.r), min(Ca.g,Cb.g), min(Ca.b,Cb.b)  );
-              gl_FragColor= vec4(c, 1.0);
+            vec3 c;
+            vec4 Ca = texture2D(tOne, vUv);
+            vec4 Cb = texture2D(tSec, vUv);
+            vec4 Cc = texture2D(tTrd, vUv);
+            c = Ca.rgb * .6 + Cb.rgb * .4;  // blending equation //ok
+            c *= Cc.r;
+            // c = Ca.rgb * Ca.a + Cb.rgb * Cb.a * (1.0 - Ca.a);  // blending equation
+            // c = Ca.rgb *  Cb.rgb;  // blending equation
+            // c = vec3( min(Ca.r,Cb.r), min(Ca.g,Cb.g), min(Ca.b,Cb.b)  );
+            gl_FragColor= vec4(c, 1.0);
           }
         `
       });
