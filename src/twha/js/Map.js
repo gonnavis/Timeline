@@ -258,7 +258,8 @@ function Map(glob)
 
     { //three.js sprite
       const name = nt.node.innerText
-      if (!p.cache_text[name]) {
+      const name_x_y = `${name}_${nt.pos_x}_${nt.pos_y}`
+      if (!p.cache_text[name_x_y]) {
 
         // let spriteMap = new THREE.TextureLoader().load(require('../../assets/test.png'));
 
@@ -266,26 +267,43 @@ function Map(glob)
         let ctx_one = cvs_one.getContext('2d')
         cvs_one.width = 512
         cvs_one.height = 512
+
         ctx_one.font = "24px Arial";
+        ctx_one.lineWidth = 4
+        ctx_one.strokeStyle = "white"
+        ctx_one.strokeText(name, 256, 256)
         ctx_one.fillStyle = "black";
         // ctx_one.textAlign = "center";
+        // ctx_one.shadowColor = "white";
+        // ctx_one.shadowBlur = 2;
+        // ctx_one.shadowOffsetX = 1;
+        // ctx_one.shadowOffsetY = 1;
         ctx_one.fillText(name, 256, 256)
+
         let spriteMap = new THREE.CanvasTexture(cvs_one)
         spriteMap.needsUpdate = true;
 
         let spriteMaterial = new THREE.SpriteMaterial({ map: spriteMap, color: 0xffffff, sizeAttenuation: false });
         let sprite = new THREE.Sprite(spriteMaterial);
         // sprite.center=new THREE.Vector2()
-        p.cache_text[name] = sprite;
+        p.cache_text[name_x_y] = sprite;
         let scale = 0.3
-        p.cache_text[name].scale.set(scale, scale, scale)
+        p.cache_text[name_x_y].scale.set(scale, scale, scale)
+
+        const uv = new THREE.Vector2(nt.pos_x / 3600, 1 - (nt.pos_y / 1800))
+        let position = getPositionFromUv(mesh_earth, uv.x, uv.y)
+        // if (position && !p.group_text.children.includes(p.cache_text[name])) {
+        if (position) {
+          p.cache_text[name_x_y].position.copy(position)
+        }
+        p.group_text.add(p.cache_text[name_x_y])
       }
-      const uv = new THREE.Vector2(nt.pos_x / 3600, 1 - (nt.pos_y / 1800))
-      let position = getPositionFromUv(mesh_earth, uv.x, uv.y)
-      if (position) {
-        p.cache_text[name].position.copy(position)
-        p.group_text.add(p.cache_text[name])
-      }
+      // const uv = new THREE.Vector2(nt.pos_x / 3600, 1 - (nt.pos_y / 1800))
+      // let position = getPositionFromUv(mesh_earth, uv.x, uv.y)
+      // if (position) {
+      //   p.cache_text[name_x_y].position.copy(position)
+      // }
+      p.cache_text[name_x_y].visible = true
     }
 
     // const x = parseInt(nt.node.style.left)
@@ -298,11 +316,12 @@ function Map(glob)
   // infoLayerから削除
   function remove_visible_region(rg)
   {
-    infoLayer.removeChild(rg.node);
-    let i = visible_regions.indexOf(rg);
-    if (i >= 0) {
-      visible_regions.splice(i, 1);
-    }
+    // infoLayer.removeChild(rg.node);
+    // let i = visible_regions.indexOf(rg);
+    // if (i >= 0) {
+    //   visible_regions.splice(i, 1);
+    // }
+    p.group_text.remove(p.cache_text[rg.node.innerText])
   }
 
   this.update_info = update_info
@@ -320,7 +339,8 @@ function Map(glob)
     var curX = data.map_x;
     var curY = data.map_y;
 
-    p.group_text.children = []
+    // p.group_text.children = []
+    p.group_text.children.forEach(one => one.visible = false)
 
     ctx_text.fillStyle = "white";
     ctx_text.fillRect(0, 0, ctx_text.canvas.width, ctx_text.canvas.height)
