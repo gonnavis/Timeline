@@ -6,6 +6,11 @@ var p = {
   canvasTexture_text: null,
   uniforms: null,
   ctx_text: null,
+  group_text: new THREE.Group(),
+  cache_text: {}
 }
+
+p.group_text.scale.set(1.01, 1.01, 1.01)
+window.p = p //test
 
 export default p

@@ -12,7 +12,6 @@
     camera_position: smap.camera.position,
   })
 */
-import { getPositionFromUv } from "./getPositionFromUv.js";
 import {
   get_twha_canvas,
   update_twha_canvas
@@ -35,14 +34,13 @@ export default {
       obj3ds_boundary_dot: [],
       obj3ds_boundary_line: [],
       camera_distance: 35,
-      stats: new Stats()
+      stats: new Stats(),
     };
   },
   created() {
     let s = this;
     s.p.canvasTexture_twha = new THREE.CanvasTexture(get_twha_canvas());
     s.p.canvasTexture_text = new THREE.CanvasTexture(ctx_text.canvas);
-    window.getPositionFromUv = getPositionFromUv; //test
   },
   mounted() {
     let s = (window.smap = this);
@@ -52,6 +50,7 @@ export default {
     document.body.appendChild(s.stats.dom);
 
     s.init_three();
+    s.scene.add(s.p.group_text);
     s.scene.add(s.group_boundary);
 
     // s.prepare_boundarys();

@@ -1,9 +1,11 @@
 'use strict';
 
+import p from '../../p.js'
 import { data } from './data.js'
 import { region_list } from './regions.js'
 import { Region } from './Region.js'
 import { territory } from './territory.js'
+import { getPositionFromUv } from "../../components/getPositionFromUv.js";
 
 function Map(glob)
 {
@@ -246,9 +248,31 @@ function Map(glob)
         update_year: ƒ ()
         __proto__: Object
     */
-    const scale = 256 / 450
-    ctx_text.font = "12px Arial";
-    ctx_text.fillText(nt.node.innerText, nt.pos_x * scale, nt.pos_y * scale)
+
+
+    { //canvas
+      const scale = 256 / 450
+      ctx_text.font = "12px Arial";
+      ctx_text.fillText(nt.node.innerText, nt.pos_x * scale, nt.pos_y * scale)
+    }
+
+    { //three.js sprite
+      const name = nt.node.innerText
+      if (!p.cache_text[name]) {
+        let spriteMap = new THREE.TextureLoader().load(require('../../assets/test.png'));
+        let spriteMaterial = new THREE.SpriteMaterial({ map: spriteMap, color: 0xffffff });
+        let sprite = new THREE.Sprite(spriteMaterial);
+        p.cache_text[name] = sprite;
+        p.cache_text[name].scale.set(.3,.3,.3)
+      }
+      const uv = new THREE.Vector2(nt.pos_x / 3600, 1 - (nt.pos_y / 1800))
+      let position = getPositionFromUv(mesh_earth, uv.x, uv.y)
+      if (position) {
+        p.cache_text[name].position.copy(position)
+        p.group_text.add(p.cache_text[name])
+      }
+    }
+
     // const x = parseInt(nt.node.style.left)
     // const y = parseInt(nt.node.style.top)
     // ctx_text.fillText(nt.node.innerText, x, y)
@@ -280,6 +304,8 @@ function Map(glob)
     var mapSize = MAP_SIZE * scale;
     var curX = data.map_x;
     var curY = data.map_y;
+
+    p.group_text.children = []
 
     ctx_text.fillStyle = "white";
     ctx_text.fillRect(0, 0, ctx_text.canvas.width, ctx_text.canvas.height)
