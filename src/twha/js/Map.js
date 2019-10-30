@@ -234,7 +234,7 @@ function Map(glob)
   }
 
   // infoLayerに追加
-  function insert_visible_regions(nt)
+  async function insert_visible_regions(nt)
   {
     /*
       nt = rg
@@ -251,19 +251,34 @@ function Map(glob)
 
 
     { //canvas
-      const scale = 256 / 450
-      ctx_text.font = "12px Arial";
-      ctx_text.fillText(nt.node.innerText, nt.pos_x * scale, nt.pos_y * scale)
+      // const scale = 256 / 450
+      // ctx_text.font = "12px Arial";
+      // ctx_text.fillText(nt.node.innerText, nt.pos_x * scale, nt.pos_y * scale)
     }
 
     { //three.js sprite
       const name = nt.node.innerText
       if (!p.cache_text[name]) {
-        let spriteMap = new THREE.TextureLoader().load(require('../../assets/test.png'));
-        let spriteMaterial = new THREE.SpriteMaterial({ map: spriteMap, color: 0xffffff });
+
+        // let spriteMap = new THREE.TextureLoader().load(require('../../assets/test.png'));
+
+        let cvs_one = document.createElement('canvas')
+        let ctx_one = cvs_one.getContext('2d')
+        cvs_one.width = 512
+        cvs_one.height = 512
+        ctx_one.font = "24px Arial";
+        ctx_one.fillStyle = "black";
+        // ctx_one.textAlign = "center";
+        ctx_one.fillText(name, 256, 256)
+        let spriteMap = new THREE.CanvasTexture(cvs_one)
+        spriteMap.needsUpdate = true;
+
+        let spriteMaterial = new THREE.SpriteMaterial({ map: spriteMap, color: 0xffffff, sizeAttenuation: false });
         let sprite = new THREE.Sprite(spriteMaterial);
+        // sprite.center=new THREE.Vector2()
         p.cache_text[name] = sprite;
-        p.cache_text[name].scale.set(.3,.3,.3)
+        let scale = 0.3
+        p.cache_text[name].scale.set(scale, scale, scale)
       }
       const uv = new THREE.Vector2(nt.pos_x / 3600, 1 - (nt.pos_y / 1800))
       let position = getPositionFromUv(mesh_earth, uv.x, uv.y)
