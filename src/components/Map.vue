@@ -12,6 +12,7 @@
     camera_position: smap.camera.position,
   })
 */
+import { getPositionFromUv } from "./getPositionFromUv.js";
 import {
   get_twha_canvas,
   update_twha_canvas
@@ -41,6 +42,7 @@ export default {
     let s = this;
     s.p.canvasTexture_twha = new THREE.CanvasTexture(get_twha_canvas());
     s.p.canvasTexture_text = new THREE.CanvasTexture(ctx_text.canvas);
+    window.getPositionFromUv = getPositionFromUv; //test
   },
   mounted() {
     let s = (window.smap = this);
@@ -323,6 +325,7 @@ export default {
       let s = this;
 
       var scene = (s.scene = new THREE.Scene());
+      window.scene = scene; //test
       var camera = (s.camera = new THREE.PerspectiveCamera(
         45,
         window.innerWidth / window.innerHeight,
@@ -340,7 +343,8 @@ export default {
       s.r.container.appendChild(renderer.domElement);
 
       // var geometry = new THREE.SphereBufferGeometry( 5, 32, 32 );
-      var geometry = (s.geometry = new THREE.IcosahedronBufferGeometry(10, 4));
+      // var geometry = (s.geometry = new THREE.IcosahedronBufferGeometry(10, 4));
+      var geometry = (s.geometry = new THREE.IcosahedronGeometry(10, 4));
 
       // // var material = new THREE.MeshLambertMaterial( {
       // var material = (s.material = new THREE.MeshStandardMaterial({
@@ -409,6 +413,7 @@ export default {
       var mesh_earth = (s.mesh_earth = new THREE.Mesh(geometry, material));
       mesh_earth.rotation.y = -0.2;
       scene.add(mesh_earth);
+      window.mesh_earth = mesh_earth; //test
 
       camera.position.set(0, 10, 26);
 

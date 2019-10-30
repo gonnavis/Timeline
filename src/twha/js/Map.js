@@ -246,7 +246,12 @@ function Map(glob)
         update_year: ƒ ()
         __proto__: Object
     */
-    ctx_text.fillText(nt.node.innerText, nt.pos_x, nt.pos_y)
+    const scale = 256 / 450
+    ctx_text.font = "12px Arial";
+    ctx_text.fillText(nt.node.innerText, nt.pos_x * scale, nt.pos_y * scale)
+    // const x = parseInt(nt.node.style.left)
+    // const y = parseInt(nt.node.style.top)
+    // ctx_text.fillText(nt.node.innerText, x, y)
     // console.log('nt', nt)
     // visible_regions.push(nt);
     // infoLayer.appendChild(nt.node);
@@ -271,7 +276,7 @@ function Map(glob)
       visible_regions = [];
       prev_year = data.year;
     }
-    var scale = SCALES[data.zoom];
+    var scale = 1;
     var mapSize = MAP_SIZE * scale;
     var curX = data.map_x;
     var curY = data.map_y;
@@ -279,7 +284,6 @@ function Map(glob)
     ctx_text.fillStyle = "white";
     ctx_text.fillRect(0, 0, ctx_text.canvas.width, ctx_text.canvas.height)
     ctx_text.fillStyle = "black";
-    ctx_text.font = "6px sans-serif";
     for (var i = 0; i < regions_this_year.length; i++) {
       var nt = regions_this_year[i];
       var px = nt.pos_x * scale - curX;
@@ -295,7 +299,9 @@ function Map(glob)
       //   py > -curHeight2 - 210 && py < curHeight2 + 15 && data.zoom >= nt.disp_level)
       // {
       // 可以看到
-      nt.update(px + curWidth2, py + curHeight2);
+      // nt.update(px + curWidth2, py + curHeight2);
+      nt.update(px, py);
+      // nt.update(0,0);
 
       // if (!nt.node.parentNode) {
       insert_visible_regions(nt);
