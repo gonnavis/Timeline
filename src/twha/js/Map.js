@@ -5,7 +5,7 @@ import { data } from './data.js'
 import { region_list } from './regions.js'
 import { Region } from './Region.js'
 import { territory } from './territory.js'
-import { getPositionFromUv } from "../../components/getPositionFromUv.js";
+import { getSpherePositionFromUv } from "../../components/getSpherePositionFromUv.js";
 
 function Map(glob)
 {
@@ -295,7 +295,8 @@ function Map(glob)
         sprite.center = new THREE.Vector2(text_width / 2 / cvs_one.width, .5)
 
         const uv = new THREE.Vector2(nt.pos_x / 3600, 1 - (nt.pos_y / 1800))
-        let position = getPositionFromUv(mesh_earth, uv.x, uv.y)
+        // let position = getPositionFromUv(mesh_earth, uv.x, uv.y)
+        let position = getSpherePositionFromUv( uv.x, uv.y, 10.3)
         // if (position && !p.group_text.children.includes(p.cache_text[name])) {
         if (position) {
           p.cache_text[name_x_y].position.copy(position)
@@ -303,7 +304,7 @@ function Map(glob)
         p.group_text.add(p.cache_text[name_x_y])
       }
       // const uv = new THREE.Vector2(nt.pos_x / 3600, 1 - (nt.pos_y / 1800))
-      // let position = getPositionFromUv(mesh_earth, uv.x, uv.y)
+      // let position = getSpherePositionFromUv(mesh_earth, uv.x, uv.y)
       // if (position) {
       //   p.cache_text[name_x_y].position.copy(position)
       // }

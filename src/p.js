@@ -10,7 +10,7 @@ var p = {
   cache_text: {}
 }
 
-p.group_text.scale.set(1.03, 1.03, 1.03)
+// p.group_text.scale.set(1.03, 1.03, 1.03)
 window.p = p //test
 
 export default p
