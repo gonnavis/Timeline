@@ -1,5 +1,5 @@
 // Recursively traverse through the model.
-var traversePolygonsForGeometries = function(node, uvx, uvy) {
+function traversePolygonsForGeometries(node, uvx, uvy) {
   if (node.geometry) {
     // Return a list of triangles that have the point within them.
     // The returned objects will have the x,y,z barycentric coordinates of the point inside the respective triangle
