@@ -107,53 +107,58 @@ function Region(a)
   };
   this.update = function(x, y)
   {
-    this.node.style.left = x + 'px';
-    this.node.style.top = (y - 8) + 'px';
+    // this.node.style.left = x + 'px';
+    // this.node.style.top = (y - 8) + 'px';
 
+    // this.data_x = x
+    // this.data_y = (y - 8)
+
+    // debugger
     var lang = lang_name_to_id(data.lang);
-    var html = '';
-    if (flag && data.zoom >= 1) {
-      html = '<img src="static/twha/sym/' + flag + '.png" alt="">';
-    }
-    if (data.zoom - this.disp_level >= 2) {
-      html += region_name[lang];
-    } else {
-      html += region_abbr[lang];
-    }
-    var n = this.node.childNodes[0];
-    n.innerHTML = html;
+    // var html = '';
+    // if (flag && data.zoom >= 1) {
+    //   html = '<img src="static/twha/sym/' + flag + '.png" alt="">';
+    // }
+    // if (data.zoom - this.disp_level >= 2) {
+    // html += region_name[lang];
+    // } else {
+    //   html += region_abbr[lang];
+    // }
+    // var n = this.node.childNodes[0];
+    // n.innerHTML = html;
+    this.data_name = region_name[lang]
 
-    if (data.zoom - this.disp_level >= 2) {
-      var body, item;
-      if (this.node.childNodes.length == 2) {
-        body = this.node.childNodes[1];
-        body.innerHTML = '';
-      } else {
-        body = document.createElement('div');
-        body.classList.add('person-list');
-        this.node.appendChild(body);
-      }
-      for (var i = 0; i < person_list.length; i++) {
-        var a_title = person_list[i][0];
-        var a_person = person_list[i][1];
-        html = '';
+    // if (data.zoom - this.disp_level >= 2) {
+    //   var body, item;
+    //   if (this.node.childNodes.length == 2) {
+    //     body = this.node.childNodes[1];
+    //     body.innerHTML = '';
+    //   } else {
+    //     body = document.createElement('div');
+    //     body.classList.add('person-list');
+    //     this.node.appendChild(body);
+    //   }
+    //   for (var i = 0; i < person_list.length; i++) {
+    //     var a_title = person_list[i][0];
+    //     var a_person = person_list[i][1];
+    //     html = '';
 
-        item = document.createElement('div');
-        item.classList.add('person');
-        if (a_person[2]) {
-          html = '<img src="static/twha/f/' + a_person[2] + '.png" alt="">';
-        } else {
-          html = '<img src="static/twha/f/0.png" alt="">';
-        }
-        html += '<div>' + a_title[lang] + '</div><div>' + a_person[3 + lang] + '</div>';
-        item.innerHTML = html;
-        body.appendChild(item);
-      }
-    } else {
-      if (this.node.childNodes.length == 2) {
-        this.node.removeChild(this.node.childNodes[1]);
-      }
-    }
+    //     item = document.createElement('div');
+    //     item.classList.add('person');
+    //     if (a_person[2]) {
+    //       html = '<img src="static/twha/f/' + a_person[2] + '.png" alt="">';
+    //     } else {
+    //       html = '<img src="static/twha/f/0.png" alt="">';
+    //     }
+    //     html += '<div>' + a_title[lang] + '</div><div>' + a_person[3 + lang] + '</div>';
+    //     item.innerHTML = html;
+    //     body.appendChild(item);
+    //   }
+    // } else {
+    //   if (this.node.childNodes.length == 2) {
+    //     this.node.removeChild(this.node.childNodes[1]);
+    //   }
+    // }
   };
 }
 

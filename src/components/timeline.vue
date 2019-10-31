@@ -114,7 +114,7 @@ export default {
       now_year: new Date().getFullYear(),
       zoom_fix: 2,
       zoom_min: 0.05,
-      pan_speed: 2, // the larger the faster
+      pan_speed: 1, // the larger the faster
       period_act: null,
       fsm: null
     };

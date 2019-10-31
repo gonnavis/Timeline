@@ -253,11 +253,11 @@ function Map(glob)
     { //canvas
       // const scale = 256 / 450
       // ctx_text.font = "12px Arial";
-      // ctx_text.fillText(nt.node.innerText, nt.pos_x * scale, nt.pos_y * scale)
+      // ctx_text.fillText(nt.data_name, nt.pos_x * scale, nt.pos_y * scale)
     }
 
     { //three.js sprite
-      const name = nt.node.innerText
+      const name = nt.data_name
       const name_x_y = `${name}_${nt.pos_x}_${nt.pos_y}`
       if (!p.cache_text[name_x_y]) {
 
@@ -266,29 +266,33 @@ function Map(glob)
         let cvs_one = document.createElement('canvas')
         let ctx_one = cvs_one.getContext('2d')
         cvs_one.width = 512
-        cvs_one.height = 512
+        cvs_one.height = 32
+
+        // ctx_one.fillStyle = `rgba(${255*Math.random()},${255*Math.random()},${255*Math.random()},1)`
+        // ctx_one.fillRect(0, 0, cvs_one.width, cvs_one.height)
 
         ctx_one.font = "24px Arial";
-        ctx_one.lineWidth = 4
+        ctx_one.lineWidth = 6
         ctx_one.strokeStyle = "white"
-        ctx_one.strokeText(name, 256, 256)
         ctx_one.fillStyle = "black";
         // ctx_one.textAlign = "center";
         // ctx_one.shadowColor = "white";
         // ctx_one.shadowBlur = 2;
         // ctx_one.shadowOffsetX = 1;
         // ctx_one.shadowOffsetY = 1;
-        ctx_one.fillText(name, 256, 256)
+        const text_width = ctx_one.measureText(name).width
+        ctx_one.strokeText(name, 6, cvs_one.height - 6)
+        ctx_one.fillText(name, 6, cvs_one.height - 6)
 
         let spriteMap = new THREE.CanvasTexture(cvs_one)
         spriteMap.needsUpdate = true;
 
         let spriteMaterial = new THREE.SpriteMaterial({ map: spriteMap, color: 0xffffff, sizeAttenuation: false });
         let sprite = new THREE.Sprite(spriteMaterial);
-        // sprite.center=new THREE.Vector2()
         p.cache_text[name_x_y] = sprite;
-        let scale = 0.3
-        p.cache_text[name_x_y].scale.set(scale, scale, scale)
+        let scale = 0.28
+        p.cache_text[name_x_y].scale.set(1 * scale, (cvs_one.height / cvs_one.width) * scale, 1 * scale)
+        sprite.center = new THREE.Vector2(text_width / 2 / cvs_one.width, .5)
 
         const uv = new THREE.Vector2(nt.pos_x / 3600, 1 - (nt.pos_y / 1800))
         let position = getPositionFromUv(mesh_earth, uv.x, uv.y)
@@ -308,7 +312,7 @@ function Map(glob)
 
     // const x = parseInt(nt.node.style.left)
     // const y = parseInt(nt.node.style.top)
-    // ctx_text.fillText(nt.node.innerText, x, y)
+    // ctx_text.fillText(nt.data_name, x, y)
     // console.log('nt', nt)
     // visible_regions.push(nt);
     // infoLayer.appendChild(nt.node);
@@ -321,7 +325,7 @@ function Map(glob)
     // if (i >= 0) {
     //   visible_regions.splice(i, 1);
     // }
-    p.group_text.remove(p.cache_text[rg.node.innerText])
+    p.group_text.remove(p.cache_text[rg.data_name])
   }
 
   this.update_info = update_info

@@ -34,7 +34,7 @@ export default {
       obj3ds_boundary_dot: [],
       obj3ds_boundary_line: [],
       camera_distance: 35,
-      stats: new Stats(),
+      stats: new Stats()
     };
   },
   created() {
@@ -339,6 +339,7 @@ export default {
 
       var renderer = (s.renderer = new THREE.WebGLRenderer());
       renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor('rgb(80,80,80)')
       s.r.container.appendChild(renderer.domElement);
 
       // var geometry = new THREE.SphereBufferGeometry( 5, 32, 32 );
