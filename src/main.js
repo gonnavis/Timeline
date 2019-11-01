@@ -5,8 +5,8 @@ import App from './components/App'
 import router from './router'
 import { VueHammer } from 'vue2-hammer'
 
-//const VConsole = require('vconsole');
-//const vConsole = new VConsole();
+const VConsole = require('vconsole');
+const vConsole = new VConsole();
 
 Vue.use(VueHammer)
 Vue.config.productionTip = false

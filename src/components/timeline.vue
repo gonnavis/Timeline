@@ -8,7 +8,7 @@
           <div class="row" v-for="(row, i) in area.rows" :style="get_row_style(row, i, area)">
             <div class="period" :class="{act:period_act===period}" v-for="(period, i) in row.periods" @mouseenter="period_mouseenter(period, i)" @touchstart="period_mouseenter(period, i)" @mouseleave="period_mouseleave(period, i)" @mousedown="period_mousedown($event)" v-hammer:press="period_press" :style="get_period_style(period, i, area)">
               <span class="name">{{period.name}}</span>
-              <img v-show="period.map.boundary" class="map_icon" src="../assets/map.png">
+              <!-- <img v-show="period.map.boundary" class="map_icon" src="../assets/map.png"> -->
             </div>
           </div>
         </div>
@@ -37,7 +37,11 @@
       <div class="menu clearfix" style="display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);pointer-events: all;">
         <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
         <!-- <a class="item" href="http://gonnavis.com/timeline_old2/" target="_blank">返回旧版</a> -->
-        <a class="item" @click="goto_twha()">完整历史地图</a>
+        <label class="item">
+          <input type="checkbox" v-model="p.is_map_name" style="vertical-align:middle;">
+          <span style="vertical-align:middle;">地图国名</span>
+        </label>
+        <a class="item" @click="goto_twha()">平面地图</a>
         <div class="item" @click="is_show_pop_help=true">
           <img src="../assets/help.png" style="width:19px;height:19px;display: block;">
         </div>
@@ -118,6 +122,12 @@ export default {
       period_act: null,
       fsm: null
     };
+  },
+  watch:{
+    'p.is_map_name':function(){
+      console.log('watch')
+      map.update_info();
+    }
   },
   created() {
     let s = (window.stimeline = this);
@@ -444,5 +454,5 @@ export default {
   .pop_wrap .pop{padding:10px;box-sizing: border-box;font-size: 16px;display: flex;flex-direction: column;justify-content: space-around;}
   .pop_wrap .pop>*{margin:10px 0;}
   .pop_wrap .pop_help{position: absolute;left:0;right: 0;top:0;bottom:0;width:80%;height:80%;max-width:500px;max-height:500px;margin: auto;background: white;border-radius: 4px;}
-  .pop_wrap .close{position: absolute;right: -15px;top:-15px;background: url(../assets/close.png) no-repeat center center / 100% 100%; width:30px;height:30px;margin:0;opacity: .7;}
+  .pop_wrap .close{position: absolute;right: -15px;top:-15px;background: url(../assets/close.png) no-repeat center center / 100% 100%; width:30px;height:30px;margin:0;opacity: .7;cursor:pointer;}
 </style>

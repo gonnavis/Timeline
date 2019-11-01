@@ -249,6 +249,8 @@ function Map(glob)
         __proto__: Object
     */
 
+    if(!p.is_map_name) return
+
 
     { //canvas
       // const scale = 256 / 450

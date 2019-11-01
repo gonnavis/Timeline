@@ -7,7 +7,8 @@ var p = {
   uniforms: null,
   ctx_text: null,
   group_text: new THREE.Group(),
-  cache_text: {}
+  cache_text: {},
+  is_map_name: true,
 }
 
 // p.group_text.scale.set(1.03, 1.03, 1.03)

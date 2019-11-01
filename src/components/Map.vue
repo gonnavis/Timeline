@@ -34,7 +34,7 @@ export default {
       obj3ds_boundary_dot: [],
       obj3ds_boundary_line: [],
       camera_distance: 35,
-      stats: new Stats()
+      // stats: new Stats()
     };
   },
   created() {
@@ -47,7 +47,7 @@ export default {
     s.r = s.$refs;
     window.data = data;
 
-    document.body.appendChild(s.stats.dom);
+    // document.body.appendChild(s.stats.dom);
 
     s.init_three();
     s.scene.add(s.p.group_text);
@@ -340,6 +340,7 @@ export default {
       var renderer = (s.renderer = new THREE.WebGLRenderer());
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setClearColor('rgb(80,80,80)')
+      renderer.setPixelRatio(devicePixelRatio)
       s.r.container.appendChild(renderer.domElement);
 
       // var geometry = new THREE.SphereBufferGeometry( 5, 32, 32 );
@@ -456,7 +457,7 @@ export default {
       var animate = function(time) {
         requestAnimationFrame(animate);
 
-        s.stats.update();
+        // s.stats.update();
         TWEEN.update(time);
         renderer.render(scene, camera);
       };
