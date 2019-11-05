@@ -5,7 +5,7 @@ var p = {
   canvasTexture_twha: null,
   canvasTexture_text: null,
   uniforms: null,
-  ctx_text: null,
+  ctx_regions: null,
   group_text: new THREE.Group(),
   cache_text: {},
   is_map_name: true,

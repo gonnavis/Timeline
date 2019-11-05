@@ -40,7 +40,7 @@ export default {
   created() {
     let s = this;
     s.p.canvasTexture_twha = new THREE.CanvasTexture(get_twha_canvas());
-    s.p.canvasTexture_text = new THREE.CanvasTexture(ctx_text.canvas);
+    s.p.canvasTexture_text = new THREE.CanvasTexture(ctx_regions.canvas);
   },
   mounted() {
     let s = (window.smap = this);

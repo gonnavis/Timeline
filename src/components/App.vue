@@ -16,13 +16,13 @@ export default {
   created() {
     let s = this;
 
-    const cvs_text = document.createElement("canvas");
-    const ctx_text = cvs_text.getContext("2d");
-    cvs_text.width = 2048;
-    cvs_text.height = 1024;
+    const cvs_regions = document.createElement("canvas");
+    const ctx_regions = cvs_regions.getContext("2d");
+    cvs_regions.width = 2048;
+    cvs_regions.height = 1024;
 
 
-    s.p.ctx_text = window.ctx_text = ctx_text;
+    s.p.ctx_regions = window.ctx_regions = ctx_regions;
   },
   mounted() {
     let s = (window.sapp = this);

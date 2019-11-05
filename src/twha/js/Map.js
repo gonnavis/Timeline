@@ -249,56 +249,62 @@ function Map(glob)
         __proto__: Object
     */
 
-    if(!p.is_map_name) return
+    // if (!window.test_display_levels) {
+    //   window.test_display_levels = new Set()
+    // }
+    // test_display_levels.add(nt.disp_level)
+
+    if (!p.is_map_name) return
+    if (nt.disp_level === 2) return
 
 
     { //canvas
       // const scale = 256 / 450
-      // ctx_text.font = "12px Arial";
-      // ctx_text.fillText(nt.data_name, nt.pos_x * scale, nt.pos_y * scale)
+      // ctx_regions.font = "12px Arial";
+      // ctx_regions.fillText(nt.data_name, nt.pos_x * scale, nt.pos_y * scale)
     }
 
     { //three.js sprite
-      const name = nt.data_name
+      const name = nt.data_name.split('（')[0].split('(')[0]
       const name_x_y = `${name}_${nt.pos_x}_${nt.pos_y}`
       if (!p.cache_text[name_x_y]) {
 
         // let spriteMap = new THREE.TextureLoader().load(require('../../assets/test.png'));
 
-        let cvs_one = document.createElement('canvas')
-        let ctx_one = cvs_one.getContext('2d')
-        cvs_one.width = 512
-        cvs_one.height = 32
+        let cvs_text = document.createElement('canvas')
+        let ctx_text = cvs_text.getContext('2d')
+        cvs_text.width = 512
+        cvs_text.height = 32
 
-        // ctx_one.fillStyle = `rgba(${255*Math.random()},${255*Math.random()},${255*Math.random()},1)`
-        // ctx_one.fillRect(0, 0, cvs_one.width, cvs_one.height)
+        // ctx_text.fillStyle = `rgba(${255*Math.random()},${255*Math.random()},${255*Math.random()},1)`
+        // ctx_text.fillRect(0, 0, cvs_text.width, cvs_text.height)
 
-        ctx_one.font = "24px Arial";
-        ctx_one.lineWidth = 6
-        ctx_one.strokeStyle = "white"
-        ctx_one.fillStyle = "black";
-        // ctx_one.textAlign = "center";
-        // ctx_one.shadowColor = "white";
-        // ctx_one.shadowBlur = 2;
-        // ctx_one.shadowOffsetX = 1;
-        // ctx_one.shadowOffsetY = 1;
-        const text_width = ctx_one.measureText(name).width
-        ctx_one.strokeText(name, 6, cvs_one.height - 6)
-        ctx_one.fillText(name, 6, cvs_one.height - 6)
+        ctx_text.font = "24px Arial";
+        ctx_text.lineWidth = 6
+        ctx_text.strokeStyle = "white"
+        ctx_text.fillStyle = "black";
+        // ctx_text.textAlign = "center";
+        // ctx_text.shadowColor = "white";
+        // ctx_text.shadowBlur = 2;
+        // ctx_text.shadowOffsetX = 1;
+        // ctx_text.shadowOffsetY = 1;
+        const text_width = ctx_text.measureText(name).width
+        ctx_text.strokeText(name, 6, cvs_text.height - 6)
+        ctx_text.fillText(name, 6, cvs_text.height - 6)
 
-        let spriteMap = new THREE.CanvasTexture(cvs_one)
+        let spriteMap = new THREE.CanvasTexture(cvs_text)
         spriteMap.needsUpdate = true;
 
         let spriteMaterial = new THREE.SpriteMaterial({ map: spriteMap, color: 0xffffff, sizeAttenuation: false });
         let sprite = new THREE.Sprite(spriteMaterial);
         p.cache_text[name_x_y] = sprite;
         let scale = 0.28
-        p.cache_text[name_x_y].scale.set(1 * scale, (cvs_one.height / cvs_one.width) * scale, 1 * scale)
-        sprite.center = new THREE.Vector2(text_width / 2 / cvs_one.width, .5)
+        p.cache_text[name_x_y].scale.set(1 * scale, (cvs_text.height / cvs_text.width) * scale, 1 * scale)
+        sprite.center = new THREE.Vector2(text_width / 2 / cvs_text.width, .5)
 
         const uv = new THREE.Vector2(nt.pos_x / 3600, 1 - (nt.pos_y / 1800))
         // let position = getPositionFromUv(mesh_earth, uv.x, uv.y)
-        let position = getSpherePositionFromUv( uv.x, uv.y, 10.3)
+        let position = getSpherePositionFromUv(uv.x, uv.y, 10.3)
         // if (position && !p.group_text.children.includes(p.cache_text[name])) {
         if (position) {
           p.cache_text[name_x_y].position.copy(position)
@@ -315,7 +321,7 @@ function Map(glob)
 
     // const x = parseInt(nt.node.style.left)
     // const y = parseInt(nt.node.style.top)
-    // ctx_text.fillText(nt.data_name, x, y)
+    // ctx_regions.fillText(nt.data_name, x, y)
     // console.log('nt', nt)
     // visible_regions.push(nt);
     // infoLayer.appendChild(nt.node);
@@ -349,9 +355,9 @@ function Map(glob)
     // p.group_text.children = []
     p.group_text.children.forEach(one => one.visible = false)
 
-    ctx_text.fillStyle = "white";
-    ctx_text.fillRect(0, 0, ctx_text.canvas.width, ctx_text.canvas.height)
-    ctx_text.fillStyle = "black";
+    ctx_regions.fillStyle = "white";
+    ctx_regions.fillRect(0, 0, ctx_regions.canvas.width, ctx_regions.canvas.height)
+    ctx_regions.fillStyle = "black";
     for (var i = 0; i < regions_this_year.length; i++) {
       var nt = regions_this_year[i];
       var px = nt.pos_x * scale - curX;
