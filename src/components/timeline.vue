@@ -1,7 +1,7 @@
 <template>
   <div class="component timeline peoff" :class="{transparent: p.map_state!==0, pointer_events_none: p.map_state===1}" ref="component">
 
-    <div class="global_wrap" v-show="p.map_state!==1" v-pan="{fn:component_pan, args:[]}" @mousewheel="onmousewheel($event)" @mousemove="component_mousemove($event)" @touchstart="component_mousemove($event)" @touchmove="component_mousemove($event);is_show_pophover=false;" style="position: absolute;left:0;top:0;width:100%;height:100%;">
+    <div class="global_wrap" v-show="p.map_state!==1" v-pan="{fn:component_pan, args:[]}" v-up="{fn:component_up, args:[]}" @mousewheel="onmousewheel($event)" @mousemove="component_mousemove($event)" @touchstart="component_mousemove($event)" @touchmove="component_mousemove($event);is_show_pophover=false;" style="position: absolute;left:0;top:0;width:100%;height:100%;">
       <div class="global clearfix peon" :style="get_global_style()">
         <div class="marginfix" style="height: 1px;margin-bottom: -1px;"></div>
         <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)">
@@ -41,11 +41,11 @@
           <input type="checkbox" v-model="p.is_map_name" style="vertical-align:middle;">
           <span style="vertical-align:middle;">地图国名</span>
         </label>
+        <a class="item" @click="toggle_map()">切换显示</a>
         <a class="item" @click="goto_twha()">平面地图</a>
         <div class="item" @click="is_show_pop_help=true">
           <img src="../assets/help.png" style="width:19px;height:19px;display: block;">
         </div>
-        <a class="item" @click="toggle_map()">切换显示</a>
         <div class="item area" :class="{act:act_areas.includes(area)}" v-hammer:tap="()=>menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
       </div>
     </div>
@@ -120,12 +120,13 @@ export default {
       zoom_min: 0.05,
       pan_speed: 1, // the larger the faster
       period_act: null,
-      fsm: null
+      fsm: null,
+      is_panning: false
     };
   },
-  watch:{
-    'p.is_map_name':function(){
-      console.log('watch')
+  watch: {
+    "p.is_map_name": function() {
+      console.log("watch");
       map.update_info();
     }
   },
@@ -157,6 +158,9 @@ export default {
     //   s.global_left+=ve.deltaX;
     //   s.global_top+=ve.deltaY;
     // })
+
+    s.throttled_update_twha_canvas(s.poin_time);
+    map.update_info();
 
     let hmr_component = new Hammer(s.r.component);
     hmr_component.get("pinch").set({ enable: true });
@@ -198,6 +202,14 @@ export default {
       bind(el, binding) {
         let vh = new VSHammer(el);
         vh.on("pan", function(ve) {
+          binding.value.fn(ve, ...binding.value.args);
+        });
+      }
+    },
+    up: {
+      bind(el, binding) {
+        let vh = new VSHammer(el);
+        vh.on("up", function(ve) {
           binding.value.fn(ve, ...binding.value.args);
         });
       }
@@ -335,6 +347,9 @@ export default {
     },
     component_mousemove(e) {
       let s = this;
+      if (s.is_panning) {
+        return;
+      }
       // console.log(e);
       if (e.touches) {
         s.poin.x = e.touches[0].clientX;
@@ -346,8 +361,10 @@ export default {
       s.poin_time = Math.floor(
         (s.poin.x - s.global_left) / s.zoom + s.global.min
       );
-      s.throttled_update_twha_canvas(s.poin_time);
-      map.update_info();
+      if (s.p.map_state !== 0) {
+        s.throttled_update_twha_canvas(s.poin_time);
+        map.update_info();
+      }
       s.is_show_popmenu = false;
     },
     x_to_time(x) {
@@ -356,8 +373,14 @@ export default {
     },
     component_pan(ve) {
       let s = this;
+      s.is_panning = true;
       s.global_left += ve.deltaX * s.pan_speed;
       s.global_top += ve.deltaY * s.pan_speed;
+    },
+    component_up(ve) {
+      let s = this;
+      console.log("up");
+      s.is_panning = false;
     },
     menu_area_click(area, i) {
       let s = this;
