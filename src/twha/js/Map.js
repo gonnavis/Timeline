@@ -257,13 +257,6 @@ function Map(glob)
     if (!p.is_map_name) return
     if (nt.disp_level === 2) return
 
-
-    { //canvas
-      // const scale = 256 / 450
-      // ctx_regions.font = "12px Arial";
-      // ctx_regions.fillText(nt.data_name, nt.pos_x * scale, nt.pos_y * scale)
-    }
-
     { //three.js sprite
       const name = nt.data_name.split('（')[0].split('(')[0]
       const name_x_y = `${name}_${nt.pos_x}_${nt.pos_y}`
@@ -321,7 +314,6 @@ function Map(glob)
 
     // const x = parseInt(nt.node.style.left)
     // const y = parseInt(nt.node.style.top)
-    // ctx_regions.fillText(nt.data_name, x, y)
     // console.log('nt', nt)
     // visible_regions.push(nt);
     // infoLayer.appendChild(nt.node);
@@ -355,9 +347,6 @@ function Map(glob)
     // p.group_text.children = []
     p.group_text.children.forEach(one => one.visible = false)
 
-    ctx_regions.fillStyle = "white";
-    ctx_regions.fillRect(0, 0, ctx_regions.canvas.width, ctx_regions.canvas.height)
-    ctx_regions.fillStyle = "black";
     for (var i = 0; i < regions_this_year.length; i++) {
       var nt = regions_this_year[i];
       var px = nt.pos_x * scale - curX;

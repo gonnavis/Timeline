@@ -17,12 +17,9 @@ export default {
     let s = this;
 
     const cvs_regions = document.createElement("canvas");
-    const ctx_regions = cvs_regions.getContext("2d");
     cvs_regions.width = 2048;
     cvs_regions.height = 1024;
 
-
-    s.p.ctx_regions = window.ctx_regions = ctx_regions;
   },
   mounted() {
     let s = (window.sapp = this);
