@@ -15,11 +15,6 @@ export default {
   },
   created() {
     let s = this;
-
-    const cvs_regions = document.createElement("canvas");
-    cvs_regions.width = 2048;
-    cvs_regions.height = 1024;
-
   },
   mounted() {
     let s = (window.sapp = this);

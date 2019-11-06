@@ -9,22 +9,25 @@ import { getSpherePositionFromUv } from "../../components/getSpherePositionFromU
 
 function Map(glob)
 {
-  const cvs = document.createElement('canvas')
-  const ctx = cvs.getContext('2d')
-  cvs.width = 2048
-  cvs.height = 1024
+  const cvs_regions = document.createElement('canvas')
+  const ctx_regions = cvs_regions.getContext('2d')
+  cvs_regions.width = 2048
+  cvs_regions.height = 1024
   const tile_size = 2048 / 8
-  // cvs.style.position = 'fixed'
-  // // cvs.style.left = '100px'
-  // cvs.style.left = '0px'
-  // cvs.style.top = '0px'
-  // cvs.style.zIndex = '99999'
-  // // cvs.style.width = '500px'
-  // cvs.style.width = '100%'
-  // cvs.style.maxWidth = '100%'
-  // document.body.appendChild(cvs)
+  // cvs_regions.style.position = 'fixed'
+  // cvs_regions.style.left = '0px'
+  // cvs_regions.style.top = '0px'
+  // cvs_regions.style.zIndex = '99999'
+  // cvs_regions.style.width = '500px'
+  // document.body.appendChild(cvs_regions)
+
+  // window.test_count_1 = 0
+  // window.test_count_2 = 0
+  // window.test_count_3 = 0
 
   let caches = {}
+  let ctx_tile_id_count = 0
+  let tile_indexs = {}
 
   var MAP_SIZE = 450;
   var MAP_X = 8;
@@ -86,26 +89,34 @@ function Map(glob)
 
   async function getMapTertPart(i, j)
   {
+    const ij = i + '_' + j
+    const count = ctx_tile_id_count++
+    tile_indexs[ij] = count
+
     const mapTertYear = getMapTertYear(data.year, i, j)
     const key = `${i}_${j}_${mapTertYear}`
-    const tile_size = 256
     if (!caches[key]) {
       const cvs_tile = document.createElement('canvas')
       const ctx_tile = cvs_tile.getContext('2d')
       cvs_tile.width = tile_size
       cvs_tile.height = tile_size
-      caches[key] = cvs_tile
 
       const img = await vs.load_img('static/twha/t/' + i + j + '/' + mapTertYear + '.png')
+      // window.open(img.src)
       ctx_tile.drawImage(
         img,
         0, 0, 450, 450,
         0, 0, tile_size, tile_size
       )
+      caches[key] = cvs_tile
     }
-    ctx.drawImage(
-      caches[key], i * tile_size, j * tile_size
-    )
+    if (count >= tile_indexs[ij]) {
+      ctx_regions.drawImage(
+        caches[key], i * tile_size, j * tile_size
+      )
+      p.canvasTexture_twha.needsUpdate = true;
+      p.uniforms.tSec.value = p.canvasTexture_twha;
+    }
   }
 
 
@@ -437,7 +448,7 @@ function Map(glob)
     }
   }
   this.get_canvas = function() {
-    return cvs
+    return cvs_regions
   }
 
 }

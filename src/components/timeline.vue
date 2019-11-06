@@ -132,7 +132,7 @@ export default {
   },
   created() {
     let s = (window.stimeline = this);
-    console.log(global);
+    // console.log(global);
     s.act_areas.push(global.areas[0]);
 
     s.fsm = new StateMachine({
@@ -172,7 +172,7 @@ export default {
       s.zoom_in(s.x_to_time(e.center.x));
     });
     hmr_component.on("tap", function(e) {
-      console.log("tap");
+      // console.log("tap");
       s.fsm.idletoptaped();
       setTimeout(() => {
         s.fsm.tapedtoidle();
@@ -230,8 +230,8 @@ export default {
         // console.log("throttled_update_twha_canvas");
         update_twha_canvas(year);
         // this.p.material.map.needsUpdate = true; //todo only needsUpdate after await update_twha_canvas()
-        s.p.canvasTexture_twha.needsUpdate = true;
-        s.p.uniforms.tSec.value = s.p.canvasTexture_twha;
+        // s.p.canvasTexture_twha.needsUpdate = true;
+        // s.p.uniforms.tSec.value = s.p.canvasTexture_twha;
         //todo three.js:19873 THREE.WebGLRenderer: image is not power of two (3600x1800). Resized to 2048x1024
       },
       0,
