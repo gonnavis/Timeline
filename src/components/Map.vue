@@ -18,6 +18,7 @@ import {
 } from "../twha/get_twha_canvas.js";
 import data from "./data.js";
 import global from "./preprocess_data.js";
+import { OrbitControls } from "../lib/OrbitControls_this.js";
 export default {
   name: "Map",
   props: ["p"],
@@ -33,7 +34,7 @@ export default {
       group_boundary: new THREE.Group(),
       obj3ds_boundary_dot: [],
       obj3ds_boundary_line: [],
-      camera_distance: 35,
+      camera_distance: 35
       // stats: new Stats()
     };
   },
@@ -330,6 +331,7 @@ export default {
         0.1,
         1000
       ));
+      window.camera = camera; //test
 
       scene.add(new THREE.AmbientLight(0xffffff, 2.5));
       // var light = new THREE.PointLight( 0xffffff );
@@ -338,8 +340,8 @@ export default {
 
       var renderer = (s.renderer = new THREE.WebGLRenderer());
       renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setClearColor('rgb(80,80,80)')
-      renderer.setPixelRatio(devicePixelRatio)
+      renderer.setClearColor("rgb(80,80,80)");
+      renderer.setPixelRatio(devicePixelRatio);
       s.r.container.appendChild(renderer.domElement);
 
       // var geometry = new THREE.SphereBufferGeometry( 5, 32, 32 );
@@ -365,7 +367,7 @@ export default {
           )
         },
         // tSec: { type: "t", value: new THREE.TextureLoader().load(require('../assets/twha_year_0.png')) },
-        tSec: { type: "t", value: s.p.canvasTexture_twha },
+        tSec: { type: "t", value: s.p.canvasTexture_twha }
       };
       s.p.uniforms = uniforms;
       var material = new THREE.ShaderMaterial({
@@ -413,11 +415,15 @@ export default {
 
       camera.position.set(0, 10, 26);
 
-      var controls = (s.controls = new THREE.OrbitControls(
+      var controls = (s.controls = new OrbitControls(
         camera,
         renderer.domElement
       ));
       controls.enablePan = false;
+      window.controls = controls; //test
+      controls.addEventListener("dolly", e => {
+        map.update_info();
+      });
 
       window.addEventListener("resize", onWindowResize, false);
       function onWindowResize() {

@@ -28,6 +28,7 @@ function Map(glob)
   let caches = {}
   let ctx_tile_id_count = 0
   let tile_indexs = {}
+  let text_level = 0
 
   var MAP_SIZE = 450;
   var MAP_X = 8;
@@ -266,7 +267,7 @@ function Map(glob)
     // test_display_levels.add(nt.disp_level)
 
     if (!p.is_map_name) return
-    if (nt.disp_level === 2) return
+    if (nt.disp_level > text_level) return
 
     { //three.js sprite
       const name = nt.data_name.split('（')[0].split('(')[0]
@@ -344,6 +345,18 @@ function Map(glob)
 
   function update_info()
   {
+
+    const camera_distance = window.camera.position.length()
+    if (camera_distance < 15) {
+      text_level = 2
+    }else if (camera_distance < 25) {
+      text_level = 1
+    }else {
+      text_level = 0
+    }
+    // console.log(camera_distance, text_level)
+
+
     // console.log('update_info')
     if (prev_year !== data.year) {
       regions_this_year = update_region_of_year(data.year);
