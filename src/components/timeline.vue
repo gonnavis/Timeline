@@ -21,7 +21,7 @@
       <span>{{poin_time}}</span>
       <span style="margin-left: 5px;color:gray;">距今: {{now_year-poin_time}}</span>
     </div>
-    <div class="detail" v-if="period_act" v-show="p.map_state!==1" style="position:absolute;width:100%;top:24px;background: black;">
+    <div class="detail peon" v-if="period_act" v-show="p.map_state!==1" style="position:absolute;width:100%;top:24px;background: black;">
       <div style="display: flex;color:white;justify-content: space-around;">
         <div>{{period_act.name}} </div>
         <div><span style="color:gray;">时长: </span>{{period_act.to-period_act.from}}</div>
