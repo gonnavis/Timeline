@@ -14,22 +14,24 @@
 
 <h3>运行</h3>
 <p>
-  cnpm install<br>
-  cnpm run dev<br>
+  npm install<br>
+  npm run dev<br>
   http://localhost:8080/<br>
 </p>
 
 <h3>编译</h3>
 <p>
-  cnpm run build<br>
+  npm run build<br>
+  删除 dist/ 里的 static/ 文件夹<br>
+  然后提取 index.html favicon.png dist/ static/ 即可 <br>
 </p>
 
 <h3>计划开发功能</h3>
 <p>用河流图直观地同时显示时间和面积信息，完善标尺，时间段嵌套，自定义／上传时间段。 </p>
 
 <h3>The World Historical Atras (twha) 项目代码</h3>
-<p>果然已经有人整理了所有年代的历史地图并做成了网页, 不需要自己再搞一遍了，<a href="http://x768.com/w/twha.ja" target="_blank">官网</a>，奇怪的是并没有放到线上, 因此稍微改了改放到了线上 http://gonnavis.com/timeline/twha/ 目前只支持pc</p>
-<p>代码放在本项目的 twha 文件夹下，后续准备融合到主体项目内</p>
+<p>果然已经有人整理了所有年代的历史地图并做成了网页, 不需要自己再搞一遍了，<a href="http://x768.com/w/twha.ja" target="_blank">官网</a>，奇怪的是并没有放到线上, 因此稍微改了改优化了下操作方式放到了线上 http://gonnavis.com/timeline/twha/ 目前只支持pc</p>
+<p>代码放在本项目的 twha 文件夹下</p>
 
 <h3>备注</h3>
 <p>
