@@ -40,7 +40,7 @@
   之前的 angular1 版 git SHA-1: b5372193ab1ff344b9bd0d3dabb2e3339b436269
 </p>
 
-<h3>地图编辑模式(弃用)</h3>
+<h3>地图编辑模式(暂时弃用，因为目前使用图片地图而非路径地图，后续适时继续开发)</h3>
 <p>
   http://localhost:8080/?is_edit=true<br>
   点击框选边界<br>
