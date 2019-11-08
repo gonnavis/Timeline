@@ -22,7 +22,7 @@
 <h3>编译</h3>
 <p>
   npm run build<br>
-  删除 dist/ 里的 static/ 文件夹<br>
+  删除 dist/ 里的 lib/ 和 twha/ 文件夹<br>
   然后提取 index.html favicon.png dist/ static/ 即可 <br>
 </p>
 
