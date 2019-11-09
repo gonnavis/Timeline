@@ -58,7 +58,7 @@
 
     </div> -->
 
-    <div class="popmenu" v-if="period_act&&is_show_popmenu" v-show="p.map_state!==1" @click="is_show_popmenu=false" :style="popmenu_style">
+    <div class="popmenu peon" v-if="period_act&&is_show_popmenu" v-show="p.map_state!==1" @click="is_show_popmenu=false" :style="popmenu_style">
       <a :href="'https://baike.baidu.com/item/'+period_act.name" target="_blank" style="display: block;">百度百科</a>
       <a :href="'https://www.baidu.com/s?wd='+period_act.name" target="_blank" style="display: block;">百度搜索</a>
     </div>
