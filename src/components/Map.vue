@@ -397,7 +397,8 @@ export default {
             vec3 c;
             vec4 Ca = texture2D(tOne, vUv);
             vec4 Cb = texture2D(tSec, vUv);
-            c = Ca.rgb * .6 + Cb.rgb * .4;  // blending equation //ok
+            c = Cb.rgb;
+            // c = Ca.rgb * .6 + Cb.rgb * .4;  // blending equation //ok
             // c = Ca.rgb * Ca.a + Cb.rgb * Cb.a * (1.0 - Ca.a);  // blending equation
             // c = Ca.rgb *  Cb.rgb;  // blending equation
             // c = vec3( min(Ca.r,Cb.r), min(Ca.g,Cb.g), min(Ca.b,Cb.b)  );

@@ -11,9 +11,9 @@ function Map(glob)
 {
   const cvs_regions = document.createElement('canvas')
   const ctx_regions = cvs_regions.getContext('2d')
-  cvs_regions.width = 2048
-  cvs_regions.height = 1024
-  const tile_size = 2048 / 8
+  cvs_regions.width = 4096
+  cvs_regions.height = cvs_regions.width / 2
+  const tile_size = cvs_regions.width / 8
   // cvs_regions.style.position = 'fixed'
   // cvs_regions.style.left = '0px'
   // cvs_regions.style.top = '0px'
@@ -349,9 +349,9 @@ function Map(glob)
     const camera_distance = window.camera.position.length()
     if (camera_distance < 15) {
       text_level = 2
-    }else if (camera_distance < 25) {
+    } else if (camera_distance < 25) {
       text_level = 1
-    }else {
+    } else {
       text_level = 0
     }
     // console.log(camera_distance, text_level)
