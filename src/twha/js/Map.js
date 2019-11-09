@@ -270,7 +270,12 @@ function Map(glob)
     if (nt.disp_level > text_level) return
 
     { //three.js sprite
-      const name = nt.data_name.split('（')[0].split('(')[0]
+      // let temp_name = nt.data_name.split('（')[0].split('(')[0]
+      // if (!temp_name) {
+      //   temp_name = nt.data_name
+      // }
+      // const name = temp_name
+      const name = nt.data_name
       const name_x_y = `${name}_${nt.pos_x}_${nt.pos_y}`
       if (!p.cache_text[name_x_y]) {
 
@@ -349,9 +354,9 @@ function Map(glob)
     const camera_distance = window.camera.position.length()
     if (camera_distance < 15) {
       text_level = 2
-    }else if (camera_distance < 25) {
+    } else if (camera_distance < 25) {
       text_level = 1
-    }else {
+    } else {
       text_level = 0
     }
     // console.log(camera_distance, text_level)

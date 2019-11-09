@@ -420,6 +420,8 @@ export default {
         renderer.domElement
       ));
       controls.enablePan = false;
+      controls.minDistance = 12;
+      controls.maxDistance = 100;
       window.controls = controls; //test
       controls.addEventListener("dolly", e => {
         map.update_info();
