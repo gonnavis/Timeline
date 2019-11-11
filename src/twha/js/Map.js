@@ -11,6 +11,7 @@ function Map(glob)
 {
   const cvs_regions = document.createElement('canvas')
   const ctx_regions = cvs_regions.getContext('2d')
+  window.ctx_regions = ctx_regions //todo
   cvs_regions.width = 4096
   cvs_regions.height = cvs_regions.width / 2
   const tile_size = cvs_regions.width / 8

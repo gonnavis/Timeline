@@ -12,7 +12,7 @@
     camera_position: smap.camera.position,
   })
 */
-import * as THREE from '../lib/three.module.js';
+import * as THREE from "../lib/three.module.js";
 import {
   get_twha_canvas,
   update_twha_canvas
@@ -21,6 +21,7 @@ import data from "./data.js";
 import global from "./preprocess_data.js";
 import { DragControls } from "../lib/DragControls.js";
 import { OrbitControls } from "../lib/OrbitControls_this.js";
+import AreaCalc from "./AreaCalc.js";
 export default {
   name: "Map",
   props: ["p"],
@@ -42,6 +43,7 @@ export default {
   },
   created() {
     let s = this;
+    window.THREE = THREE; //todo
     s.p.canvasTexture_twha = new THREE.CanvasTexture(get_twha_canvas());
   },
   mounted() {
@@ -335,10 +337,6 @@ export default {
       ));
       window.camera = camera; //test
 
-      scene.add(new THREE.AmbientLight(0xffffff, 2.5));
-      // var light = new THREE.PointLight( 0xffffff );
-      // light.position.set(-3,6,10);
-      // scene.add( light );
 
       var renderer = (s.renderer = new THREE.WebGLRenderer());
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -373,6 +371,7 @@ export default {
       };
       s.p.uniforms = uniforms;
       var material = new THREE.ShaderMaterial({
+        color:'white',
         uniforms: uniforms,
         vertexShader: `
           varying vec2 vUv;
@@ -414,7 +413,10 @@ export default {
       var mesh_earth = (s.mesh_earth = new THREE.Mesh(geometry, material));
       mesh_earth.rotation.y = -0.2;
       scene.add(mesh_earth);
-      window.mesh_earth = mesh_earth; //test
+      window.mesh_earth = mesh_earth; //todo
+
+      window.area_clac = new AreaCalc({ mesh: mesh_earth }); //todo
+      scene.add(area_clac.group);
 
       camera.position.set(0, 10, 26);
 
@@ -425,7 +427,7 @@ export default {
       controls.enablePan = false;
       controls.minDistance = 12;
       controls.maxDistance = 100;
-      window.controls = controls; //test
+      window.controls = controls; //todo
       controls.addEventListener("dolly", e => {
         map.update_info();
       });

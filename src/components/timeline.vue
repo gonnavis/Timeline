@@ -467,7 +467,7 @@ export default {
   .component .detail>*{padding:2px;}
 
 
-  .component.transparent{background: rgba(0,0,0,.3);}
+  .component.transparent{background: rgba(0,0,0,0);}
   .component.transparent .area{background: rgba(255,255,255,.1);border: solid 1px rgba(200,200,200,.1);}
   .component.transparent .global .period{text-shadow:rgba(255, 255, 255, .6) 1px 1px 0px;}
   .component.transparent .global .period.act{border-color:rgba(255,0,0,.5);}
