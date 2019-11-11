@@ -240,8 +240,13 @@ export default {
     // throttled_update_twha_canvas:update_twha_canvas,
     goto_twha() {
       let s = this;
-      if (confirm("目前只支持pc访问, 确认跳转?"))
-        window.open("http://gonnavis.com/timeline/twha");
+      if (location.href.indexOf("://localhost") > -1) {
+        window.open("http://localhost/Timeline/twha/index.html");
+      } else {
+        if (confirm("目前只支持pc访问, 确认跳转?")) {
+          window.open("http://gonnavis.com/timeline/twha");
+        }
+      }
     },
     toggle_map() {
       let s = this;
