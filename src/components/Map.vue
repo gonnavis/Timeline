@@ -371,7 +371,6 @@ export default {
       };
       s.p.uniforms = uniforms;
       var material = new THREE.ShaderMaterial({
-        color:'white',
         uniforms: uniforms,
         vertexShader: `
           varying vec2 vUv;

@@ -3,6 +3,7 @@ import * as THREE from '../lib/three.module.js';
 class AreaCalc {
   raycaster = new THREE.Raycaster();
   group = new THREE.Group()
+  count = 0
 
   // geo = new THREE.IcosahedronBufferGeometry(.05, 1);
   // mtl = new THREE.MeshBasicMaterial({ color: "black" });
@@ -27,14 +28,17 @@ class AreaCalc {
       const imageData = s.get_color(ctx_regions, intersect.uv)
       // console.log(imageData.data)
       if (imageData.data[0] === 255 && imageData.data[1] === 0 && imageData.data[2] === 0) {
+
+        count++
+
         // let obj3d = new THREE.Mesh(s.geo, s.mtl);
         // obj3d.position.copy(intersect.point)
 
-        let obj3d = new THREE.Sprite(s.mtl);
-        let scale = .005
-        obj3d.scale.set(scale, scale, scale, )
-        obj3d.position.copy(intersect.point)
-        this.group.add(obj3d)
+        // let obj3d = new THREE.Sprite(s.mtl);
+        // let scale = .005
+        // obj3d.scale.set(scale, scale, scale, )
+        // obj3d.position.copy(intersect.point)
+        // this.group.add(obj3d)
       }
     }
   }
