@@ -12,12 +12,14 @@
     camera_position: smap.camera.position,
   })
 */
+import * as THREE from '../lib/three.module.js';
 import {
   get_twha_canvas,
   update_twha_canvas
 } from "../twha/get_twha_canvas.js";
 import data from "./data.js";
 import global from "./preprocess_data.js";
+import { DragControls } from "../lib/DragControls.js";
 import { OrbitControls } from "../lib/OrbitControls_this.js";
 export default {
   name: "Map",
@@ -153,7 +155,7 @@ export default {
       }
 
       if (s.dragControls) s.dragControls.dispose();
-      var dragControls = (s.dragControls = new THREE.DragControls(
+      var dragControls = (s.dragControls = new DragControls(
         s.obj3ds_boundary_dot,
         s.camera,
         s.renderer.domElement

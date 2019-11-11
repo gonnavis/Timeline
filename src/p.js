@@ -1,3 +1,6 @@
+
+import * as THREE from './lib/three.module.js';
+
 var p = {
   is_edit: vs.getQueryStringByName("is_edit"),
   map_state: 1, // 0 only timeline   1 only map   2 timeline & map,
