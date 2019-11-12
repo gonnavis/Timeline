@@ -32,7 +32,7 @@ class AreaCalc {
     // console.log(uv)
     const imageData = s.get_color(ctx_regions, uv)
     // console.log(imageData.data)
-    if (imageData.data[0] === 255 && imageData.data[1] === 153 && imageData.data[2] === 153) {
+    if (imageData.data[0] === 255 && imageData.data[1] === 0 && imageData.data[2] === 0) {
 
       s.count++
       // s.imageDatas.push(imageData)
@@ -61,8 +61,17 @@ class AreaCalc {
 export default AreaCalc
 
 /*//console use
+
   for(let i=0;i<1000;i++){
     area_clac.add_dot()
   }
   console.log('ok')
+
+
+  //remove all backface, backface cull
+  camera_length = camera.position.length()
+  area_clac.group.children = area_clac.group.children.filter(n=>camera.position.clone().sub(n.position).length()<camera_length)
+
+
+
 */
