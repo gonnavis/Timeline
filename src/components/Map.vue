@@ -337,7 +337,6 @@ export default {
       ));
       window.camera = camera; //test
 
-
       var renderer = (s.renderer = new THREE.WebGLRenderer());
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setClearColor("rgb(80,80,80)");
@@ -414,14 +413,14 @@ export default {
       scene.add(mesh_earth);
       window.mesh_earth = mesh_earth; //todo
 
-      window.area_clac = new AreaCalc({ mesh: mesh_earth }); //todo
+      window.area_clac = new AreaCalc({ mesh: mesh_earth, renderer, camera,scene}); //todo
       scene.add(area_clac.group);
 
       camera.position.set(0, 10, 26);
 
       var controls = (s.controls = new OrbitControls(
-        camera,
-        renderer.domElement
+      camera,
+      renderer.domElement
       ));
       controls.enablePan = false;
       controls.minDistance = 12;
@@ -475,6 +474,9 @@ export default {
 };
 </script>
 
+<style >
+  .component.Map .selectBox { border: 1px solid #55aaff; background-color: rgba(75, 160, 255, 0.3); position: fixed; }
+</style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

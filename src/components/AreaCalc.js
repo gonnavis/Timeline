@@ -1,5 +1,7 @@
 import * as THREE from '../lib/three.module.js';
 import { getUvFromSpherePosition } from './getSpherePositionFromUv.js'
+import { SelectionBox } from '../lib/SelectionBox.js';
+import { SelectionHelper } from '../lib/SelectionHelper_this.js';
 
 class AreaCalc {
   raycaster = new THREE.Raycaster();
@@ -10,11 +12,52 @@ class AreaCalc {
   // geo = new THREE.IcosahedronBufferGeometry(.05, 1);
   // mtl = new THREE.MeshBasicMaterial({ color: "black" });
 
-  mtl = new THREE.SpriteMaterial({ color: 'black', sizeAttenuation: false });
 
   constructor(arg = { mesh, }) {
     let s = this
     s.arg = arg
+
+    // var selectionBox = new SelectionBox(s.arg.camera, s.arg.scene);
+    var selectionBox = new SelectionBox(s.arg.camera, s.group);
+    var helper = new SelectionHelper(selectionBox, s.arg.renderer, 'selectBox');
+    document.addEventListener('mousedown', function(event) {
+      if (event.button !== 2) return
+      for (var item of selectionBox.collection) {
+        item.material.color.set('black')
+      }
+      selectionBox.startPoint.set(
+        (event.clientX / window.innerWidth) * 2 - 1,
+        -(event.clientY / window.innerHeight) * 2 + 1,
+        0.5);
+    });
+    document.addEventListener('mousemove', function(event) {
+      if (helper.isDown) {
+        for (var i = 0; i < selectionBox.collection.length; i++) {
+          selectionBox.collection[i].material.color.set('black')
+        }
+        selectionBox.endPoint.set(
+          (event.clientX / window.innerWidth) * 2 - 1,
+          -(event.clientY / window.innerHeight) * 2 + 1,
+          0.5);
+        var allSelected = selectionBox.select();
+        console.log('allSelected',allSelected)
+        for (var i = 0; i < allSelected.length; i++) {
+          allSelected[i].material.color.set('white')
+        }
+      }
+    });
+    document.addEventListener('mouseup', function(event) {
+      if (event.button !== 2) return
+      selectionBox.endPoint.set(
+        (event.clientX / window.innerWidth) * 2 - 1,
+        -(event.clientY / window.innerHeight) * 2 + 1,
+        0.5);
+      var allSelected = selectionBox.select();
+      console.log('allSelected',allSelected)
+      for (var i = 0; i < allSelected.length; i++) {
+        allSelected[i].material.color.set('white')
+      }
+    });
 
   }
   add_dot() {
@@ -40,7 +83,9 @@ class AreaCalc {
       // let obj3d = new THREE.Mesh(s.geo, s.mtl);
       // obj3d.position.copy(intersect.point)
 
-      let obj3d = new THREE.Sprite(s.mtl);
+
+      let mtl = new THREE.SpriteMaterial({ color: 'black', sizeAttenuation: false });
+      let obj3d = new THREE.Sprite(mtl);
       let scale = .005
       obj3d.scale.set(scale, scale, scale, )
       obj3d.position.copy(origin)
@@ -66,6 +111,7 @@ export default AreaCalc
     area_clac.add_dot()
   }
   console.log('ok')
+  //为什conole里一万一次分批执行, 后面会越来越快?
 
 
   //remove all backface, backface cull
