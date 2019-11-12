@@ -9,8 +9,7 @@ class AreaCalc {
   count = 0
   imageDatas = []
 
-  // geo = new THREE.IcosahedronBufferGeometry(.05, 1);
-  // mtl = new THREE.MeshBasicMaterial({ color: "black" });
+  geo = new THREE.IcosahedronBufferGeometry(.05, 1);
 
 
   constructor(arg = { mesh, }) {
@@ -31,6 +30,7 @@ class AreaCalc {
         0.5);
     });
     document.addEventListener('mousemove', function(event) {
+      return
       if (helper.isDown) {
         for (var i = 0; i < selectionBox.collection.length; i++) {
           selectionBox.collection[i].material.color.set('black')
@@ -40,7 +40,6 @@ class AreaCalc {
           -(event.clientY / window.innerHeight) * 2 + 1,
           0.5);
         var allSelected = selectionBox.select();
-        console.log('allSelected',allSelected)
         for (var i = 0; i < allSelected.length; i++) {
           allSelected[i].material.color.set('white')
         }
@@ -53,7 +52,7 @@ class AreaCalc {
         -(event.clientY / window.innerHeight) * 2 + 1,
         0.5);
       var allSelected = selectionBox.select();
-      console.log('allSelected',allSelected)
+      console.log('allSelected', allSelected)
       for (var i = 0; i < allSelected.length; i++) {
         allSelected[i].material.color.set('white')
       }
@@ -80,14 +79,16 @@ class AreaCalc {
       s.count++
       // s.imageDatas.push(imageData)
 
-      // let obj3d = new THREE.Mesh(s.geo, s.mtl);
-      // obj3d.position.copy(intersect.point)
+
+      let mtl = new THREE.MeshBasicMaterial({ color: "black" });
+      let obj3d = new THREE.Mesh(s.geo, mtl);
 
 
-      let mtl = new THREE.SpriteMaterial({ color: 'black', sizeAttenuation: false });
-      let obj3d = new THREE.Sprite(mtl);
-      let scale = .005
-      obj3d.scale.set(scale, scale, scale, )
+      // let mtl = new THREE.SpriteMaterial({ color: 'black', sizeAttenuation: false });
+      // let obj3d = new THREE.Sprite(mtl);
+      // let scale = .005
+      // obj3d.scale.set(scale, scale, scale, )
+
       obj3d.position.copy(origin)
       this.group.add(obj3d)
     }
