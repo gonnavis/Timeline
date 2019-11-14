@@ -22,6 +22,7 @@ import global from "./preprocess_data.js";
 import { DragControls } from "../lib/DragControls.js";
 import { OrbitControls } from "../lib/OrbitControls_this.js";
 import AreaCalc from "./AreaCalc.js";
+import Stats from "../lib/stats.module.js"
 export default {
   name: "Map",
   props: ["p"],
@@ -37,8 +38,8 @@ export default {
       group_boundary: new THREE.Group(),
       obj3ds_boundary_dot: [],
       obj3ds_boundary_line: [],
-      camera_distance: 35
-      // stats: new Stats()
+      camera_distance: 35,
+      stats: new Stats()
     };
   },
   created() {
@@ -51,7 +52,7 @@ export default {
     s.r = s.$refs;
     window.data = data;
 
-    // document.body.appendChild(s.stats.dom);
+    document.body.appendChild(s.stats.dom);
 
     s.init_three();
     s.scene.add(s.p.group_text);
@@ -463,7 +464,7 @@ export default {
       var animate = function(time) {
         requestAnimationFrame(animate);
 
-        // s.stats.update();
+        s.stats.update();
         TWEEN.update(time);
         renderer.render(scene, camera);
       };

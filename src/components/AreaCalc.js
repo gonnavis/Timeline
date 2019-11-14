@@ -9,12 +9,29 @@ class AreaCalc {
   count = 0
   imageDatas = []
 
-  geo = new THREE.IcosahedronBufferGeometry(.05, 1);
+  // mesh_type = 'icosahedron'
+  // mesh_type = 'sprite'
+  mesh_type = 'points'
+
+  icosahedron_geo = new THREE.IcosahedronBufferGeometry(.05, 1);
+  points_geo = new THREE.BufferGeometry()
+  points_vertices = []
+  points_mtl = new THREE.PointsMaterial({ size: 5, sizeAttenuation: false, color: 'black' })
+  points_mesh;
+  points_used_index = 0
 
 
   constructor(arg = { mesh, }) {
     let s = this
     s.arg = arg
+
+    if (s.mesh_type === 'points') {
+      s.points_vertices.length = 100000 * 3
+      s.points_vertices.fill(0)
+      s.points_geo.setAttribute('position', new THREE.Float32BufferAttribute(s.points_vertices, 3))
+      this.points_mesh = new THREE.Points(s.points_geo, s.points_mtl)
+      s.group.add(this.points_mesh)
+    }
 
     // var selectionBox = new SelectionBox(s.arg.camera, s.arg.scene);
     var selectionBox = new SelectionBox(s.arg.camera, s.group);
@@ -27,7 +44,8 @@ class AreaCalc {
       selectionBox.startPoint.set(
         (event.clientX / window.innerWidth) * 2 - 1,
         -(event.clientY / window.innerHeight) * 2 + 1,
-        0.5);
+        0.5
+      );
     });
     document.addEventListener('mousemove', function(event) {
       return
@@ -79,18 +97,28 @@ class AreaCalc {
       s.count++
       // s.imageDatas.push(imageData)
 
+      if (s.mesh_type === 'points') {
+        s.points_mesh.geometry.attributes.position.array[s.points_used_index + 0] = origin.x
+        s.points_mesh.geometry.attributes.position.array[s.points_used_index + 1] = origin.y
+        s.points_mesh.geometry.attributes.position.array[s.points_used_index + 2] = origin.z
+        s.points_mesh.geometry.attributes.position.needsUpdate = true
 
-      let mtl = new THREE.MeshBasicMaterial({ color: "black" });
-      let obj3d = new THREE.Mesh(s.geo, mtl);
+        s.points_used_index += 3
+      } else {
+        let obj3d
+        if (s.mesh_type === 'icosahedron') {
+          let mtl = new THREE.MeshBasicMaterial({ color: "black" });
+          obj3d = new THREE.Mesh(s.icosahedron_geo, mtl);
+        } else if (s.mesh_type === 'sprite') {
+          let mtl = new THREE.SpriteMaterial({ color: 'black', sizeAttenuation: false });
+          obj3d = new THREE.Sprite(mtl);
+          let scale = .005
+          obj3d.scale.set(scale, scale, scale, )
+        }
+        obj3d.position.copy(origin)
+        this.group.add(obj3d)
+      }
 
-
-      // let mtl = new THREE.SpriteMaterial({ color: 'black', sizeAttenuation: false });
-      // let obj3d = new THREE.Sprite(mtl);
-      // let scale = .005
-      // obj3d.scale.set(scale, scale, scale, )
-
-      obj3d.position.copy(origin)
-      this.group.add(obj3d)
     }
     // }
   }
