@@ -33,7 +33,7 @@ function getUvFromSpherePosition(position_in) {
   // if (position.z < 0) v = 1 - v
   // u = u - 101 / 360
   // if (u < 0) u = 1 + u
-  u = u - .2185
+  u = u - .2182
   if (u < 0) {
     u = 1 + u
   }

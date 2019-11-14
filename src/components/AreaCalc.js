@@ -7,7 +7,6 @@ class AreaCalc {
   raycaster = new THREE.Raycaster();
   group = new THREE.Group()
   count = 0
-  imageDatas = []
 
   // mesh_type = 'icosahedron'
   // mesh_type = 'sprite'
@@ -20,6 +19,7 @@ class AreaCalc {
   points_mesh;
   points_used_index = 0
 
+  imageData
 
   constructor(arg = { mesh, }) {
     let s = this
@@ -90,12 +90,10 @@ class AreaCalc {
     // if (intersect) {
     const uv = getUvFromSpherePosition(origin)
     // console.log(uv)
-    const imageData = s.get_color(ctx_regions, uv)
-    // console.log(imageData.data)
-    if (imageData.data[0] === 255 && imageData.data[1] === 0 && imageData.data[2] === 0) {
+    const arr_color = s.get_color(ctx_regions, uv)
+    if (arr_color[0] === 255 && arr_color[1] === 0 && arr_color[2] === 0) {
 
       s.count++
-      // s.imageDatas.push(imageData)
 
       if (s.mesh_type === 'points') {
         s.points_mesh.geometry.attributes.position.array[s.points_used_index + 0] = origin.x
@@ -128,7 +126,21 @@ class AreaCalc {
     return position
   }
   get_color(ctx, uv) {
-    return ctx.getImageData(uv.x * ctx.canvas.width, (1 - uv.y) * ctx.canvas.height, 1, 1)
+    let s = this
+    if (!s.imageData) {
+      s.imageData = ctx_regions.getImageData(0, 0, ctx_regions.canvas.width, ctx_regions.canvas.height)
+    }
+    // return ctx.getImageData(uv.x * ctx.canvas.width, (1 - uv.y) * ctx.canvas.height, 1, 1)
+    let xy = {
+      x: Math.round(uv.x * ctx.canvas.width),
+      y: Math.round((1 - uv.y) * ctx.canvas.height),
+    }
+    let index = vs.xy_to_serial(ctx.canvas.width, xy) * 4
+    return [
+      s.imageData.data[index + 0],
+      s.imageData.data[index + 1],
+      s.imageData.data[index + 2],
+    ]
   }
 }
 
