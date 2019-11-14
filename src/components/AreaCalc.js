@@ -26,7 +26,7 @@ class AreaCalc {
     s.arg = arg
 
     if (s.mesh_type === 'points') {
-      s.points_vertices.length = 100000 * 3
+      s.points_vertices.length = 1000000 * 3
       s.points_vertices.fill(0)
       s.points_geo.setAttribute('position', new THREE.Float32BufferAttribute(s.points_vertices, 3))
       this.points_mesh = new THREE.Points(s.points_geo, s.points_mtl)
