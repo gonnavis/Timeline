@@ -250,11 +250,16 @@ export default {
     },
     toggle_map() {
       let s = this;
-      s.p.map_state--;
-      if (s.p.map_state < 0) {
-        s.p.map_state = 2;
+      // s.p.map_state--;
+      // if (s.p.map_state < 0) {
+      //   s.p.map_state = 2;
+      // }
+      if(s.p.map_state===1){
+        s.p.map_state=2
+      }else{
+        s.p.map_state=1
       }
-      console.log(s.p.map_state);
+      // console.log(s.p.map_state);
     },
     period_contextmenu(ne) {
       let s = this;

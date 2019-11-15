@@ -1,6 +1,6 @@
 import * as THREE from '../lib/three.module.js';
 import { getUvFromSpherePosition } from './getSpherePositionFromUv.js'
-import { SelectionBox } from '../lib/SelectionBox.js';
+import { SelectionBox } from '../lib/SelectionBox_this.js';
 import { SelectionHelper } from '../lib/SelectionHelper_this.js';
 
 class AreaCalc {
@@ -9,8 +9,8 @@ class AreaCalc {
   count = 0
 
   // mesh_type = 'icosahedron'
-  // mesh_type = 'sprite'
-  mesh_type = 'points'
+  mesh_type = 'sprite'
+  // mesh_type = 'points'
 
   icosahedron_geo = new THREE.IcosahedronBufferGeometry(.05, 1);
   points_geo = new THREE.BufferGeometry()
@@ -38,6 +38,10 @@ class AreaCalc {
     var helper = new SelectionHelper(selectionBox, s.arg.renderer, 'selectBox');
     document.addEventListener('mousedown', function(event) {
       if (event.button !== 2) return
+
+      let camera_length = camera.position.length()
+      area_clac.group.children = area_clac.group.children.filter(n=>camera.position.clone().sub(n.position).length()<camera_length)
+
       for (var item of selectionBox.collection) {
         item.material.color.set('black')
       }
@@ -59,7 +63,7 @@ class AreaCalc {
           0.5);
         var allSelected = selectionBox.select();
         for (var i = 0; i < allSelected.length; i++) {
-          allSelected[i].material.color.set('white')
+          allSelected[i].material.color.set('blue')
         }
       }
     });
@@ -72,7 +76,7 @@ class AreaCalc {
       var allSelected = selectionBox.select();
       console.log('allSelected', allSelected)
       for (var i = 0; i < allSelected.length; i++) {
-        allSelected[i].material.color.set('white')
+        allSelected[i].material.color.set('blue')
       }
     });
 
@@ -148,7 +152,9 @@ export default AreaCalc
 
 /*//console use
 
-  for(let i=0;i<1000;i++){
+  area_clac.group.children=[]
+  area_clac.imageData=null
+  for(let i=0;i<1e6;i++){ //一百万个随机采样点
     area_clac.add_dot()
   }
   console.log('ok')
@@ -159,6 +165,8 @@ export default AreaCalc
   camera_length = camera.position.length()
   area_clac.group.children = area_clac.group.children.filter(n=>camera.position.clone().sub(n.position).length()<camera_length)
 
-
+  area_clac.group.children=[]
 
 */
+
+
