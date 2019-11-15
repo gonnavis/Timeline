@@ -1,8 +1,8 @@
 <h1>历史时间线</h1>
 
-<a href="http://gonnavis.com/timeline/" target="_blank">在线演示</a>
-&nbsp;
-<a href="http://gonnavis.com/timeline/twha/" target="_blank">在线演示twha版</a>
+<a href="http://gonnavis.com/timeline/" target="_blank">在线演示(时间线及三维地图)</a>
+<br/>
+<a href="http://gonnavis.com/timeline/twha/" target="_blank">在线演示twha版(平面地图)</a>
 
 <h3>简介</h3>
 <p>自动排列，直观地显示各个历史时间段及历史地图。</p>
