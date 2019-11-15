@@ -10,7 +10,7 @@
 <img src="https://raw.githubusercontent.com/gonnavis/Timeline/master/other/screenshoot_twha.jpg">
 
 <h3>简介</h3>
-<p>自动排列，直观地显示各个历史时间段。</p>
+<p>自动排列，直观地显示各个历史时间段及历史地图。</p>
 
 <h3>运行</h3>
 <p>
@@ -29,7 +29,7 @@
 <h3>计划开发功能</h3>
 <p>用河流图直观地同时显示时间和面积信息，完善标尺，时间段嵌套，自定义／上传时间段。 </p>
 
-<h3>The World Historical Atras (twha) 项目代码</h3>
+<h3>twha(The World Historical Atras)项目代码</h3>
 <p>果然已经有人整理了所有年代的历史地图并做成了网页, 不需要自己再搞一遍了，<a href="http://x768.com/w/twha.ja" target="_blank">官网</a>，奇怪的是并没有放到线上, 因此稍微改了改优化了下操作方式放到了线上 http://gonnavis.com/timeline/twha/ 目前只支持pc</p>
 <p>代码放在本项目的 twha 文件夹下</p>
 
