@@ -4,13 +4,13 @@
 &nbsp;
 <a href="http://gonnavis.com/timeline/twha/" target="_blank">在线演示twha版</a>
 
+<h3>简介</h3>
+<p>自动排列，直观地显示各个历史时间段及历史地图。</p>
+
 <!-- <img src="http://gonnavis.com/timeline/preview2.png"> -->
 <img src="https://raw.githubusercontent.com/gonnavis/Timeline/master/other/screenshoot.png">
 <img src="https://raw.githubusercontent.com/gonnavis/Timeline/master/other/screenshoot_2.jpg">
 <img src="https://raw.githubusercontent.com/gonnavis/Timeline/master/other/screenshoot_twha.jpg">
-
-<h3>简介</h3>
-<p>自动排列，直观地显示各个历史时间段及历史地图。</p>
 
 <h3>运行</h3>
 <p>
