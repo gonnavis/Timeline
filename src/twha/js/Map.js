@@ -458,7 +458,7 @@ function Map(glob)
     }
   };
   this.draw_all = function(year = 0) {
-    data.year = year
+    data.year = p.year_clamp(year)
     for (let x = 0; x < data.tile_x_count; x++) {
       for (let y = 0; y < data.tile_y_count; y++) {
         this.getMapTertPart(x, y)
