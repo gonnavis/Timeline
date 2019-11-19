@@ -8,11 +8,18 @@ class AreaCalc {
   group = new THREE.Group()
   count = 0
 
+  origins = []
+
   // mesh_type = 'icosahedron'
-  mesh_type = 'sprite'
+  mesh_type = 'instanced'
+  // mesh_type = 'sprite'
   // mesh_type = 'points'
 
   icosahedron_geo = new THREE.IcosahedronBufferGeometry(.05, 1);
+  instanced_geo = new THREE.IcosahedronBufferGeometry(.02, 1);
+  instanced_mtl = new THREE.MeshBasicMaterial({ color: "black" });
+  instanced_mesh;
+  instanced_dummy = new THREE.Object3D();
   points_geo = new THREE.BufferGeometry()
   points_vertices = []
   points_mtl = new THREE.PointsMaterial({ size: 5, sizeAttenuation: false, color: 'black' })
@@ -29,8 +36,11 @@ class AreaCalc {
       s.points_vertices.length = 1000000 * 3
       s.points_vertices.fill(0)
       s.points_geo.setAttribute('position', new THREE.Float32BufferAttribute(s.points_vertices, 3))
-      this.points_mesh = new THREE.Points(s.points_geo, s.points_mtl)
-      s.group.add(this.points_mesh)
+      s.points_mesh = new THREE.Points(s.points_geo, s.points_mtl)
+      s.group.add(s.points_mesh)
+    } else if (s.mesh_type === 'instanced') {
+      s.instanced_mesh = new THREE.InstancedMesh(s.instanced_geo, s.instanced_mtl, 1e5)
+      s.group.add(s.instanced_mesh)
     }
 
     // var selectionBox = new SelectionBox(s.arg.camera, s.arg.scene);
@@ -40,7 +50,7 @@ class AreaCalc {
       if (event.button !== 2) return
 
       let camera_length = camera.position.length()
-      area_clac.group.children = area_clac.group.children.filter(n=>camera.position.clone().sub(n.position).length()<camera_length)
+      area_clac.group.children = area_clac.group.children.filter(n => camera.position.clone().sub(n.position).length() < camera_length)
 
       for (var item of selectionBox.collection) {
         item.material.color.set('black')
@@ -97,7 +107,7 @@ class AreaCalc {
     const arr_color = s.get_color(ctx_regions, uv)
     if (arr_color[0] === 255 && arr_color[1] === 0 && arr_color[2] === 0) {
 
-      s.count++
+      s.origins.push(origin)
 
       if (s.mesh_type === 'points') {
         s.points_mesh.geometry.attributes.position.array[s.points_used_index + 0] = origin.x
@@ -106,6 +116,16 @@ class AreaCalc {
         s.points_mesh.geometry.attributes.position.needsUpdate = true
 
         s.points_used_index += 3
+      } else if (s.mesh_type === 'instanced') {
+        // debugger
+        s.instanced_dummy.position.copy(origin)
+        // s.instanced_dummy.position.set(origin.x, origin.y, origin.z)
+        // s.instanced_dummy.position.set(10, 10, 10)
+        // s.instanced_dummy.rotation.y = (Math.sin(x / 4 + time) + Math.sin(y / 4 + time) + Math.sin(z / 4 + time));
+        // s.instanced_dummy.rotation.z = s.instanced_dummy.rotation.y * 2;
+        s.instanced_dummy.updateMatrix();
+        s.instanced_mesh.setMatrixAt(s.count, s.instanced_dummy.matrix)
+        s.instanced_mesh.instanceMatrix.needsUpdate = true;
       } else {
         let obj3d
         if (s.mesh_type === 'icosahedron') {
@@ -121,6 +141,7 @@ class AreaCalc {
         this.group.add(obj3d)
       }
 
+      s.count++
     }
     // }
   }
@@ -152,7 +173,7 @@ export default AreaCalc
 
 /*//console use
 
-  area_clac.group.children=[]
+  //area_clac.group.children=[]
   area_clac.imageData=null
   for(let i=0;i<1e6;i++){ //一百万个随机采样点
     area_clac.add_dot()
@@ -168,5 +189,3 @@ export default AreaCalc
   area_clac.group.children=[]
 
 */
-
-
