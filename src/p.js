@@ -7,7 +7,6 @@ var p = {
   group_text: new THREE.Group(),
   cache_text: {},
   is_map_name: true,
-  MAX_YEAR: 1840,
   year_clamp(year)
   {
     if (year < -4000) {
