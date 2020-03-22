@@ -19,11 +19,21 @@
   http://localhost:8080/<br>
 </p>
 
-<h3>编译</h3>
+<h3>编译部署</h3>
 <p>
   npm run build<br>
   删除 dist/ 里的 lib/ 和 twha/ 文件夹<br>
   然后提取 index.html favicon.png dist/ static/ 即可部署 <br>
+</p>
+
+<h3>运行twha版</h3>
+<p>
+  直接打开 twha/index.html 即可
+</p>
+
+<h3>部署twha版</h3>
+<p>
+  直接部署 twha/ 文件加下所有文件即可
 </p>
 
 <h3>计划开发功能</h3>
