@@ -39,6 +39,7 @@ export default {
     };
   },
   created() {
+    //test
     let s = this;
     s.p.canvasTexture_twha = new THREE.CanvasTexture(get_twha_canvas());
   },
