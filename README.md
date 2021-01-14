@@ -2,7 +2,7 @@
 
 <a href="http://gonnavis.com/timeline/" target="_blank">在线演示 (时间线及三维地图) Demo 3D</a>
 <br/>
-<a href="http://gonnavis.com/timeline/twha/" target="_blank">在线演示twha版 (平面地图) Demoo 2D</a>
+<a href="http://gonnavis.com/timeline/twha/" target="_blank">在线演示twha版 (平面地图) Demo 2D</a>
 
 <h3>简介</h3>
 <p>直观地显示各个历史时间段及历史地图。</p>
