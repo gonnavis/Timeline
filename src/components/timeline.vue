@@ -37,6 +37,9 @@
       <div class="menu clearfix" style="display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);pointer-events: all;">
         <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
         <!-- <a class="item" href="http://gonnavis.com/timeline_old2/" target="_blank">返回旧版</a> -->
+        <div class="item" @click="lang_click('ja')">日本語</div>
+        <div class="item" @click="lang_click('en')">English</div>
+        <div class="item" @click="lang_click('zh')">中文</div>
         <label class="item">
           <input type="checkbox" v-model="p.is_map_name" style="vertical-align:middle;">
           <span style="vertical-align:middle;">地图国名</span>
@@ -93,7 +96,7 @@
 
 <script>
 import _ from "lodash";
-// import data from './data.js'
+import {data as twha_data} from '../twha/js/data.js'
 import global from "./preprocess_data.js";
 import StateMachine from "javascript-state-machine";
 import { update_twha_canvas } from "../twha/get_twha_canvas.js";
@@ -224,6 +227,11 @@ export default {
     }
   },
   methods: {
+    lang_click(lang){
+      let s=this
+      twha_data.lang=lang;
+      map.update_info()
+    },
     throttled_update_twha_canvas: _.throttle(
       function(year) {
         let s = this;
