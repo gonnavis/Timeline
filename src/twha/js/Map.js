@@ -291,6 +291,7 @@ function Map(glob)
 
         ctx_text.font = "24px Arial";
         ctx_text.lineWidth = 6
+        ctx_text.lineJoin = "round";
         ctx_text.strokeStyle = "white"
         ctx_text.fillStyle = "black";
         // ctx_text.textAlign = "center";
