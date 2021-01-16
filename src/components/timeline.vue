@@ -68,7 +68,7 @@
       <v-btn-toggle color="primary" shaped>
         <v-btn small text elevation="0" @click="goto_twha()">平面地图</v-btn>
       </v-btn-toggle>
-      <v-btn small text elevation="0" @click="is_show_pop_help=true"><v-icon >mdi-help-circle</v-icon></v-btn>
+      <v-btn small text elevation="0" @click="is_show_pop_help=!is_show_pop_help"><v-icon >mdi-help-circle</v-icon></v-btn>
       <v-btn class="" :color="act_areas.includes(area)?'#BBDEFB':''" rounded elevation="0" small @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{area.name}}</v-btn>
     </v-footer>
 
