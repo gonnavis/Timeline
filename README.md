@@ -15,15 +15,15 @@
 <h3>运行</h3>
 <p>
   npm install<br>
-  npm run dev<br>
+  npm run serve<br>
   http://localhost:8080/<br>
 </p>
 
 <h3>编译部署</h3>
 <p>
   npm run build<br>
-  删除 dist/ 里的 lib/ 和 twha/ 文件夹<br>
-  然后提取 index.html favicon.png dist/ static/ 即可部署 <br>
+  然后提取 dist/ 内文件即可部署 <br>
+  由于添加了 Vuetify 和 Tailwind, 编译时间增加了非常多, 请耐心等待.<br>
 </p>
 
 <h3>计划开发功能</h3>
