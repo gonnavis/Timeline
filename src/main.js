@@ -2,7 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './components/App'
-import router from './router'
+// import router from './router'
+import vuetify from './plugins/vuetify'
 import { VueHammer } from 'vue2-hammer'
 
 // const VConsole = require('vconsole');
@@ -16,8 +17,8 @@ VueHammer.config.pinch = {
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
+  // router,
+  vuetify,
+  render: h => h(App)
+}).$mount("#app");
+
