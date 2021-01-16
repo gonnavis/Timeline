@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import 'tailwindcss/tailwind.css'
 import p from '../p.js'
 import wrap from './wrap'
 export default {

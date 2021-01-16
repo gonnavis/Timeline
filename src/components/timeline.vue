@@ -1,5 +1,5 @@
 <template>
-  <div class="component timeline peoff" :class="{transparent: p.map_state!==0, pointer_events_none: p.map_state===1}" ref="component">
+  <div class="component timeline peoff" :class="{transparent_timeline: p.map_state===2,'bg-gray-300':p.map_state===0, pointer_events_none: p.map_state===1}" ref="component">
 
     <div class="global_wrap" v-show="p.map_state!==1" v-pan="{fn:component_pan, args:[]}" v-up="{fn:component_up, args:[]}" @mousewheel="onmousewheel($event)" @mousemove="component_mousemove($event)" @touchstart="component_mousemove($event)" @touchmove="component_mousemove($event);is_show_pophover=false;" style="position: absolute;left:0;top:0;width:100%;height:100%;">
       <div class="global clearfix peon" :style="get_global_style()">
@@ -54,12 +54,15 @@
     </div>
 
     <v-footer class="peon" fixed>
-      <v-btn-toggle  v-model="lang" mandatory>
+      <v-btn-toggle color="primary" shaped v-model="lang" mandatory>
         <v-btn small text value="ja">日本語</v-btn>
         <v-btn small text value="en">English</v-btn>
         <v-btn small text value="zh">中文</v-btn>
       </v-btn-toggle>
-      <v-btn class="" color="primary" small text @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{area.name}}</v-btn>
+      <v-btn-toggle color="primary" shaped>
+        <v-btn small text elevation="0" @click="toggle_map()">切换显示</v-btn>
+      </v-btn-toggle>
+      <v-btn class="" :color="act_areas.includes(area)?'#BBDEFB':''" rounded elevation="0" small @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{area.name}}</v-btn>
     </v-footer>
 
     <!-- <div class="pophover" v-if="period_act&&is_show_pophover" v-show="p.map_state!==1" :style="get_pophover_style()">
@@ -465,7 +468,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .component{position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;background: rgb(223,223,223);cursor: default;}
+  .component{position: absolute;left:0;top:0;width:100%;height: 100%;overflow: hidden;cursor: default;}
   .component .area{background: white; border: solid 1px rgb(200,200,200);}
   .component .ruler{    height: 24px; background: #000; position: absolute; top: 0; left: 0; width: 100%;}
   .component .v_bar{    position: absolute; top: 0;    height: 100%; width: 1px; background: #000; pointer-events: none;}
@@ -480,11 +483,11 @@ export default {
   .component .detail>*{padding:2px;}
 
 
-  .component.transparent{background: rgba(0,0,0,.3);}
-  .component.transparent .area{background: rgba(255,255,255,.1);border: solid 1px rgba(200,200,200,.1);}
-  .component.transparent .global .period{text-shadow:rgba(255, 255, 255, .6) 1px 1px 0px;}
-  .component.transparent .global .period.act{border-color:rgba(255,0,0,.5);}
-  /*.component.transparent .pophover{background: rgba(255,255,255,.5);}*/
+  .component.transparent_timeline{background: rgba(0,0,0,.3);}
+  .component.transparent_timeline .area{background: rgba(255,255,255,.1);border: solid 1px rgba(200,200,200,.1);}
+  .component.transparent_timeline .global .period{text-shadow:rgba(255, 255, 255, .6) 1px 1px 0px;}
+  .component.transparent_timeline .global .period.act{border-color:rgba(255,0,0,.5);}
+  /*.component.transparent_timeline .pophover{background: rgba(255,255,255,.5);}*/
 
   .pointer_events_none{pointer-events: none;}
 
