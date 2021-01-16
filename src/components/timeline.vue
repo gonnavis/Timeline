@@ -33,6 +33,7 @@
       <div v-if="period_act.alias" style="display: flex;color:white;justify-content: flex-start;">{{period_act.alias}}</div>
     </div>
 
+    <!-- old------------------------------------------------------------- -->
     <div class="footer" v-if="false" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;flex-direction: column;">
       <div class="menu clearfix" style="display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);pointer-events: all;">
         <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
@@ -52,6 +53,7 @@
         <div class="item area" :class="{act:act_areas.includes(area)}" v-hammer:tap="()=>menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
       </div>
     </div>
+    <!-- old------------------------------------------------------------------------------ -->
 
     <v-footer class="peon" fixed>
       <v-btn-toggle color="primary" shaped v-model="lang" mandatory>
@@ -60,8 +62,13 @@
         <v-btn small text value="zh">中文</v-btn>
       </v-btn-toggle>
       <v-btn-toggle color="primary" shaped>
+        <v-btn small text elevation="0" @click="p.is_map_name=!p.is_map_name"><v-icon small>{{p.is_map_name?'mdi-check-box-outline':'mdi-checkbox-blank-outline'}}</v-icon> 地图国名</v-btn>
         <v-btn small text elevation="0" @click="toggle_map()">切换显示</v-btn>
       </v-btn-toggle>
+      <v-btn-toggle color="primary" shaped>
+        <v-btn small text elevation="0" @click="goto_twha()">平面地图</v-btn>
+      </v-btn-toggle>
+      <v-btn small text elevation="0" @click="is_show_pop_help=true"><v-icon >mdi-help-circle</v-icon></v-btn>
       <v-btn class="" :color="act_areas.includes(area)?'#BBDEFB':''" rounded elevation="0" small @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{area.name}}</v-btn>
     </v-footer>
 
