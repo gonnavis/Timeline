@@ -55,7 +55,7 @@
     </div>
     <!-- old------------------------------------------------------------------------------ -->
 
-    <v-footer class="peon flex flex-wrap-reverse justify-end" fixed>
+    <v-footer class="peon flex flex-wrap-reverse justify-end" fixed padless>
       <v-btn-toggle class="m-0.5" color="primary" shaped v-model="lang" mandatory>
         <v-btn small text value="ja">日本語</v-btn>
         <v-btn small text value="en">English</v-btn>
