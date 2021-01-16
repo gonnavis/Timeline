@@ -1,13 +1,16 @@
 <template>
   <div id="app">
-    <router-view :p="p" />
+    <!-- <router-view :p="p" /> -->
+    <wrap :p="p" />
   </div>
 </template>
 
 <script>
 import p from '../p.js'
+import wrap from './wrap'
 export default {
   name: "App",
+  components:{wrap},
   data() {
     return {
       p: p,
