@@ -59,7 +59,7 @@
         <v-btn small text value="en">English</v-btn>
         <v-btn small text value="zh">中文</v-btn>
       </v-btn-toggle>
-      <v-btn class="" small text @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{area.name}}</v-btn>
+      <v-btn class="" color="primary" small text @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{area.name}}</v-btn>
     </v-footer>
 
     <!-- <div class="pophover" v-if="period_act&&is_show_pophover" v-show="p.map_state!==1" :style="get_pophover_style()">
