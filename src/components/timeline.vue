@@ -33,7 +33,7 @@
       <div v-if="period_act.alias" style="display: flex;color:white;justify-content: flex-start;">{{period_act.alias}}</div>
     </div>
 
-    <div class="footer" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;flex-direction: column;">
+    <div class="footer" v-if="false" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;flex-direction: column;">
       <div class="menu clearfix" style="display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);pointer-events: all;">
         <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
         <!-- <a class="item" href="http://gonnavis.com/timeline_old2/" target="_blank">返回旧版</a> -->
@@ -52,6 +52,15 @@
         <div class="item area" :class="{act:act_areas.includes(area)}" v-hammer:tap="()=>menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{area.name}}</div>
       </div>
     </div>
+
+    <v-footer class="peon" fixed>
+      <v-btn-toggle  v-model="lang" mandatory>
+        <v-btn small text value="ja">日本語</v-btn>
+        <v-btn small text value="en">English</v-btn>
+        <v-btn small text value="zh">中文</v-btn>
+      </v-btn-toggle>
+      <v-btn class="" small text @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{area.name}}</v-btn>
+    </v-footer>
 
     <!-- <div class="pophover" v-if="period_act&&is_show_pophover" v-show="p.map_state!==1" :style="get_pophover_style()">
       <div>{{period_act.name}}  </div>
@@ -105,6 +114,7 @@ export default {
   props: ["p"],
   data() {
     return {
+      lang:'zh',
       r: null,
       popmenu_style: null,
       is_show_popmenu: false,
@@ -129,8 +139,14 @@ export default {
   },
   watch: {
     "p.is_map_name": function() {
+      let s=this
       console.log("watch");
       map.update_info();
+    },
+    'lang':function(val){
+      let s=this
+      twha_data.lang=val
+      map.update_info()
     }
   },
   created() {
@@ -227,11 +243,6 @@ export default {
     }
   },
   methods: {
-    lang_click(lang){
-      let s=this
-      twha_data.lang=lang;
-      map.update_info()
-    },
     throttled_update_twha_canvas: _.throttle(
       function(year) {
         let s = this;
@@ -464,7 +475,6 @@ export default {
   .component .menu .item{background: rgb(160,160,160);border: solid 1px;padding:6px 6px;cursor: pointer;height: 19px;}
   .component .menu .item.act{background: white;}
   .component .global .period{position: absolute;top: 0;box-sizing: border-box;border: solid 1px gray;color:black;text-shadow:rgb(255, 255, 255) 1px 1px 0px;word-break: keep-all;}
-  .component .global .period .name{}
   .component .global .period .map_icon{position: absolute;left:0;bottom:0;width:10px;height: 10px;pointer-events: none;opacity: .7;background: rgba(255,255,255,.3);}
   .component .global .period.act{border-color:red;border-width: 2px;}
   .component .detail>*{padding:2px;}
