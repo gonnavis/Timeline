@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <v-app>
     <!-- <router-view :p="p" /> -->
     <wrap :p="p" />
-  </div>
+  </v-app>
 </template>
 
 <script>
