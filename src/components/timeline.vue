@@ -61,14 +61,14 @@
         <v-btn small text value="en">English</v-btn>
         <v-btn small text value="zh">中文</v-btn>
       </v-btn-toggle>
+      <v-btn class="m-0.5" small text elevation="0" @click="is_show_pop_help=!is_show_pop_help"><v-icon>mdi-help-circle</v-icon></v-btn>
+      <v-btn-toggle class="m-0.5" color="" shaped>
+        <v-btn small text elevation="0" @click="goto_twha()"><v-icon small>mdi-link-variant</v-icon>平面地图</v-btn>
+      </v-btn-toggle>
       <v-btn-toggle class="m-0.5" color="" shaped>
         <v-btn small text elevation="0" @click="p.is_map_name=!p.is_map_name"><v-icon small>{{p.is_map_name?'mdi-check-box-outline':'mdi-checkbox-blank-outline'}}</v-icon> 地图国名</v-btn>
         <v-btn small text elevation="0" @click="toggle_map()">切换显示</v-btn>
       </v-btn-toggle>
-      <v-btn-toggle class="m-0.5" color="" shaped>
-        <v-btn small text elevation="0" @click="goto_twha()"><v-icon small>mdi-link-variant</v-icon>平面地图</v-btn>
-      </v-btn-toggle>
-      <v-btn class="m-0.5" small text elevation="0" @click="is_show_pop_help=!is_show_pop_help"><v-icon>mdi-help-circle</v-icon></v-btn>
       <v-btn class="m-0.5" :color="act_areas.includes(area)?'#BBDEFB':''" rounded elevation="0" small @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{area.name}}</v-btn>
     </v-footer>
 
