@@ -56,20 +56,20 @@
     <!-- old------------------------------------------------------------------------------ -->
 
     <v-footer class="peon" fixed>
-      <v-btn-toggle color="primary" shaped v-model="lang" mandatory>
+      <v-btn-toggle class="m-0.5" color="primary" shaped v-model="lang" mandatory>
         <v-btn small text value="ja">日本語</v-btn>
         <v-btn small text value="en">English</v-btn>
         <v-btn small text value="zh">中文</v-btn>
       </v-btn-toggle>
-      <v-btn-toggle color="primary" shaped>
+      <v-btn-toggle class="m-0.5" color="primary" shaped>
         <v-btn small text elevation="0" @click="p.is_map_name=!p.is_map_name"><v-icon small>{{p.is_map_name?'mdi-check-box-outline':'mdi-checkbox-blank-outline'}}</v-icon> 地图国名</v-btn>
         <v-btn small text elevation="0" @click="toggle_map()">切换显示</v-btn>
       </v-btn-toggle>
-      <v-btn-toggle color="primary" shaped>
+      <v-btn-toggle class="m-0.5" color="primary" shaped>
         <v-btn small text elevation="0" @click="goto_twha()">平面地图</v-btn>
       </v-btn-toggle>
-      <v-btn small text elevation="0" @click="is_show_pop_help=!is_show_pop_help"><v-icon >mdi-help-circle</v-icon></v-btn>
-      <v-btn class="" :color="act_areas.includes(area)?'#BBDEFB':''" rounded elevation="0" small @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{area.name}}</v-btn>
+      <v-btn class="m-0.5" small text elevation="0" @click="is_show_pop_help=!is_show_pop_help"><v-icon >mdi-help-circle</v-icon></v-btn>
+      <v-btn class="m-0.5" :color="act_areas.includes(area)?'#BBDEFB':''" rounded elevation="0" small @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{area.name}}</v-btn>
     </v-footer>
 
     <!-- <div class="pophover" v-if="period_act&&is_show_pophover" v-show="p.map_state!==1" :style="get_pophover_style()">
@@ -85,8 +85,8 @@
       <a :href="'https://www.baidu.com/s?wd='+period_act.name" target="_blank" style="display: block;">百度搜索</a>
     </div>
 
-    <div class="pop_wrap" v-show="is_show_pop_help" style="pointer-events: all;user-select: text;">
-      <div class="pop pop_help">
+    <div class="pop_wrap z-10 peoff" v-show="is_show_pop_help" style="user-select: text;">
+      <div class="pop pop_help peon">
         <div>
           <a href="https://gitee.com/gonnavis/Timeline" target="_blank">gitee</a>
           &nbsp;&nbsp;&nbsp;
