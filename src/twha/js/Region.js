@@ -117,7 +117,7 @@ function Region(a)
     var lang = lang_name_to_id(data.lang);
     // var html = '';
     // if (flag && data.zoom >= 1) {
-    //   html = '<img src="static/twha/sym/' + flag + '.png" alt="">';
+    //   html = '<img src="./twha/sym/' + flag + '.png" alt="">';
     // }
     // if (data.zoom - this.disp_level >= 2) {
     // html += region_name[lang];
@@ -126,7 +126,7 @@ function Region(a)
     // }
     // var n = this.node.childNodes[0];
     // n.innerHTML = html;
-    this.data_name = region_name[lang]
+    this.data_name = region_name[lang];
 
     // if (data.zoom - this.disp_level >= 2) {
     //   var body, item;
@@ -146,9 +146,9 @@ function Region(a)
     //     item = document.createElement('div');
     //     item.classList.add('person');
     //     if (a_person[2]) {
-    //       html = '<img src="static/twha/f/' + a_person[2] + '.png" alt="">';
+    //       html = '<img src="./twha/f/' + a_person[2] + '.png" alt="">';
     //     } else {
-    //       html = '<img src="static/twha/f/0.png" alt="">';
+    //       html = '<img src="./twha/f/0.png" alt="">';
     //     }
     //     html += '<div>' + a_title[lang] + '</div><div>' + a_person[3 + lang] + '</div>';
     //     item.innerHTML = html;

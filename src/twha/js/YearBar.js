@@ -116,19 +116,19 @@ function YearBar(glob)
   });
   arrow_l.addEventListener('mouseenter', function()
   {
-    arrow_l.src = 'static/twha/img/arrow-left2.png';
+    arrow_l.src = "./twha/img/arrow-left2.png";
   });
   arrow_l.addEventListener('mouseleave', function()
   {
-    arrow_l.src = 'static/twha/img/arrow-left.png';
+    arrow_l.src = "./twha/img/arrow-left.png";
   });
   arrow_r.addEventListener('mouseenter', function()
   {
-    arrow_r.src = 'static/twha/img/arrow-right2.png';
+    arrow_r.src = "./twha/img/arrow-right2.png";
   });
   arrow_r.addEventListener('mouseleave', function()
   {
-    arrow_r.src = 'static/twha/img/arrow-right.png';
+    arrow_r.src = "./twha/img/arrow-right.png";
   });
 
   function set_year(e) {

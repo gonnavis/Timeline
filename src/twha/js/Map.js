@@ -61,7 +61,7 @@ function Map(glob)
     if (!ld) {
       ld = document.createElement('img');
       ld.setAttribute('alt', '');
-      ld.setAttribute('src', 'static/twha/sf/' + i + j + '.png');
+      ld.setAttribute("src", "./twha/sf/" + i + j + ".png");
       mpLandCache[idx] = ld;
     }
     return ld;
@@ -102,7 +102,9 @@ function Map(glob)
       cvs_tile.width = tile_size
       cvs_tile.height = tile_size
 
-      const img = await vs.load_img('static/twha/t/' + i + j + '/' + mapTertYear + '.png')
+      const img = await vs.load_img(
+        "./twha/t/" + i + j + "/" + mapTertYear + ".png"
+      );
       // window.open(img.src)
       ctx_tile.drawImage(
         img,
