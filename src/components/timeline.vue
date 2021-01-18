@@ -69,7 +69,7 @@
         <v-btn small text elevation="0" @click="p.is_map_name=!p.is_map_name"><v-icon small>{{p.is_map_name?'mdi-check-box-outline':'mdi-checkbox-blank-outline'}}</v-icon> 地图国名</v-btn>
         <v-btn small text elevation="0" @click="toggle_map()">切换显示</v-btn>
       </v-btn-toggle>
-      <v-btn class="m-0.5" :color="act_areas.includes(area)?'#BBDEFB':''" rounded elevation="0" small @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{area.name}}</v-btn>
+      <v-btn class="m-0.5" :color="act_areas.includes(area)?'primary':''" rounded elevation="0" small @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{area.name}}</v-btn>
     </v-footer>
 
     <!-- <div class="pophover" v-if="period_act&&is_show_pophover" v-show="p.map_state!==1" :style="get_pophover_style()">
