@@ -398,7 +398,8 @@ export default {
       scene.add(mesh_earth)
       window.mesh_earth = mesh_earth //test
 
-      camera.position.set(0, 10, 26)
+      // camera.position.set(0, 10, 26)
+      camera.position.set(-14.523731303166098, 14.155641410831901, 19.09657155830265)
 
       var controls = (s.controls = new OrbitControls(camera, renderer.domElement))
       controls.enablePan = false
