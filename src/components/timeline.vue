@@ -1,5 +1,5 @@
 <template>
-  <div class="component timeline peoff" :class="{ transparent_timeline: p.map_state === 2, 'bg-gray-300': p.map_state === 0, pointer_events_none: p.map_state === 1 }" ref="component">
+  <div class="component timeline peoff" :class="{ transparent_timeline: p.map_state === 2, 'bg-gray-300': p.map_state === 0, peoff: p.map_state === 1 }" ref="component">
     <div
       class="global_wrap"
       v-show="p.map_state !== 1"
@@ -45,28 +45,6 @@
       <div v-if="period_act.alias" style="display: flex;color:white;justify-content: flex-start;">{{ period_act.alias }}</div>
     </div>
 
-    <!-- old------------------------------------------------------------- -->
-    <div class="footer" v-if="false" style="width:100%;position: absolute;left: 0;bottom: 0;display: flex;flex-direction: column;">
-      <div class="menu clearfix" style="display: flex;align-items: flex-end;flex-wrap: wrap-reverse;justify-content: flex-end; background: rgb(190,190,190);pointer-events: all;">
-        <!-- <div class="area" :class="{act:act_areas.includes(area)}" v-down="{fn:menu_area_click, args:[area, i]}" v-for="(area, i) in global.areas" style="">{{area.name}}</div> -->
-        <!-- <a class="item" href="http://gonnavis.com/timeline_old2/" target="_blank">返回旧版</a> -->
-        <div class="item" @click="lang_click('ja')">日本語</div>
-        <div class="item" @click="lang_click('en')">English</div>
-        <div class="item" @click="lang_click('zh')">中文</div>
-        <label class="item">
-          <input type="checkbox" v-model="p.is_map_name" style="vertical-align:middle;" />
-          <span style="vertical-align:middle;">地图国名</span>
-        </label>
-        <a class="item" @click="toggle_map()">切换显示</a>
-        <a class="item" @click="goto_twha()">平面地图</a>
-        <div class="item" @click="is_show_pop_help = true">
-          <img src="../assets/help.png" style="width:19px;height:19px;display: block;" />
-        </div>
-        <div class="item area" :class="{ act: act_areas.includes(area) }" v-hammer:tap="() => menu_area_click(area, i)" v-for="(area, i) in global.areas" style="">{{ area.name }}</div>
-      </div>
-    </div>
-    <!-- old------------------------------------------------------------------------------ -->
-
     <v-footer class="peon flex flex-wrap-reverse justify-end" fixed padless>
       <v-btn-toggle class="m-0.5" color="primary" shaped v-model="lang" mandatory>
         <v-btn small text value="ja">日本語</v-btn>
@@ -85,14 +63,6 @@
       </v-btn-toggle>
       <v-btn class="m-0.5" :color="act_areas.includes(area) ? 'primary' : ''" rounded elevation="0" small @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{ area.name }}</v-btn>
     </v-footer>
-
-    <!-- <div class="pophover" v-if="period_act&&is_show_pophover" v-show="p.map_state!==1" :style="get_pophover_style()">
-      <div>{{period_act.name}}  </div>
-      <div>公元: {{period_act.from}} ~ {{period_act.to}}</div>
-      <div style="color:rgb(160,160,160);">距今: {{now_year-period_act.from}} ~ {{now_year-period_act.to}}</div>
-      <div>时长: {{period_act.to-period_act.from}}</div>
-
-    </div> -->
 
     <div class="popmenu peon" v-if="period_act && is_show_popmenu" v-show="p.map_state !== 1" @click="is_show_popmenu = false" :style="popmenu_style">
       <a :href="'https://baike.baidu.com/item/' + period_act.name" target="_blank" style="display: block;">百度百科</a>
@@ -536,16 +506,6 @@ export default {
   height: 100px;
   line-height: 50px;
 }
-.component .menu .item {
-  background: rgb(160, 160, 160);
-  border: solid 1px;
-  padding: 6px 6px;
-  cursor: pointer;
-  height: 19px;
-}
-.component .menu .item.act {
-  background: white;
-}
 .component .global .period {
   position: absolute;
   top: 0;
@@ -587,11 +547,6 @@ export default {
   border-color: rgba(255, 0, 0, 0.5);
 }
 /*.component.transparent_timeline .pophover{background: rgba(255,255,255,.5);}*/
-
-.pointer_events_none {
-  pointer-events: none;
-}
-
 .pop_wrap {
   position: absolute;
   left: 0;
