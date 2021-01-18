@@ -17,7 +17,7 @@
       <div class="global clearfix peon" :style="get_global_style()">
         <div class="marginfix" style="height: 1px;margin-bottom: -1px;"></div>
         <div class="area" v-for="(area, i) in act_areas" :style="get_area_style(area, i)">
-          <div class="row" v-for="(row, i) in area.rows" :style="get_row_style(row, i, area)">
+          <div class="timeline_row" v-for="(row, i) in area.rows" :style="get_row_style(row, i, area)">
             <div class="period" :class="{ act: period_act === period }" v-for="(period, i) in row.periods" @mouseenter="period_mouseenter(period, i)" @touchstart="period_mouseenter(period, i)" @mouseleave="period_mouseleave(period, i)" @mousedown="period_mousedown($event)" v-hammer:press="period_press" :style="get_period_style(period, i, area)">
               <span class="name">{{ period.name }}</span>
               <!-- <img v-show="period.map.boundary" class="map_icon" src="../assets/map.png"> -->
