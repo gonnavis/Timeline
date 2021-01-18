@@ -75,30 +75,58 @@
       </v-list>
     </v-menu>
 
-    <div class="pop_wrap z-10 peoff" v-show="is_show_pop_help" style="user-select: text;">
-      <div class="pop pop_help peon">
-        <div>
-          <a href="https://gitee.com/gonnavis/Timeline" target="_blank">gitee</a>
-          &nbsp;&nbsp;&nbsp;
-          <a href="https://github.com/gonnavis/Timeline" target="_blank">github</a>
-        </div>
-        <div>
-          <div>移动:</div>
-          <div>点击拖拽</div>
-        </div>
-        <div>
-          <div>缩放:</div>
-          <div>鼠标滚轮 / 双指捏 / 双击并按住上下移动</div>
-        </div>
-        <div>
-          <div>切换显示:</div>
-          <div>时间线和地图 / 纯地图 / 纯时间线</div>
-        </div>
-        <div>QQ群: 680915237</div>
-        <div>邮箱: gonnavis@163.com</div>
-        <div class="close" @click="is_show_pop_help = false"></div>
-      </div>
-    </div>
+    <v-dialog class="text-center" v-model="is_show_pop_help" width="500">
+      <v-card>
+        <v-list>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>
+                <a href="https://gitee.com/gonnavis/Timeline" target="_blank">gitee</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="https://github.com/gonnavis/Timeline" target="_blank">github</a>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>移动</v-list-item-title>
+              <v-list-item-subtitle>点击拖拽</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>缩放</v-list-item-title>
+              <v-list-item-subtitle>鼠标滚轮 / 双指捏 / 双击并按住上下移动</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>切换显示</v-list-item-title>
+              <v-list-item-subtitle>时间线和地图 / 纯地图 / 纯时间线</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>QQ群</v-list-item-title>
+              <v-list-item-subtitle>680915237</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>邮箱</v-list-item-title>
+              <v-list-item-subtitle>gonnavis@163.com</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="is_show_pop_help = false">确认</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -541,48 +569,4 @@ export default {
   border-color: rgba(255, 0, 0, 0.5);
 }
 /*.component.transparent_timeline .pophover{background: rgba(255,255,255,.5);}*/
-.pop_wrap {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-}
-.pop_wrap .pop {
-  padding: 10px;
-  box-sizing: border-box;
-  font-size: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-.pop_wrap .pop > * {
-  margin: 10px 0;
-}
-.pop_wrap .pop_help {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 80%;
-  height: 80%;
-  max-width: 500px;
-  max-height: 500px;
-  margin: auto;
-  background: white;
-  border-radius: 4px;
-}
-.pop_wrap .close {
-  position: absolute;
-  right: -15px;
-  top: -15px;
-  background: url(../assets/close.png) no-repeat center center / 100% 100%;
-  width: 30px;
-  height: 30px;
-  margin: 0;
-  opacity: 0.7;
-  cursor: pointer;
-}
 </style>
