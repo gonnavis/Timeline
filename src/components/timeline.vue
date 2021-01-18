@@ -64,10 +64,16 @@
       <v-btn class="m-0.5" :color="act_areas.includes(area) ? 'primary' : ''" rounded elevation="0" small @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{ area.name }}</v-btn>
     </v-footer>
 
-    <div class="popmenu peon" v-if="period_act && is_show_popmenu" v-show="p.map_state !== 1" @click="is_show_popmenu = false" :style="popmenu_style">
-      <a :href="'https://baike.baidu.com/item/' + period_act.name" target="_blank" style="display: block;">百度百科</a>
-      <a :href="'https://www.baidu.com/s?wd=' + period_act.name" target="_blank" style="display: block;">百度搜索</a>
-    </div>
+    <v-menu class="popmenu" v-if="period_act" v-model="is_show_popmenu" :position-x="popmenu_style ? popmenu_style.x : 0" :position-y="popmenu_style ? popmenu_style.y : 0" absolute offset-y>
+      <v-list>
+        <v-list-item>
+          <a :href="'https://baike.baidu.com/item/' + period_act.name" target="_blank" style="display: block;">百度百科</a>
+        </v-list-item>
+        <v-list-item>
+          <a :href="'https://www.baidu.com/s?wd=' + period_act.name" target="_blank" style="display: block;">百度搜索</a>
+        </v-list-item>
+      </v-list>
+    </v-menu>
 
     <div class="pop_wrap z-10 peoff" v-show="is_show_pop_help" style="user-select: text;">
       <div class="pop pop_help peon">
@@ -276,13 +282,13 @@ export default {
     period_press() {
       let s = this
       s.popmenu_style = s.get_popmenu_style()
-      // s.is_show_popmenu=true;
+      s.is_show_popmenu = true
     },
     get_popmenu_style() {
       let s = this
       let style = {
-        left: s.poin.x - 100 + 'px',
-        top: s.poin.y - 50 + 'px',
+        x: s.poin.x,
+        y: s.poin.y,
       }
       return style
     },
@@ -366,7 +372,6 @@ export default {
         s.throttled_update_twha_canvas(s.poin_time)
         map.update_info()
       }
-      s.is_show_popmenu = false
     },
     x_to_time(x) {
       let s = this
@@ -494,17 +499,6 @@ export default {
   position: absolute;
   width: 300px;
   pointer-events: none;
-}
-.component .popmenu {
-  border: 1px solid gray;
-  background: white;
-  border-radius: 4px;
-  padding: 10px;
-  position: absolute;
-  background: white;
-  width: 200px;
-  height: 100px;
-  line-height: 50px;
 }
 .component .global .period {
   position: absolute;
