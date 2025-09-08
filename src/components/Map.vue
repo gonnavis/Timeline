@@ -403,6 +403,21 @@ export default {
 
       var controls = (s.controls = new OrbitControls(camera, renderer.domElement))
       controls.enablePan = false
+      // Slow down zoom on macOS trackpads
+      const isMac = /Mac/i.test(navigator.platform) || /Mac OS X/i.test(navigator.userAgent)
+      if (isMac) controls.zoomSpeed = 0.25
+      // Make rotate speed depend on zoom (closer = slower, farther = faster)
+      function updateRotateSpeed() {
+        const minD = controls.minDistance
+        const maxD = controls.maxDistance
+        const dist = camera.position.distanceTo(controls.target)
+        const t = Math.max(0, Math.min(1, (dist - minD) / (maxD - minD)))
+        const minRotate = 0.15
+        const maxRotate = 1.2
+        controls.rotateSpeed = minRotate + (maxRotate - minRotate) * t
+      }
+      controls.addEventListener('change', updateRotateSpeed)
+      updateRotateSpeed()
       controls.minDistance = 12
       controls.maxDistance = 100
       window.controls = controls //test
