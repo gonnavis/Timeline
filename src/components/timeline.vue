@@ -117,6 +117,12 @@
               <v-list-item-subtitle>gonnavis@163.com</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>版本</v-list-item-title>
+              <v-list-item-subtitle>2025-11-07 21:25</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
 
         <v-divider></v-divider>

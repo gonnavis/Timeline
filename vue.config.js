@@ -8,9 +8,17 @@ module.exports = {
     "port": 8080,
     "https": false,
     "hotOnly": true,
-    "proxy": "http://sitetest.arkrdigital.com"
   },
   "transpileDependencies": [
     "vuetify"
-  ]
+  ],
+  chainWebpack: config => {
+    config.module
+      .rule('js')
+      .exclude
+      .add(/node_modules\/three\/build\/three.module.js/)
+      .add(/public\/lib\/three.js/)
+      .add(/public\/lib\/SVGLoader.js/)
+      .add(/public\/lib\/state-machine.js/);
+  }
 }
