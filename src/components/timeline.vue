@@ -51,14 +51,29 @@
         <v-btn small text value="en">English</v-btn>
         <v-btn small text value="zh">中文</v-btn>
       </v-btn-toggle>
-      <v-btn class="m-0.5" small text elevation="0" @click="is_show_pop_help = !is_show_pop_help"><v-icon>mdi-help-circle</v-icon></v-btn>
+      <v-btn class="m-0.5" small text elevation="0" @click="is_show_pop_help = !is_show_pop_help">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle;">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+        </svg>
+      </v-btn>
       <v-btn-toggle class="m-0.5" color="" shaped>
-        <v-btn small text elevation="0" @click="goto_twha()"><v-icon small>mdi-link-variant</v-icon>平面地图</v-btn>
+        <v-btn small text elevation="0" @click="goto_twha()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 4px;">
+            <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+          </svg>
+          平面地图
+        </v-btn>
       </v-btn-toggle>
       <v-btn-toggle class="m-0.5" color="" shaped>
-        <v-btn small text elevation="0" @click="p.is_map_name = !p.is_map_name"
-          ><v-icon small>{{ p.is_map_name ? 'mdi-check-box-outline' : 'mdi-checkbox-blank-outline' }}</v-icon> 地图国名</v-btn
-        >
+        <v-btn small text elevation="0" @click="p.is_map_name = !p.is_map_name">
+          <svg v-if="p.is_map_name" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 4px;">
+            <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          <svg v-else width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+          </svg>
+          地图国名
+        </v-btn>
         <v-btn small text elevation="0" @click="toggle_map()">切换显示</v-btn>
       </v-btn-toggle>
       <v-btn class="m-0.5" :color="act_areas.includes(area) ? 'primary' : ''" rounded elevation="0" small @click="menu_area_click(area, i)" v-for="(area, i) in global.areas">{{ area.name }}</v-btn>
