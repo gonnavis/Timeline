@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   "publicPath": "./",
   "runtimeCompiler": false,
@@ -8,6 +10,21 @@ module.exports = {
     "port": 8080,
     "https": false,
     "hotOnly": true,
+    before: function(app, server) {
+      const fs = require('fs')
+      app.get('/twha/', function(req, res) {
+        res.sendFile(path.join(__dirname, 'twha/index.html'))
+      })
+      app.get('/twha/*', function(req, res, next) {
+        const relativePath = req.path.replace('/twha', '')
+        const filePath = path.join(__dirname, 'twha', relativePath)
+        if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+          res.sendFile(filePath)
+        } else {
+          next()
+        }
+      })
+    },
   },
   "transpileDependencies": [
     "vuetify"
